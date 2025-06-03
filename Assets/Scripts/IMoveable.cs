@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class IMoveable : MonoBehaviour
 {
-    private bool isGrounded;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -16,13 +14,5 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
     }
 }
