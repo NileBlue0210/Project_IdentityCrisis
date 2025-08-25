@@ -25,13 +25,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private Player player;
-    public Player Player { get { return player; } set { player = value; } }
+    public Player Player { get; set; }
 
-    private Dictionary<string, MonoBehaviour> _managers = new Dictionary<string, MonoBehaviour>();
+    private Dictionary<Type, MonoBehaviour> managers = new Dictionary<Type, MonoBehaviour>();
 
-    private Type[] _managerArr = {
-
+    private Type[] managerArr = {
+        typeof(BattleManager)
     };
 
     private void Awake()
@@ -40,9 +39,9 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
 
-            foreach (Type managerType in _managerArr)
+            foreach (Type managerType in managerArr)
             {
-                AddManager(managerType, managerType.Name);
+                AddManager(managerType);
             }
 
             DontDestroyOnLoad(gameObject);
@@ -63,25 +62,25 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void AddManager(Type type, string key)
+    public void AddManager(Type type)
     {
         GameObject obj = new GameObject(type.Name);
         obj.transform.parent = this.transform;
 
         var manager = obj.AddComponent(type) as MonoBehaviour;
 
-        _managers.Add(key, manager);
+        managers.Add(type, manager);
     }
 
-    public T GetManager<T>(string key) where T : MonoBehaviour
+    public T GetManager<T>(Type type) where T : MonoBehaviour
     {
-        if (_managers.ContainsKey(key))
+        if (managers.ContainsKey(type))
         {
-            return _managers[key] as T;
+            return managers[type] as T;
         }
         else
         {
-            Debug.LogError($"Manager with key '{key}' not found.");
+            Debug.LogError($"Manager with key '{type}' not found.");
 
             return null;
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// °ÔÀÓ¿¡ »ç¿ëµÇ´Â À¯´ÖÀÇ ±âº» Å¬·¡½º
+/// ê²Œì„ì— ì‚¬ìš©ë˜ëŠ” ìœ ë‹›ì˜ ê¸°ë³¸ í´ë˜ìŠ¤
 /// </summary>
 public class Unit : MonoBehaviour
 {
@@ -13,9 +13,9 @@ public class Unit : MonoBehaviour
 
     #region Unit Information
 
-    [field: SerializeField] public UnitData UnitData { get; set; } // À¯´Ö µ¥ÀÌÅÍ to do : °³¹ß ÆíÀÇ¸¦ À§ÇÑ SO »ç¿ë. ÃßÈÄ ¸®ÆÑÅä¸µÀ» ÅëÇØ JsonÀ» »ç¿ëÇÏµµ·Ï º¯°æ
-    [field: SerializeField] public string UnitName { get; set; } // À¯´Ö °ø°İ·Â
-    [field: SerializeField] public int PlayerableId { get; set; } // ÇÃ·¹ÀÌ¾îºí À¯´ÖÀÌ ¸î ¹øÂ° ÇÃ·¹ÀÌ¾îÀÎÁö to do : °ÔÀÓ ¸Å´ÏÀú Ãø¿¡¼­ °ÔÀÓ ½ÃÀÛ ½Ã, °¢ À¯´ÖÀÇ ÇÃ·¹ÀÌ¾î Id¸¦ ºÎ¿©ÇÏµÇ, ºÎ¿© ÈÄ °ÔÀÓ »ó¿¡ °°Àº Id°¡ ¾ø´ÂÁö Ã¼Å©ÇÏ´Â ·ÎÁ÷À» ¹İµå½Ã ³ÖÀ» °Í
+    [field: SerializeField] public UnitData UnitData { get; set; } // ìœ ë‹› ë°ì´í„° to do : ê°œë°œ í¸ì˜ë¥¼ ìœ„í•œ SO ì‚¬ìš©. ì¶”í›„ ë¦¬íŒ©í† ë§ì„ í†µí•´ Jsonì„ ì‚¬ìš©í•˜ë„ë¡ ë³€ê²½
+    [field: SerializeField] public string UnitName { get; set; } // ìœ ë‹› ì´ë¦„
+    [field: SerializeField] public int PlayerableId { get; set; } // í”Œë ˆì´ì–´ë¸” ìœ ë‹›ì´ ëª‡ ë²ˆì§¸ í”Œë ˆì´ì–´ì¸ì§€ to do : ê²Œì„ ë§¤ë‹ˆì € ì¸¡ì—ì„œ ê²Œì„ ì‹œì‘ ì‹œ, ê° ìœ ë‹›ì˜ í”Œë ˆì´ì–´ Idë¥¼ ë¶€ì—¬í•˜ë˜, ë¶€ì—¬ í›„ ê²Œì„ ìƒì— ê°™ì€ Idê°€ ì—†ëŠ”ì§€ ì²´í¬í•˜ëŠ” ë¡œì§ì„ ë°˜ë“œì‹œ ë„£ì„ ê²ƒ
 
     #endregion Unit Information
 
@@ -23,7 +23,7 @@ public class Unit : MonoBehaviour
 
     void Awake()
     {
-        // ÇÊ¿ä ÄÄÆ÷³ÍÆ®°¡ ¾øÀ» °æ¿ì, Ãëµæ
+        // í•„ìš” ì»´í¬ë„ŒíŠ¸ê°€ ì—†ì„ ê²½ìš°, ì·¨ë“
         if (this.TryGetComponent<UnitController>(out unitController) == false)
         {
             this.gameObject.AddComponent<UnitController>();
@@ -41,7 +41,7 @@ public class Unit : MonoBehaviour
         unitController = this.GetComponent<UnitController>();
         unitCondition = this.GetComponent<UnitCondition>();
 
-        Init(); // À¯´Ö Á¤º¸ ÃÊ±âÈ­
+        Init(); // ìœ ë‹› ì •ë³´ ì´ˆê¸°í™”
     }
 
     void Start()
@@ -54,7 +54,7 @@ public class Unit : MonoBehaviour
 
     }
 
-    // À¯´Ö Á¤º¸ ÃÊ±âÈ­
+    // ìœ ë‹› ì •ë³´ ì´ˆê¸°í™”
     public void Init()
     {
         UnitName = UnitData.UnitName;
