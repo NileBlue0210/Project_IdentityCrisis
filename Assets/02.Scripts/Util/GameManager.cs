@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
     private Dictionary<Type, MonoBehaviour> managers = new Dictionary<Type, MonoBehaviour>();
 
     private Type[] managerArr = {
-        typeof(BattleManager)
+        typeof(BattleManager),
+        typeof(InputManager)
     };
 
     private void Awake()

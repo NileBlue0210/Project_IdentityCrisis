@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
-/// ÇÃ·¹ÀÌ¾îÀÇ Çàµ¿À» Á¦¾îÇÏ´Â ÄÁÆ®·Ñ·¯ Å¬·¡½º
+/// ê²Œì„ ë‚´ ëª¨ë“  ì…ë ¥ì„ ì²˜ë¦¬í•˜ëŠ” InputManager í´ë˜ìŠ¤
 /// </summary>
-public class PlayerController : MonoBehaviour
+public class InputManager : MonoBehaviour
 {
     void Start()
     {
