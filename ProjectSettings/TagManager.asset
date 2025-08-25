@@ -3,8 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Ground
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -12,14 +11,14 @@ TagManager:
   - 
   - Water
   - UI
-  - Background
-  - Counter Text
-  - Background Objects
-  - Summons
-  - Counter Visuals
-  - Characters
-  - Skill Effects
-  - Hit Effects
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
