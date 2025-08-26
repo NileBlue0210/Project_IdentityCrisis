@@ -7,9 +7,9 @@ using UnityEngine;
 /// </summary>
 public class Unit : MonoBehaviour
 {
-    [Header("Unit Conponents")]
-    private UnitController unitController;
-    private UnitCondition unitCondition;
+    public UnitController UnitController { get; set; }
+    public UnitCondition UnitCondition { get; set; }
+    public UnitBehaviour UnitBehaviour { get; set; }
 
     #region Unit Information
 
@@ -24,24 +24,35 @@ public class Unit : MonoBehaviour
     void Awake()
     {
         // 필요 컴포넌트가 없을 경우, 취득
-        if (this.TryGetComponent<UnitController>(out unitController) == false)
+        if (this.TryGetComponent<UnitController>(out UnitController UnitController) == false)
         {
             this.gameObject.AddComponent<UnitController>();
 
             Debug.LogError("Add UnitController Component to Unit");
         }
 
-        if (this.TryGetComponent<UnitCondition>(out unitCondition) == false)
+        if (this.TryGetComponent<UnitCondition>(out UnitCondition UnitCondition) == false)
         {
             this.gameObject.AddComponent<UnitCondition>();
 
             Debug.LogError("Add UnitCondition Component to Unit");
         }
 
-        unitController = this.GetComponent<UnitController>();
-        unitCondition = this.GetComponent<UnitCondition>();
+        if (this.TryGetComponent<UnitBehaviour>(out UnitBehaviour UnitBehaviour) == false)
+        {
+            this.gameObject.AddComponent<UnitBehaviour>();
 
-        Init(); // 유닛 정보 초기화
+            Debug.LogError("Add UnitBehaviour Component to Unit");
+        }
+
+        UnitController = this.GetComponent<UnitController>();
+        UnitCondition = this.GetComponent<UnitCondition>();
+        UnitBehaviour = this.GetComponent<UnitBehaviour>();
+
+        UnitBehaviour.Unit = this;
+        UnitBehaviour.UnitController = UnitController;
+
+        // Init(); // 유닛 정보 초기화
     }
 
     void Start()
@@ -59,17 +70,17 @@ public class Unit : MonoBehaviour
     {
         UnitName = UnitData.UnitName;
 
-        unitController.Attack = UnitData.Attack;
-        unitController.Defense = UnitData.Defense;
-        unitController.Health = UnitData.Health;
-        unitController.Velocity = UnitData.Velocity;
-        unitController.Gravity = UnitData.Gravity;
-        unitController.FootPoint = UnitData.FootPoint;
-        unitController.GroundPoint = UnitData.GroundPoint;
-        unitController.LeftWallPoint = UnitData.LeftWallPoint;
-        unitController.RightWallPoint = UnitData.RightWallPoint;
+        UnitController.Attack = UnitData.Attack;
+        UnitController.Defense = UnitData.Defense;
+        UnitController.Health = UnitData.Health;
+        UnitController.Velocity = UnitData.Velocity;
+        UnitController.Gravity = UnitData.Gravity;
+        UnitController.FootPoint = UnitData.FootPoint;
+        UnitController.GroundPoint = UnitData.GroundPoint;
+        UnitController.LeftWallPoint = UnitData.LeftWallPoint;
+        UnitController.RightWallPoint = UnitData.RightWallPoint;
 
-        unitCondition.State = UnitState.Idle;
+        UnitCondition.State = UnitState.Idle;
     }
     
     #endregion Methods

@@ -1,16 +1,3 @@
-public enum UnitState
-{
-    None = -1,
-    Idle,
-    Move,
-    Jump,
-    Attack,
-    Hit,
-    Guard,
-    Sit,
-    Dead
-}
-
 public enum HitStatus
 {
     None = -1,

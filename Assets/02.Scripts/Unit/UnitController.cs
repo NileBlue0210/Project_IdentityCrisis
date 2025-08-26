@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// to do : Start시에 플레이어의 컨트롤ID ( 1P인지 2P인지 ) 와 Unit의 컨트롤ID가 같을 경우, 조작 가능 플래그를 활성화
+
 /// <summary>
 /// 유닛의 행동을 제어하는 메소드
 /// </summary>
+[RequireComponent(typeof(Unit))]
 public class UnitController : MonoBehaviour
 {
-    #region Unit Information
+    #region Variable
 
     [SerializeField] private bool IsControllable { get; set; } // 유닛 조작 가능 여부
     [field: SerializeField] public float Attack { get; set; } // 유닛 공격력
@@ -20,9 +23,16 @@ public class UnitController : MonoBehaviour
     [field: SerializeField] public float LeftWallPoint { get; set; } // 유닛의 왼쪽 벽 위치
     [field: SerializeField] public float RightWallPoint { get; set; } // 유닛의 오른쪽 벽 위치
 
-    #endregion Unit Information
+    public Rigidbody2D Rb { get; set; }
+
+    #endregion Variable
 
     #region Methods
+
+    private void Awake()
+    {
+        Rb = GetComponent<Rigidbody2D>();
+    }
 
     void Start()
     {
@@ -33,8 +43,6 @@ public class UnitController : MonoBehaviour
     {
 
     }
-
-    // to do : Start시에 플레이어의 컨트롤ID ( 1P인지 2P인지 ) 와 Unit의 컨트롤ID가 같을 경우, 조작 가능 플래그를 활성화
     
     #endregion Methods
 }
