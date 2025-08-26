@@ -16,7 +16,7 @@ MonoBehaviour:
   Attack: 1
   Health: 100
   Defense: 5
-  Velocity: 5
+  Velocity: 0.01
   Gravity: 1
   FootPoint: 0
   GroundPoint: 0

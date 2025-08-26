@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour
 {
     public UnitController UnitController { get; set; }
     public UnitCondition UnitCondition { get; set; }
-    public UnitBehaviour UnitBehaviour { get; set; }
+    public UnitStateMachine UnitStateMachine { get; set; }
 
     #region Unit Information
 
@@ -24,35 +24,32 @@ public class Unit : MonoBehaviour
     void Awake()
     {
         // 필요 컴포넌트가 없을 경우, 취득
-        if (this.TryGetComponent<UnitController>(out UnitController UnitController) == false)
+        if (this.TryGetComponent<UnitController>(out UnitController UnitControllerComponent) == false)
         {
             this.gameObject.AddComponent<UnitController>();
 
             Debug.LogError("Add UnitController Component to Unit");
         }
 
-        if (this.TryGetComponent<UnitCondition>(out UnitCondition UnitCondition) == false)
+        if (this.TryGetComponent<UnitCondition>(out UnitCondition UnitConditionComponent) == false)
         {
             this.gameObject.AddComponent<UnitCondition>();
 
             Debug.LogError("Add UnitCondition Component to Unit");
         }
 
-        if (this.TryGetComponent<UnitBehaviour>(out UnitBehaviour UnitBehaviour) == false)
+        if (this.TryGetComponent<UnitStateMachine>(out UnitStateMachine UnitStateMachineComponent) == false)
         {
-            this.gameObject.AddComponent<UnitBehaviour>();
+            this.gameObject.AddComponent<UnitStateMachine>();
 
-            Debug.LogError("Add UnitBehaviour Component to Unit");
+            Debug.LogError("Add UnitStateMachine Component to Unit");
         }
 
         UnitController = this.GetComponent<UnitController>();
         UnitCondition = this.GetComponent<UnitCondition>();
-        UnitBehaviour = this.GetComponent<UnitBehaviour>();
+        UnitStateMachine = this.GetComponent<UnitStateMachine>();
 
-        UnitBehaviour.Unit = this;
-        UnitBehaviour.UnitController = UnitController;
-
-        // Init(); // 유닛 정보 초기화
+        Init(); // 유닛 정보 초기화
     }
 
     void Start()
@@ -79,8 +76,6 @@ public class Unit : MonoBehaviour
         UnitController.GroundPoint = UnitData.GroundPoint;
         UnitController.LeftWallPoint = UnitData.LeftWallPoint;
         UnitController.RightWallPoint = UnitData.RightWallPoint;
-
-        UnitCondition.State = UnitState.Idle;
     }
     
     #endregion Methods

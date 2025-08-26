@@ -29,9 +29,28 @@ public class InputManager : MonoBehaviour
 
     }
 
-    private void OnPlayerActionEnable()
+    public void OnPlayerActionEnable()
     {
         PlayerInputActions.Enable();
-        // SetPlayerUIAction(); // 게임 시작 초기에는 UI만활성화 하되, Unit은 비활성화 되어야 한다.
+    }
+
+    public void OnPlayerUnitActionEnable()
+    {
+        PlayerInputActions.Unit.Enable();
+    }
+
+    public void OnPlayerUnitActionDisable()
+    {
+        PlayerInputActions.Unit.Disable();
+    }
+
+    public void OnPlayerUIActionEnable()
+    {
+        PlayerInputActions.UI.Enable();
+    }
+
+    public void OnPlayerUIActionDisable()
+    {
+        PlayerInputActions.UI.Disable();
     }
 }

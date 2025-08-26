@@ -7,8 +7,6 @@ using UnityEngine;
 /// </summary>
 public class UnitCondition : MonoBehaviour
 {
-    public UnitState State { get; set; } // 유닛의 현재 상태
-
     void Start()
     {
 
