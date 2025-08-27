@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sit",
+                    "name": "Crouch",
                     "type": "Button",
                     "id": "d582534f-1623-408f-aeef-b84cccc11dde",
                     "expectedControlType": "",
@@ -85,7 +85,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard",
-                    "action": "Sit",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

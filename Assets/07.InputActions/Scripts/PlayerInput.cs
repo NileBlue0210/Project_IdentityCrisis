@@ -46,7 +46,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Sit"",
+                    ""name"": ""Crouch"",
                     ""type"": ""Button"",
                     ""id"": ""d582534f-1623-408f-aeef-b84cccc11dde"",
                     ""expectedControlType"": """",
@@ -107,7 +107,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard"",
-                    ""action"": ""Sit"",
+                    ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -160,7 +160,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Unit = asset.FindActionMap("Unit", throwIfNotFound: true);
         m_Unit_Move = m_Unit.FindAction("Move", throwIfNotFound: true);
         m_Unit_Jump = m_Unit.FindAction("Jump", throwIfNotFound: true);
-        m_Unit_Sit = m_Unit.FindAction("Sit", throwIfNotFound: true);
+        m_Unit_Crouch = m_Unit.FindAction("Crouch", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -233,14 +233,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IUnitActions> m_UnitActionsCallbackInterfaces = new List<IUnitActions>();
     private readonly InputAction m_Unit_Move;
     private readonly InputAction m_Unit_Jump;
-    private readonly InputAction m_Unit_Sit;
+    private readonly InputAction m_Unit_Crouch;
     public struct UnitActions
     {
         private @PlayerInput m_Wrapper;
         public UnitActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Unit_Move;
         public InputAction @Jump => m_Wrapper.m_Unit_Jump;
-        public InputAction @Sit => m_Wrapper.m_Unit_Sit;
+        public InputAction @Crouch => m_Wrapper.m_Unit_Crouch;
         public InputActionMap Get() { return m_Wrapper.m_Unit; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -256,9 +256,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Sit.started += instance.OnSit;
-            @Sit.performed += instance.OnSit;
-            @Sit.canceled += instance.OnSit;
+            @Crouch.started += instance.OnCrouch;
+            @Crouch.performed += instance.OnCrouch;
+            @Crouch.canceled += instance.OnCrouch;
         }
 
         private void UnregisterCallbacks(IUnitActions instance)
@@ -269,9 +269,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Sit.started -= instance.OnSit;
-            @Sit.performed -= instance.OnSit;
-            @Sit.canceled -= instance.OnSit;
+            @Crouch.started -= instance.OnCrouch;
+            @Crouch.performed -= instance.OnCrouch;
+            @Crouch.canceled -= instance.OnCrouch;
         }
 
         public void RemoveCallbacks(IUnitActions instance)
@@ -348,7 +348,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnSit(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
