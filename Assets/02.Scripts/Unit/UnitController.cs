@@ -54,7 +54,10 @@ public class UnitController : MonoBehaviour
     {
         if (IsGrounded())
         {
-            velocity.y = 0; // 지면에 닿았을 경우, 중력을 적용시키지 않음
+            if (velocity.y <= 0f)
+            {
+                velocity.y = 0; // 지면에 닿았을 경우, 중력을 적용시키지 않음
+            }
         }
         else
         {
