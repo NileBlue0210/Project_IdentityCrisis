@@ -15,5 +15,6 @@ public class UnitData : ScriptableObject
     public float Defense;
     public float MoveSpeed;
     public float JumpForce;
+    public float HorizontalJumpSpeed;
     public float Gravity;
 }

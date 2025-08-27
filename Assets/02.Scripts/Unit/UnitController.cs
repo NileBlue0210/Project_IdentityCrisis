@@ -27,6 +27,7 @@ public class UnitController : MonoBehaviour
     [field: SerializeField] public float Defense { get; set; } // 유닛 방어력
     [field: SerializeField] public float MoveSpeed { get; set; } // 유닛 속도
     [field: SerializeField] public float JumpForce { get; set; } // 유닛 점프력
+    [field: SerializeField] public float HorizontalJumpSpeed { get; set; }  // 유닛 대각선 점프 속도 ( 점프 각도 )
     [field: SerializeField] public float Gravity { get; set; } // 유닛 중력 ( 점프력 조정 스테이터스 )
     [field: SerializeField] public float GroundRayRange { get; set; }    // 유닛이 바닥을 감지하기 위한 Ray 길이 변수 ( 캐릭터별로 상이한 값을 가질 수 있으니 각 캐릭터 스크립트의 초기화 부분에서 지정이 필요 )
     [field: SerializeField] public float WallRayRange { get; set; }    // 유닛이 벽을 감지하기 위한 Ray 길이 변수 ( 캐릭터별로 상이한 값을 가질 수 있으니 각 캐릭터 스크립트의 초기화 부분에서 지정이 필요 )
@@ -78,6 +79,7 @@ public class UnitController : MonoBehaviour
         Health = unit.UnitData.Health;
         MoveSpeed = unit.UnitData.MoveSpeed;
         JumpForce = unit.UnitData.JumpForce;
+        HorizontalJumpSpeed = unit.UnitData.HorizontalJumpSpeed;
         Gravity = unit.UnitData.Gravity;
 
         GroundRayRange = 0.5f;    // 테스트용 코드 ( 상정 상황은 각 유닛별로 Ray를 다르게 주는 것이 전제 )
