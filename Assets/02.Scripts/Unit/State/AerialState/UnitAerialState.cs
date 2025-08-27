@@ -2,17 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitAerialState : MonoBehaviour
+/// <summary>
+/// 유닛의 체공 상태를 관리하는 상태 클래스
+/// </summary>
+public class UnitAerialState : UnitState
 {
-    // Start is called before the first frame update
-    void Start()
+    public UnitAerialState(UnitStateMachine stateMachine) : base(stateMachine)
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Enter()
     {
-        
+        base.Enter();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        // 유닛이 지면에 닿았을 경우, 지상 상태로 전환
+        if (stateMachine.Unit.UnitController.IsGrounded())
+        {
+            stateMachine.ChangeUnitState(stateMachine.GroundState);
+        }
     }
 }

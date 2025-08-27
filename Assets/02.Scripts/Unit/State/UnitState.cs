@@ -13,7 +13,7 @@ public interface IUnitState
 }
 
 /// <summary>
-/// 유닛의 상태를 관리하는 추상 클래스
+/// 유닛의 상태를 관리하는 베이스 클래스
 /// </summary>
 public abstract class UnitState : IUnitState
 {

@@ -32,12 +32,12 @@ public class UnitGroundWalkState : UnitGroundState
         // 이동 입력이 없을 경우, groundIdle상태로 변경
         if (moveInput.magnitude < 0.1f)
         {
-            stateMachine.ChangeUnitState(stateMachine.groundIdleState);
+            stateMachine.ChangeUnitState(stateMachine.GroundIdleState);
 
             return;
         }
 
-        Vector2 moveDirection = new Vector2(moveInput.x * stateMachine.Unit.UnitController.Velocity, stateMachine.Unit.UnitController.Rb.velocity.y);
+        Vector2 moveDirection = new Vector2(moveInput.x * stateMachine.Unit.UnitController.MoveSpeed, 0);
         stateMachine.transform.Translate(moveDirection);
     }
 }

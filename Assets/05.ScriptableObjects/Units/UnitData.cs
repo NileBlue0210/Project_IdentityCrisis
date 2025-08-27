@@ -13,10 +13,7 @@ public class UnitData : ScriptableObject
     public float Attack;
     public float Health;
     public float Defense;
-    public float Velocity;
+    public float MoveSpeed;
+    public float JumpForce;
     public float Gravity;
-    public float FootPoint;
-    public float GroundPoint;
-    public float LeftWallPoint;
-    public float RightWallPoint;
 }

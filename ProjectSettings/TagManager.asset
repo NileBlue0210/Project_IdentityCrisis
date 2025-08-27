@@ -8,17 +8,17 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - BackGround
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - CounterVisual
+  - BackgroundObjects
+  - Summons
+  - Units
+  - SkillEffects
+  - HitEffects
+  - Ground
+  - Wall
   - 
   - 
   - 

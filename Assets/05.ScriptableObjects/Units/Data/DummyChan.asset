@@ -16,9 +16,6 @@ MonoBehaviour:
   Attack: 1
   Health: 100
   Defense: 5
-  Velocity: 0.01
-  Gravity: 1
-  FootPoint: 0
-  GroundPoint: 0
-  LeftWallPoint: 0
-  RightWallPoint: 0
+  MoveSpeed: 0.01
+  JumpForce: 3
+  Gravity: -9.81

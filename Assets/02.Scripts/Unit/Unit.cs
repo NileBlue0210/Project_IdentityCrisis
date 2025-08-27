@@ -66,16 +66,6 @@ public class Unit : MonoBehaviour
     public void Init()
     {
         UnitName = UnitData.UnitName;
-
-        UnitController.Attack = UnitData.Attack;
-        UnitController.Defense = UnitData.Defense;
-        UnitController.Health = UnitData.Health;
-        UnitController.Velocity = UnitData.Velocity;
-        UnitController.Gravity = UnitData.Gravity;
-        UnitController.FootPoint = UnitData.FootPoint;
-        UnitController.GroundPoint = UnitData.GroundPoint;
-        UnitController.LeftWallPoint = UnitData.LeftWallPoint;
-        UnitController.RightWallPoint = UnitData.RightWallPoint;
     }
     
     #endregion Methods
