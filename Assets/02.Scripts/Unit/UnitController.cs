@@ -26,6 +26,7 @@ public class UnitController : MonoBehaviour
     [field: SerializeField] public float Health { get; set; } // 유닛 체력
     [field: SerializeField] public float Defense { get; set; } // 유닛 방어력
     [field: SerializeField] public float MoveSpeed { get; set; } // 유닛 속도
+    [field: SerializeField] public float DashSpeed { get; set; } // 달리기 시 가속도
     [field: SerializeField] public float JumpForce { get; set; } // 유닛 점프력
     [field: SerializeField] public float HorizontalJumpSpeed { get; set; }  // 유닛 대각선 점프 속도 ( 점프 각도 )
     [field: SerializeField] public float Gravity { get; set; } // 유닛 중력 ( 점프력 조정 스테이터스 )
@@ -78,6 +79,7 @@ public class UnitController : MonoBehaviour
         Defense = unit.UnitData.Defense;
         Health = unit.UnitData.Health;
         MoveSpeed = unit.UnitData.MoveSpeed;
+        DashSpeed = unit.UnitData.DashSpeed;
         JumpForce = unit.UnitData.JumpForce;
         HorizontalJumpSpeed = unit.UnitData.HorizontalJumpSpeed;
         Gravity = unit.UnitData.Gravity;

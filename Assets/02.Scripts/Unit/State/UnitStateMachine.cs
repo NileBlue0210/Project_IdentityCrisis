@@ -11,6 +11,8 @@ public class UnitStateMachine : MonoBehaviour
 {
     [Header("Properties")]
     public Unit Unit;   // 각 상태에서 캐릭터를 제어하기 위한 변수
+    private InputSequenceManager inputSequenceController;    // 연속 입력을 처리하기 위한 변수
+    public int PendingDashDirection { get; set; }
 
     [Header("State Informations")]
     private IUnitState currentState;    // 현재 상태를 나타내는 변수
@@ -22,6 +24,7 @@ public class UnitStateMachine : MonoBehaviour
     public UnitGroundState GroundState;
     public UnitGroundIdleState GroundIdleState;
     public UnitGroundWalkState GroundWalkState;
+    public UnitGroundDashState GroundDashState;
 
     [Header("Unit Crouch States")]
     public UnitCrouchState CrouchState;
@@ -35,6 +38,7 @@ public class UnitStateMachine : MonoBehaviour
     private void Awake()
     {
         Unit = GetComponent<Unit>();
+        inputSequenceController = GameManager.Instance.GetManager<InputSequenceManager>(typeof(InputSequenceManager));
 
         // 각 상태 클래스 생성
         SpawnState = new UnitSpawnState(this);
@@ -42,6 +46,7 @@ public class UnitStateMachine : MonoBehaviour
         GroundState = new UnitGroundState(this);
         GroundIdleState = new UnitGroundIdleState(this);
         GroundWalkState = new UnitGroundWalkState(this);
+        GroundDashState = new UnitGroundDashState(this);
 
         CrouchState = new UnitCrouchState(this);
 
@@ -74,6 +79,11 @@ public class UnitStateMachine : MonoBehaviour
 
         // '점프' 동작의 입력 처리 등록
         PlayerInputActions.Unit.Jump.performed += OnJumpPerformed;  // 점프 키를 떼었을 때 점프 상태를 해제시킬 필요는 없으므로 Cancled 로직은 구현하지 않는다
+
+        if (inputSequenceController != null)
+        {
+            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, "Move", OnMultiTapDetected, requiredTapCount: 2, window: 0.20f, threshold: 0.5f);
+        }
     }
 
     public void ChangeUnitState(IUnitState state)
@@ -116,6 +126,34 @@ public class UnitStateMachine : MonoBehaviour
             {
                 ChangeUnitState(JumpState);
             }
+        }
+    }
+
+    private void OnMultiTapDetected(string id, int tapCount, int direction)
+    {
+        int dir = direction;
+
+        if (dir == 0)
+        {
+            var InputDirectionX = GameManager.Instance.GetManager<InputManager>(typeof(InputManager)).PlayerInputActions.Unit.Move.ReadValue<Vector2>().x;
+
+            dir = InputDirectionX > 0 ? 1 : (InputDirectionX < 0 ? -1 : (int)transform.localScale.x);
+        }
+
+        int facing = (int)Mathf.Sign(transform.localScale.x);
+        bool isForward = Mathf.Sign(dir) == Mathf.Sign(facing);
+
+        if (isForward)
+        {
+            // 앞대시: 대시 상태로 전이
+            PendingDashDirection = dir;
+            ChangeUnitState(GroundDashState); // DashState에서 PendingDashDirection을 읽도록 설계
+        }
+        else
+        {
+            // 백대시: 별도 State 혹은 DashState에서 isBackDash 플래그로 처리
+            PendingDashDirection = dir;
+            ChangeUnitState(GroundDashState);
         }
     }
 }

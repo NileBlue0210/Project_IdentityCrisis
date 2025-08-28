@@ -31,7 +31,8 @@ public class GameManager : MonoBehaviour
 
     private Type[] managerArr = {
         typeof(BattleManager),
-        typeof(InputManager)
+        typeof(InputManager),
+        typeof(InputSequenceManager)
     };
 
     private void Awake()
