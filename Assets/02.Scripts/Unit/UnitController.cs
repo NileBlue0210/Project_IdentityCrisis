@@ -98,7 +98,7 @@ public class UnitController : MonoBehaviour
             // 값이 고정되어 있기 때문에 Layer순서가 변경되면 에러를 발생시킬 수 있지만, WallLayer가 설정되어 있지 않았을 때의 비상상황을 상정한 것이기 때문에 본 사양을 채택
             // enum을 사용하는 방식도 생각해보았지만, 어차피 Layer순서나 이름이 변경되면 에러를 일으키는 것은 변함없기 때문에 고정값을 사용
             // WallLayer = (1 << 13);
-            GroundLayer = LayerMask.GetMask("Wall");
+            WallLayer = LayerMask.GetMask("Wall");
         }
     }
 

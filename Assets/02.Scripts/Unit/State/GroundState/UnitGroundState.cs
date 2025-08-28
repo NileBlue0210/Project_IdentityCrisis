@@ -15,6 +15,13 @@ public class UnitGroundState : UnitState
     public override void Enter()
     {
         base.Enter();
+
+        // 착지 직후 남아있던 수평 이동 값을 초기화
+        stateMachine.Unit.UnitController.Velocity = new Vector3(
+            0f,
+            stateMachine.Unit.UnitController.Velocity.y,
+            0f
+        );
     }
 
     public override void Exit()

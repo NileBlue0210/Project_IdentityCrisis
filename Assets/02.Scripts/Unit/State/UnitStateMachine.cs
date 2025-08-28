@@ -15,6 +15,9 @@ public class UnitStateMachine : MonoBehaviour
     [Header("State Informations")]
     private IUnitState currentState;    // 현재 상태를 나타내는 변수
 
+    [Header("Other States")]
+    public UnitSpawnState SpawnState;
+
     [Header("Unit Ground States")]
     public UnitGroundState GroundState;
     public UnitGroundIdleState GroundIdleState;
@@ -34,6 +37,8 @@ public class UnitStateMachine : MonoBehaviour
         Unit = GetComponent<Unit>();
 
         // 각 상태 클래스 생성
+        SpawnState = new UnitSpawnState(this);
+
         GroundState = new UnitGroundState(this);
         GroundIdleState = new UnitGroundIdleState(this);
         GroundWalkState = new UnitGroundWalkState(this);
@@ -61,7 +66,7 @@ public class UnitStateMachine : MonoBehaviour
 
     private void Init()
     {
-        ChangeUnitState(GroundState);   // 테스트용 더미 코드. to do : 기본 상태를 어떻게 처리할 것인지 고민 필요
+        ChangeUnitState(SpawnState);
 
         // '앉기' 동작의 입력 처리 등록
         PlayerInputActions.Unit.Crouch.performed += OnCrouchPerformed;

@@ -30,21 +30,23 @@ public class UnitJumpState : UnitAerialState
         base.Update();
     }
 
-    // to do : 만약 현재 stateMachine.transform.Translate값이 존재할 경우, 점프 방향에 x값을 추가한다
+    /// <summary>
+    /// 유닛 점프 로직
+    /// </summary>
     private void Jump()
     {
-        float jumpDirection = 0f;
         Vector2 moveInput = stateMachine.PlayerInputActions.Unit.Move.ReadValue<Vector2>(); // 대각선 점프를 위한 플레이어 좌 우 이동 입력 감지
+
+        float HorizontalJumpDirection = 0f;
 
         if (Mathf.Abs(moveInput.x) > 0.1f)
         {
-            jumpDirection = Mathf.Sign(moveInput.x) * stateMachine.Unit.UnitController.HorizontalJumpSpeed;   // 좌 우 입력에 따른 값 보정
+            HorizontalJumpDirection = Mathf.Sign(moveInput.x) * stateMachine.Unit.UnitController.HorizontalJumpSpeed;   // Sign함수를 통해 좌 우 입력에 따라 x값 보정
         }
 
-        stateMachine.Unit.UnitController.Velocity = new Vector3(
-            jumpDirection,
-            stateMachine.Unit.UnitController.JumpForce,
-            stateMachine.Unit.UnitController.Velocity.z
+        stateMachine.Unit.UnitController.Velocity = new Vector2(
+            HorizontalJumpDirection,
+            stateMachine.Unit.UnitController.JumpForce
         );
     }
 }

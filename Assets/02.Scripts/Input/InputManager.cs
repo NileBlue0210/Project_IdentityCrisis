@@ -9,7 +9,6 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     public PlayerInput PlayerInputActions { get; set; } // 플레이어 입력 액션. 플레이어블 유닛이 되는 대상 타겟의 Controller 클래스에 넘겨주어 입력받은 대상이 움직이도록 처리
-    public Vector2 Move { get; private set; }
 
     private void Awake()
     {
