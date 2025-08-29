@@ -14,22 +14,15 @@ public class UnitController : MonoBehaviour
 
     [Header("Unit Control Variables")]
     private Unit unit;
+    private bool isControllable; // 유닛 조작 가능 여부
     private Vector3 velocity;   // 위치값 기반의 유닛 속력
-    public Vector3 Velocity { get { return velocity; } set { velocity = value; }}
-    private bool IsControllable { get; set; } // 유닛 조작 가능 여부
+    public Vector3 Velocity { get { return velocity; } set { velocity = value; } }
+    public bool IsDash { get; set; }    // 현재 대시 중인지를 판단하는 플래그
 
     [Header("Detect Variable")]
     [SerializeField] private LayerMask GroundLayer;   // 감지한 지면의 LayerMask
     [SerializeField] private LayerMask WallLayer;   // 감지한 지면의 LayerMask
 
-    [field: SerializeField] public float Attack { get; set; } // 유닛 공격력
-    [field: SerializeField] public float Health { get; set; } // 유닛 체력
-    [field: SerializeField] public float Defense { get; set; } // 유닛 방어력
-    [field: SerializeField] public float MoveSpeed { get; set; } // 유닛 속도
-    [field: SerializeField] public float DashSpeed { get; set; } // 달리기 시 가속도
-    [field: SerializeField] public float JumpForce { get; set; } // 유닛 점프력
-    [field: SerializeField] public float HorizontalJumpSpeed { get; set; }  // 유닛 대각선 점프 속도 ( 점프 각도 )
-    [field: SerializeField] public float Gravity { get; set; } // 유닛 중력 ( 점프력 조정 스테이터스 )
     [field: SerializeField] public float GroundRayRange { get; set; }    // 유닛이 바닥을 감지하기 위한 Ray 길이 변수 ( 캐릭터별로 상이한 값을 가질 수 있으니 각 캐릭터 스크립트의 초기화 부분에서 지정이 필요 )
     [field: SerializeField] public float WallRayRange { get; set; }    // 유닛이 벽을 감지하기 위한 Ray 길이 변수 ( 캐릭터별로 상이한 값을 가질 수 있으니 각 캐릭터 스크립트의 초기화 부분에서 지정이 필요 )
     [field: SerializeField] public float GroundPoint { get; set; } // 유닛과 지면사이의 거리
@@ -74,16 +67,6 @@ public class UnitController : MonoBehaviour
     /// </summary>
     private void Init()
     {
-        // 유닛 스테이터스 지정
-        Attack = unit.UnitData.Attack;
-        Defense = unit.UnitData.Defense;
-        Health = unit.UnitData.Health;
-        MoveSpeed = unit.UnitData.MoveSpeed;
-        DashSpeed = unit.UnitData.DashSpeed;
-        JumpForce = unit.UnitData.JumpForce;
-        HorizontalJumpSpeed = unit.UnitData.HorizontalJumpSpeed;
-        Gravity = unit.UnitData.Gravity;
-
         GroundRayRange = 0.5f;    // 테스트용 코드 ( 상정 상황은 각 유닛별로 Ray를 다르게 주는 것이 전제 )
         WallRayRange = 0.5f;  // 테스트용 코드 ( 상정 상황은 각 유닛별로 Ray를 다르게 주는 것이 전제 )
 
@@ -126,7 +109,20 @@ public class UnitController : MonoBehaviour
 
     private void ApplyGravity()
     {
-        velocity.y += Gravity * Time.deltaTime;
+        velocity.y += unit.Gravity * Time.deltaTime;
+    }
+    
+    public IEnumerator DashCoroutine()
+    {
+        float startTime = Time.time;
+
+        // 대시 지속시간이 끝날 때 까지 대기
+        while (Time.time < startTime + unit.DashDuration)
+        {
+            yield return null;
+        }
+
+        unit.UnitStateMachine.GroundDashState.EndDash();
     }
     
     #endregion Methods

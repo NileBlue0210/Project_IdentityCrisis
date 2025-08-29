@@ -37,7 +37,7 @@ public class UnitGroundWalkState : UnitGroundState
             return;
         }
 
-        Vector2 moveDirection = new Vector2(moveInput.x * stateMachine.Unit.UnitController.MoveSpeed, stateMachine.Unit.UnitController.Velocity.y);
+        Vector2 moveDirection = new Vector2(moveInput.x * stateMachine.Unit.MoveSpeed, stateMachine.Unit.UnitController.Velocity.y);
         stateMachine.transform.Translate(moveDirection);
     }
 }

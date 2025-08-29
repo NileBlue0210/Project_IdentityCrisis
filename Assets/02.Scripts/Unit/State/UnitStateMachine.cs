@@ -15,6 +15,7 @@ public class UnitStateMachine : MonoBehaviour
 
     [Header("State Informations")]
     private IUnitState currentState;    // 현재 상태를 나타내는 변수
+    public IUnitState CurrentState { get { return currentState; } set { currentState = value; }}
 
     [Header("Other States")]
     public UnitSpawnState SpawnState;
@@ -24,6 +25,7 @@ public class UnitStateMachine : MonoBehaviour
     public UnitGroundIdleState GroundIdleState;
     public UnitGroundWalkState GroundWalkState;
     public UnitGroundDashState GroundDashState;
+    public UnitGroundBackDashState GroundBackDashState;
 
     [Header("Unit Crouch States")]
     public UnitCrouchState CrouchState;
@@ -31,6 +33,8 @@ public class UnitStateMachine : MonoBehaviour
     [Header("Unit Aerial States")]
     public UnitAerialState AerialState;
     public UnitJumpState JumpState;
+    public UnitAerialDashState AerialDashState;
+    public UnitAerialBackDashState AerialBackDashState;
 
     public PlayerInput PlayerInputActions { get; set; } // Input System 기반의 플레이어 입력 처리용 클래스
 
@@ -39,18 +43,24 @@ public class UnitStateMachine : MonoBehaviour
         Unit = GetComponent<Unit>();
         inputSequenceController = GameManager.Instance.GetManager<InputSequenceManager>(typeof(InputSequenceManager));
 
-        // 각 상태 클래스 생성
+        // 기타 상태 클래스 생성
         SpawnState = new UnitSpawnState(this);
 
+        // 지상 상태 클래스 생성
         GroundState = new UnitGroundState(this);
         GroundIdleState = new UnitGroundIdleState(this);
         GroundWalkState = new UnitGroundWalkState(this);
         GroundDashState = new UnitGroundDashState(this);
+        GroundBackDashState = new UnitGroundBackDashState(this);
 
+        // 앉은 상태 클래스 생성
         CrouchState = new UnitCrouchState(this);
 
+        // 공중 상태 클래스 생성
         AerialState = new UnitAerialState(this);
         JumpState = new UnitJumpState(this);
+        AerialDashState = new UnitAerialDashState(this);
+        AerialBackDashState = new UnitAerialBackDashState(this);
 
         PlayerInputActions = GameManager.Instance.GetManager<InputManager>(typeof(InputManager)).PlayerInputActions;    // 매니저 클래스를 통해 Input System 인스턴스 정보 취득
     }
@@ -81,7 +91,7 @@ public class UnitStateMachine : MonoBehaviour
 
         if (inputSequenceController != null)
         {
-            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, "Move", GroundDashState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 대시 입력을 감지하는 콜백 함수 등록
+            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, InputActionType.Move.ToString(), GroundDashState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 대시 입력을 감지하는 콜백 함수 등록
         }
     }
 

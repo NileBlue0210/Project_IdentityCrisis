@@ -14,7 +14,9 @@ public class UnitData : ScriptableObject
     public float Health;
     public float Defense;
     public float MoveSpeed;
+    public UnitDashType DashType;
     public float DashSpeed;
+    public float DashDuration;
     public float JumpForce;
     public float HorizontalJumpSpeed;
     public float Gravity;

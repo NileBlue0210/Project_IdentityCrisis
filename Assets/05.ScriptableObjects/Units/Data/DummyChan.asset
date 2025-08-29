@@ -17,7 +17,9 @@ MonoBehaviour:
   Health: 100
   Defense: 5
   MoveSpeed: 0.01
-  DashSpeed: 2
+  DashType: 0
+  DashSpeed: 10
+  DashDuration: 0.1
   JumpForce: 5
   HorizontalJumpSpeed: 2
   Gravity: -9.81

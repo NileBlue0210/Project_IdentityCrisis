@@ -41,12 +41,12 @@ public class UnitJumpState : UnitAerialState
 
         if (Mathf.Abs(moveInput.x) > 0.1f)
         {
-            HorizontalJumpDirection = Mathf.Sign(moveInput.x) * stateMachine.Unit.UnitController.HorizontalJumpSpeed;   // Sign함수를 통해 좌 우 입력에 따라 x값 보정
+            HorizontalJumpDirection = Mathf.Sign(moveInput.x) * stateMachine.Unit.HorizontalJumpSpeed;   // Sign함수를 통해 좌 우 입력에 따라 x값 보정
         }
 
         stateMachine.Unit.UnitController.Velocity = new Vector2(
             HorizontalJumpDirection,
-            stateMachine.Unit.UnitController.JumpForce
+            stateMachine.Unit.JumpForce
         );
     }
 }
