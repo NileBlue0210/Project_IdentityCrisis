@@ -12,7 +12,6 @@ public class UnitStateMachine : MonoBehaviour
     [Header("Properties")]
     public Unit Unit;   // 각 상태에서 캐릭터를 제어하기 위한 변수
     private InputSequenceManager inputSequenceController;    // 연속 입력을 처리하기 위한 변수
-    public int PendingDashDirection { get; set; }
 
     [Header("State Informations")]
     private IUnitState currentState;    // 현재 상태를 나타내는 변수
@@ -82,7 +81,7 @@ public class UnitStateMachine : MonoBehaviour
 
         if (inputSequenceController != null)
         {
-            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, "Move", OnMultiTapDetected, requiredTapCount: 2, window: 0.20f, threshold: 0.5f);
+            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, "Move", GroundDashState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 대시 입력을 감지하는 콜백 함수 등록
         }
     }
 
@@ -99,7 +98,7 @@ public class UnitStateMachine : MonoBehaviour
 
     private void OnCrouchPerformed(InputAction.CallbackContext context)
     {
-        if (currentState == GroundState || currentState == GroundIdleState || currentState == GroundWalkState)  // to do : 달리기 상태에서도 앉을 수 있도록 수정 필요
+        if (currentState == GroundState || currentState == GroundIdleState || currentState == GroundWalkState || currentState == GroundDashState)
         {
             ChangeUnitState(CrouchState);
         }
@@ -120,40 +119,12 @@ public class UnitStateMachine : MonoBehaviour
     */
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
-        if (currentState == GroundState || currentState == GroundIdleState || currentState == GroundWalkState)
+        if (currentState == GroundState || currentState == GroundIdleState || currentState == GroundWalkState || currentState == GroundDashState)
         {
             if (Unit.UnitController.IsGrounded())
             {
                 ChangeUnitState(JumpState);
             }
-        }
-    }
-
-    private void OnMultiTapDetected(string id, int tapCount, int direction)
-    {
-        int dir = direction;
-
-        if (dir == 0)
-        {
-            var InputDirectionX = GameManager.Instance.GetManager<InputManager>(typeof(InputManager)).PlayerInputActions.Unit.Move.ReadValue<Vector2>().x;
-
-            dir = InputDirectionX > 0 ? 1 : (InputDirectionX < 0 ? -1 : (int)transform.localScale.x);
-        }
-
-        int facing = (int)Mathf.Sign(transform.localScale.x);
-        bool isForward = Mathf.Sign(dir) == Mathf.Sign(facing);
-
-        if (isForward)
-        {
-            // 앞대시: 대시 상태로 전이
-            PendingDashDirection = dir;
-            ChangeUnitState(GroundDashState); // DashState에서 PendingDashDirection을 읽도록 설계
-        }
-        else
-        {
-            // 백대시: 별도 State 혹은 DashState에서 isBackDash 플래그로 처리
-            PendingDashDirection = dir;
-            ChangeUnitState(GroundDashState);
         }
     }
 }
