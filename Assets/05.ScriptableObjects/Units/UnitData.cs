@@ -21,5 +21,7 @@ public class UnitData : ScriptableObject
     public float BackDashDuration;
     public float JumpForce;
     public float HorizontalJumpSpeed;
+    public int JumpCount;
+    public int AerialDashCount;
     public float Gravity;
 }

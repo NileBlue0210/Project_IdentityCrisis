@@ -14,8 +14,6 @@ public class UnitJumpState : UnitAerialState
         base.Enter();
 
         Debug.Log("UnitJumpState Enter");
-
-        Jump();
     }
 
     public override void Exit()
@@ -33,8 +31,12 @@ public class UnitJumpState : UnitAerialState
     /// <summary>
     /// 유닛 점프 로직
     /// </summary>
-    private void Jump()
+    public void Jump()
     {
+        // 최대 점프 횟수를 초과하거나, 점프 상태가 아닐 경우 점프 로직을 실행하지 않음
+        if (stateMachine.CurrentState != stateMachine.JumpState || !stateMachine.Unit.UnitController.CheckAerialDashAvailable())
+            return;
+
         Vector2 moveInput = stateMachine.PlayerInputActions.Unit.Move.ReadValue<Vector2>(); // 대각선 점프를 위한 플레이어 좌 우 이동 입력 감지
 
         float HorizontalJumpDirection = 0f;
@@ -48,5 +50,7 @@ public class UnitJumpState : UnitAerialState
             HorizontalJumpDirection,
             stateMachine.Unit.JumpForce
         );
+
+        stateMachine.Unit.UnitController.CurrentJumpCount++; // 점프 횟수 증가
     }
 }

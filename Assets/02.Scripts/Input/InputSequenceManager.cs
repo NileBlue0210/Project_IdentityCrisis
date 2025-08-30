@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 public enum InputActionType
 {
-    Move
+    Dash,
+    AerialDash
 }
 
 /// <summary>

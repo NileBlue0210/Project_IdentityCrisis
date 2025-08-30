@@ -15,6 +15,7 @@ public class UnitStateMachine : MonoBehaviour
     private List<IUnitState> ignoreJumpStates; // 점프 불가능한 상태 컬렉션
     private List<IUnitState> ignoreCrouchStates; // 앉기 불가능한 상태 컬렉션
     private List<IUnitState> ignoreDashStates; // 대시, 백대시 불가능한 상태 컬렉션
+    private List<IUnitState> ignoreAerialDashStates; // 대시, 백대시 불가능한 상태 컬렉션
 
     [Header("State Informations")]
     private IUnitState currentState;    // 현재 상태를 나타내는 변수
@@ -94,7 +95,8 @@ public class UnitStateMachine : MonoBehaviour
 
         if (inputSequenceController != null)
         {
-            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, InputActionType.Move.ToString(), GroundDashState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 대시 입력을 감지하는 콜백 함수 등록
+            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, InputActionType.Dash.ToString(), GroundDashState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 대시 입력을 감지하는 콜백 함수 등록
+            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, InputActionType.AerialDash.ToString(), AerialDashState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 공중 대시 입력을 감지하는 콜백 함수 등록
         }
 
         SetIgnoreStates();
@@ -139,6 +141,8 @@ public class UnitStateMachine : MonoBehaviour
             if (Unit.UnitController.IsGrounded())
             {
                 ChangeUnitState(JumpState);
+
+                JumpState.Jump();   // memo : 점프 로직을 따로 호출하는 이유는, 공중 대시 혹은 백대시 종료 이후 점프 상태로 복귀했을 때 점프가 잘못 시행되는 문제를 방지하기 위함
             }
         }
     }
@@ -151,7 +155,8 @@ public class UnitStateMachine : MonoBehaviour
             GroundState,
             GroundIdleState,
             GroundWalkState,
-            GroundDashState
+            GroundDashState,
+            AerialState // 2단 점프를 위해 공중 상태도 포함
         };
 
         // 앉기 가능한 상태 컬렉션 초기화
@@ -174,6 +179,12 @@ public class UnitStateMachine : MonoBehaviour
             GroundDashState,    // 중복 대시 방지
             GroundBackDashState // 중복 백대시 방지
         };
+
+        // 공중 대시, 백대시 가능한 상태 컬렉션 초기화
+        ignoreAerialDashStates = new List<IUnitState>
+        {
+            JumpState
+        };
     }
 
     /// <summary>
@@ -195,6 +206,9 @@ public class UnitStateMachine : MonoBehaviour
                 break;
             case IUnitState state when state == GroundDashState || state == GroundBackDashState:
                 result = !ignoreDashStates.Contains(currentState);
+                break;
+            case IUnitState state when state == AerialDashState || state == AerialBackDashState:
+                result = ignoreAerialDashStates.Contains(currentState);
                 break;
             default:
                 result = false;

@@ -24,4 +24,6 @@ MonoBehaviour:
   BackDashDuration: 0.1
   JumpForce: 5
   HorizontalJumpSpeed: 2
+  JumpCount: 2
+  AerialDashCount: 2
   Gravity: -9.81

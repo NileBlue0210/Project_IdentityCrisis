@@ -38,6 +38,8 @@ public class Unit : MonoBehaviour
     [field: SerializeField] public float BackDashDuration { get; set; } // 백대시 시 이동 거리
     [field: SerializeField] public float JumpForce { get; set; } // 유닛 점프력
     [field: SerializeField] public float HorizontalJumpSpeed { get; set; }  // 유닛 대각선 점프 속도 ( 점프 각도 )
+    [field: SerializeField] public int JumpCount { get; set; } // 유닛 최대 점프 횟수
+    [field: SerializeField] public int AerialDashCount { get; set; } // 유닛 최대 대시, 백대시 횟수 ( 대시, 백대시는 횟수를 공유 )
     [field: SerializeField] public float Gravity { get; set; } // 유닛 중력 ( 점프력 조정 스테이터스 )
 
     #endregion Unit Information
@@ -103,6 +105,8 @@ public class Unit : MonoBehaviour
         BackDashDuration = UnitData.BackDashDuration;
         JumpForce = UnitData.JumpForce;
         HorizontalJumpSpeed = UnitData.HorizontalJumpSpeed;
+        JumpCount = UnitData.JumpCount;
+        AerialDashCount = UnitData.AerialDashCount;
         Gravity = UnitData.Gravity;
     }
 

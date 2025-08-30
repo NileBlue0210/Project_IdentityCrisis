@@ -22,6 +22,9 @@ public class UnitGroundState : UnitState
             stateMachine.Unit.UnitController.Velocity.y,
             0f
         );
+
+        stateMachine.Unit.UnitController.CurrentJumpCount = 0; // 착지 시 현재 점프 횟수 초기화
+        stateMachine.Unit.UnitController.CurrentAerialDashCount = 0; // 착지 시 현재 공중 대시 횟수 초기화
     }
 
     public override void Exit()

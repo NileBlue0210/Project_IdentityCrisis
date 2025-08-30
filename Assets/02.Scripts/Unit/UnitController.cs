@@ -21,6 +21,10 @@ public class UnitController : MonoBehaviour
     public int BackDashDirection { get; set; } // 백대시 방향
     public bool IsDash { get; set; }    // 현재 대시 중인지를 판단하는 플래그
     public bool IsBackDash { get; set; }    // 현재 대시 중인지를 판단하는 플래그
+    public bool IsAerialDash { get; set; }    // 현재 공중 대시 혹은 공중 백대시 중인지를 판단하는 플래그
+    public bool IsAerialBackDash { get; set; }    // 현재 공중 대시 혹은 공중 백대시 중인지를 판단하는 플래그
+    public int CurrentJumpCount { get; set; } // 현재 점프 횟수
+    public int CurrentAerialDashCount { get; set; } // 현재 공중 대시 횟수
 
     [Header("Detect Variable")]
     [SerializeField] private LayerMask GroundLayer;   // 감지한 지면의 LayerMask
@@ -115,6 +119,11 @@ public class UnitController : MonoBehaviour
         velocity.y += unit.Gravity * Time.deltaTime;
     }
 
+    public bool CheckAerialDashAvailable()
+    {
+        return CurrentAerialDashCount < unit.AerialDashCount;
+    }
+
     public IEnumerator DashCoroutine()
     {
         float startTime = Time.time;
@@ -139,6 +148,32 @@ public class UnitController : MonoBehaviour
         }
 
         unit.UnitStateMachine.GroundBackDashState.EndBackDash();
+    }
+
+    public IEnumerator AerialDashCoroutine()
+    {
+        float startTime = Time.time;
+
+        // 대시 지속시간이 끝날 때 까지 대기
+        while (Time.time < startTime + unit.DashDuration)
+        {
+            yield return null;
+        }
+
+        unit.UnitStateMachine.AerialDashState.EndAerialDash();
+    }
+
+    public IEnumerator AerialBackDashCoroutine()
+    {
+        float startTime = Time.time;
+
+        // 대시 지속시간이 끝날 때 까지 대기
+        while (Time.time < startTime + unit.BackDashDuration)
+        {
+            yield return null;
+        }
+
+        unit.UnitStateMachine.AerialBackDashState.EndAerialBackDash();
     }
     
     #endregion Methods

@@ -34,13 +34,18 @@ public class UnitGroundBackDashState : UnitState
         base.Exit();
 
         Debug.Log("UnitGroundBackDashState Exit");
+
+        stateMachine.Unit.UnitController.IsBackDash = false;    // 백대시 중 플래그 비활성화
     }
 
     public override void Update()
     {
         base.Update();
 
-        // 대시 거리만큼 이동한 후 대시 상태 종료
+        if (!stateMachine.Unit.UnitController.IsBackDash)
+            return;
+
+        // 백대시 거리만큼 이동한 후 백대시 상태 종료
         if (Time.time - backDashStartTime >= stateMachine.Unit.DashDuration)
         {
             EndBackDash();
