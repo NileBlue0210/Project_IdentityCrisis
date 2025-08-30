@@ -32,8 +32,10 @@ public class Unit : MonoBehaviour
     [field: SerializeField] public float Defense { get; set; } // 유닛 방어력
     [field: SerializeField] public float MoveSpeed { get; set; } // 유닛 속도
     [field: SerializeField] public UnitDashType DashType { get; set; } // 유닛의 대시 타입
-    [field: SerializeField] public float DashSpeed { get; set; } // 달리기 시 가속도
+    [field: SerializeField] public float DashSpeed { get; set; } // 달리기 시 가속도, 또는 대시 속도
     [field: SerializeField] public float DashDuration { get; set; } // 대시 시 이동 거리
+    [field: SerializeField] public float BackDashSpeed { get; set; } // 백대시 속도
+    [field: SerializeField] public float BackDashDuration { get; set; } // 백대시 시 이동 거리
     [field: SerializeField] public float JumpForce { get; set; } // 유닛 점프력
     [field: SerializeField] public float HorizontalJumpSpeed { get; set; }  // 유닛 대각선 점프 속도 ( 점프 각도 )
     [field: SerializeField] public float Gravity { get; set; } // 유닛 중력 ( 점프력 조정 스테이터스 )
@@ -97,6 +99,8 @@ public class Unit : MonoBehaviour
         DashType = UnitData.DashType;
         DashSpeed = UnitData.DashSpeed;
         DashDuration = UnitData.DashDuration;
+        BackDashSpeed = UnitData.BackDashSpeed;
+        BackDashDuration = UnitData.BackDashDuration;
         JumpForce = UnitData.JumpForce;
         HorizontalJumpSpeed = UnitData.HorizontalJumpSpeed;
         Gravity = UnitData.Gravity;

@@ -12,10 +12,13 @@ public class UnitStateMachine : MonoBehaviour
     [Header("Properties")]
     public Unit Unit;   // 각 상태에서 캐릭터를 제어하기 위한 변수
     private InputSequenceManager inputSequenceController;    // 연속 입력을 처리하기 위한 변수
+    private List<IUnitState> ignoreJumpStates; // 점프 불가능한 상태 컬렉션
+    private List<IUnitState> ignoreCrouchStates; // 앉기 불가능한 상태 컬렉션
+    private List<IUnitState> ignoreDashStates; // 대시, 백대시 불가능한 상태 컬렉션
 
     [Header("State Informations")]
     private IUnitState currentState;    // 현재 상태를 나타내는 변수
-    public IUnitState CurrentState { get { return currentState; } set { currentState = value; }}
+    public IUnitState CurrentState { get { return currentState; } set { currentState = value; } }
 
     [Header("Other States")]
     public UnitSpawnState SpawnState;
@@ -93,6 +96,8 @@ public class UnitStateMachine : MonoBehaviour
         {
             inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, InputActionType.Move.ToString(), GroundDashState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 대시 입력을 감지하는 콜백 함수 등록
         }
+
+        SetIgnoreStates();
     }
 
     public void ChangeUnitState(IUnitState state)
@@ -108,7 +113,7 @@ public class UnitStateMachine : MonoBehaviour
 
     private void OnCrouchPerformed(InputAction.CallbackContext context)
     {
-        if (currentState == GroundState || currentState == GroundIdleState || currentState == GroundWalkState || currentState == GroundDashState)
+        if (CheckChangeStateAvailable(CrouchState))
         {
             ChangeUnitState(CrouchState);
         }
@@ -129,12 +134,73 @@ public class UnitStateMachine : MonoBehaviour
     */
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
-        if (currentState == GroundState || currentState == GroundIdleState || currentState == GroundWalkState || currentState == GroundDashState)
+        if (CheckChangeStateAvailable(JumpState))
         {
             if (Unit.UnitController.IsGrounded())
             {
                 ChangeUnitState(JumpState);
             }
         }
+    }
+
+    private void SetIgnoreStates()
+    {
+        // 점프 가능한 상태 컬렉션 초기화
+        ignoreJumpStates = new List<IUnitState>
+        {
+            GroundState,
+            GroundIdleState,
+            GroundWalkState,
+            GroundDashState
+        };
+
+        // 앉기 가능한 상태 컬렉션 초기화
+        ignoreCrouchStates = new List<IUnitState>
+        {
+            GroundState,
+            GroundIdleState,
+            GroundWalkState,
+            GroundDashState
+        };
+
+        // 대시, 백대시 불가능한 상태 컬렉션 초기화
+        ignoreDashStates = new List<IUnitState>
+        {
+            AerialState,
+            JumpState,
+            AerialDashState,
+            AerialBackDashState,
+            CrouchState,
+            GroundDashState,    // 중복 대시 방지
+            GroundBackDashState // 중복 백대시 방지
+        };
+    }
+
+    /// <summary>
+    /// 특정 상태로의 전환이 가능한지 여부를 판단하는 메소드
+    /// </summary>
+    /// <param name="targetState"></param>
+    /// <returns></returns>
+    public bool CheckChangeStateAvailable(IUnitState targetState)
+    {
+        bool result = false;
+
+        switch (targetState)
+        {
+            case IUnitState state when state == JumpState:
+                result = ignoreJumpStates.Contains(currentState);
+                break;
+            case IUnitState state when state == CrouchState:
+                result = ignoreCrouchStates.Contains(currentState);
+                break;
+            case IUnitState state when state == GroundDashState || state == GroundBackDashState:
+                result = !ignoreDashStates.Contains(currentState);
+                break;
+            default:
+                result = false;
+                break;
+        }
+
+        return result;
     }
 }

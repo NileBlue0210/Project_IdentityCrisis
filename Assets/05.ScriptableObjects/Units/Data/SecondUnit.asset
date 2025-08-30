@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79118bc69b8e1584abf605b85564508d, type: 3}
-  m_Name: DummyChan
+  m_Name: SecondUnit
   m_EditorClassIdentifier: 
-  UnitName: DummyChan
-  Attack: 1
-  Health: 100
-  Defense: 5
+  UnitName: SecondUnit
+  Attack: 5
+  Health: 50
+  Defense: 10
   MoveSpeed: 0.01
-  DashType: 0
-  DashSpeed: 10
+  DashType: 1
+  DashSpeed: 5
   DashDuration: 0.1
+  BackDashSpeed: 10
+  BackDashDuration: 0.1
   JumpForce: 5
   HorizontalJumpSpeed: 2
   Gravity: -9.81

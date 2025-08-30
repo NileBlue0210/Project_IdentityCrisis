@@ -11,7 +11,6 @@ using DG.Tweening;
 /// </summary>
 public class UnitGroundDashState : UnitState
 {
-    private int dashDirection;   // 대시 방향
     private float dashStartTime;    // 대시 시작 시간
     private UnitDashType dashType;  // 대시 타입
 
@@ -46,6 +45,8 @@ public class UnitGroundDashState : UnitState
         Debug.Log("UnitGroundDashState Exit");
 
         stateMachine.Unit.UnitController.IsDash = false;    // 대시 중 플래그 비활성화
+
+        // memo : EndBackDash() 로 일괄 처리하지 않은 이유는, 대시 타입별로 종료 시점과 이후의 처리가 분기될 가능성을 염두에 뒀기 때문
     }
 
     public override void Update()
@@ -81,7 +82,7 @@ public class UnitGroundDashState : UnitState
 
         float dashSpeed = stateMachine.Unit.DashSpeed;
 
-        stateMachine.Unit.UnitController.Velocity = new Vector3(dashDirection * dashSpeed, 0, 0);
+        stateMachine.Unit.UnitController.Velocity = new Vector3(stateMachine.Unit.UnitController.DashDirection * dashSpeed, 0, 0);
 
         stateMachine.StartCoroutine(stateMachine.Unit.UnitController.DashCoroutine());
     }
@@ -96,7 +97,7 @@ public class UnitGroundDashState : UnitState
     private void Run()
     {
         float runSpeed = ( stateMachine.Unit.MoveSpeed * 100 ) * stateMachine.Unit.DashSpeed;
-        stateMachine.Unit.UnitController.Velocity = new Vector3(dashDirection * runSpeed, 0, 0);
+        stateMachine.Unit.UnitController.Velocity = new Vector3(stateMachine.Unit.UnitController.DashDirection * runSpeed, 0, 0);
     }
 
     private void EndRun()
@@ -108,6 +109,9 @@ public class UnitGroundDashState : UnitState
 
     public void OnDashInputDetected(string id, int tapCount, int direction)
     {
+        if (!stateMachine.CheckChangeStateAvailable(stateMachine.GroundDashState))
+            return;
+
         int dir = direction;
 
         if (dir == 0)
@@ -123,13 +127,13 @@ public class UnitGroundDashState : UnitState
         if (isForward)
         {
             // 대시 혹은 달리기 시행
-            dashDirection = dir;
+            stateMachine.Unit.UnitController.DashDirection = dir;
             stateMachine.ChangeUnitState(stateMachine.GroundDashState);
         }
         else
         {
             // 백대시 시행
-            dashDirection = dir;
+            stateMachine.Unit.UnitController.BackDashDirection = dir;
             stateMachine.ChangeUnitState(stateMachine.GroundBackDashState);
         }
     }

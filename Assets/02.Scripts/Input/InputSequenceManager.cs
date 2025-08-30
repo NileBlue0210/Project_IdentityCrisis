@@ -55,12 +55,12 @@ public class InputSequenceManager : MonoBehaviour
         playerInputActions = GameManager.Instance.GetManager<InputManager>(typeof(InputManager)).PlayerInputActions;
     }
 
-    void Start()
+    private void Start()
     {
 
     }
 
-    void Update()
+    private void Update()
     {
         // 축 입력에 대한 연속 입력 감지 처리
         foreach (AxisRegister register in axisRegisters)

@@ -122,37 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &21025254
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 21025255}
-  m_Layer: 0
-  m_Name: Dummy========================================
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &21025255
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 21025254}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &119565861
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,7 +501,7 @@ GameObject:
   - component: {fileID: 576100218}
   - component: {fileID: 576100223}
   m_Layer: 9
-  m_Name: DummyChan
+  m_Name: Unit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -645,12 +614,6 @@ MonoBehaviour:
   WallLayer:
     serializedVersion: 2
     m_Bits: 8192
-  <Attack>k__BackingField: 0
-  <Health>k__BackingField: 0
-  <Defense>k__BackingField: 0
-  <MoveSpeed>k__BackingField: 0
-  <JumpForce>k__BackingField: 0
-  <Gravity>k__BackingField: 0
   <GroundRayRange>k__BackingField: 0
   <WallRayRange>k__BackingField: 0
   <GroundPoint>k__BackingField: 0
@@ -672,6 +635,18 @@ MonoBehaviour:
     type: 2}
   <UnitName>k__BackingField: 
   <PlayerableId>k__BackingField: 0
+  <Attack>k__BackingField: 0
+  <Health>k__BackingField: 0
+  <Defense>k__BackingField: 0
+  <MoveSpeed>k__BackingField: 0
+  <DashType>k__BackingField: 0
+  <DashSpeed>k__BackingField: 0
+  <DashDuration>k__BackingField: 0
+  <BackDashSpeed>k__BackingField: 0
+  <BackDashDuration>k__BackingField: 0
+  <JumpForce>k__BackingField: 0
+  <HorizontalJumpSpeed>k__BackingField: 0
+  <Gravity>k__BackingField: 0
 --- !u!61 &576100222
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -730,7 +705,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Unit: {fileID: 0}
-  Velocity: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,6 +761,5 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 21025255}
   - {fileID: 576100216}
   - {fileID: 119565865}

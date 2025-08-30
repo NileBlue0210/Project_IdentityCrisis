@@ -17,7 +17,10 @@ public class UnitController : MonoBehaviour
     private bool isControllable; // 유닛 조작 가능 여부
     private Vector3 velocity;   // 위치값 기반의 유닛 속력
     public Vector3 Velocity { get { return velocity; } set { velocity = value; } }
+    public int DashDirection { get; set; } // 대시 방향
+    public int BackDashDirection { get; set; } // 백대시 방향
     public bool IsDash { get; set; }    // 현재 대시 중인지를 판단하는 플래그
+    public bool IsBackDash { get; set; }    // 현재 대시 중인지를 판단하는 플래그
 
     [Header("Detect Variable")]
     [SerializeField] private LayerMask GroundLayer;   // 감지한 지면의 LayerMask
@@ -111,7 +114,7 @@ public class UnitController : MonoBehaviour
     {
         velocity.y += unit.Gravity * Time.deltaTime;
     }
-    
+
     public IEnumerator DashCoroutine()
     {
         float startTime = Time.time;
@@ -123,6 +126,19 @@ public class UnitController : MonoBehaviour
         }
 
         unit.UnitStateMachine.GroundDashState.EndDash();
+    }
+
+    public IEnumerator BackDashCoroutine()
+    {
+        float startTime = Time.time;
+
+        // 대시 지속시간이 끝날 때 까지 대기
+        while (Time.time < startTime + unit.BackDashDuration)
+        {
+            yield return null;
+        }
+
+        unit.UnitStateMachine.GroundBackDashState.EndBackDash();
     }
     
     #endregion Methods
