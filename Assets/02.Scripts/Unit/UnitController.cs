@@ -74,7 +74,7 @@ public class UnitController : MonoBehaviour
     /// </summary>
     private void Init()
     {
-        GroundRayRange = 0.5f;    // 테스트용 코드 ( 상정 상황은 각 유닛별로 Ray를 다르게 주는 것이 전제 )
+        GroundRayRange = 0.1f;    // 테스트용 코드 ( 상정 상황은 각 유닛별로 Ray를 다르게 주는 것이 전제 )
         WallRayRange = 0.5f;  // 테스트용 코드 ( 상정 상황은 각 유닛별로 Ray를 다르게 주는 것이 전제 )
 
         if (GroundLayer == 0)   // GroundLayer 값을 설정하지 않아 기본값으로 설정되어 있을 경우, GroundLayer값을 수동으로 설정한다
