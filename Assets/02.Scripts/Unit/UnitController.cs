@@ -96,6 +96,9 @@ public class UnitController : MonoBehaviour
 
     public bool IsGrounded()
     {
+        if (velocity.y > 0f)    // 점프 상승 중에는 지면에 닿았는지 체크하지 않음
+            return false;
+
         bool isGrounded = Physics.Raycast(transform.position, Vector3.down, GroundRayRange, GroundLayer);
 
         Debug.DrawRay(transform.position, Vector3.down * GroundRayRange, isGrounded ? Color.green : Color.red); // Ray를 가시적으로 확인하기 위한 테스트용 기즈모 출력
