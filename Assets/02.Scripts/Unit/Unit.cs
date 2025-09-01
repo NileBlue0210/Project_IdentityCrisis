@@ -21,6 +21,7 @@ public class Unit : MonoBehaviour
     public UnitController UnitController { get; set; }
     public UnitCondition UnitCondition { get; set; }
     public UnitStateMachine UnitStateMachine { get; set; }
+    public Animator UnitAnimator { get; set; }
 
     #region Unit Information
 
@@ -70,9 +71,17 @@ public class Unit : MonoBehaviour
             Debug.LogError("Add UnitStateMachine Component to Unit");
         }
 
+        if (this.TryGetComponent<Animator>(out Animator UnitAnimatorComponent) == false)
+        {
+            this.gameObject.AddComponent<Animator>();
+         
+            Debug.LogError("Add Animator Component to Unit");
+        }
+
         UnitController = this.GetComponent<UnitController>();
         UnitCondition = this.GetComponent<UnitCondition>();
         UnitStateMachine = this.GetComponent<UnitStateMachine>();
+        UnitAnimator = GetComponentInChildren<Animator>();
 
         Init(); // 유닛 정보 초기화
     }
