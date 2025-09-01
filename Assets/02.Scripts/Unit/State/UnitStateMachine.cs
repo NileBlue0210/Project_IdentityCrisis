@@ -140,6 +140,9 @@ public class UnitStateMachine : MonoBehaviour
         {
             if (Unit.UnitController.IsGrounded())
             {
+                if (Unit.UnitController.IsDash && Unit.DashType == UnitDashType.Dash)   // 대시 타입이 Dash일 경우, 대시 중 점프 불가
+                    return;
+
                 ChangeUnitState(JumpState);
 
                 JumpState.Jump();   // memo : 점프 로직을 따로 호출하는 이유는, 공중 대시 혹은 백대시 종료 이후 점프 상태로 복귀했을 때 점프가 잘못 시행되는 문제를 방지하기 위함

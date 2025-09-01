@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // to do : Start시에 플레이어의 컨트롤ID ( 1P인지 2P인지 ) 와 Unit의 컨트롤ID가 같을 경우, 조작 가능 플래그를 활성화
@@ -99,11 +100,24 @@ public class UnitController : MonoBehaviour
         if (velocity.y > 0f)    // 점프 상승 중에는 지면에 닿았는지 체크하지 않음
             return false;
 
-        bool isGrounded = Physics.Raycast(transform.position, Vector3.down, GroundRayRange, GroundLayer);
+        Ray[] groundRays = new Ray[4]
+        {
+            new Ray(transform.position + (transform.forward * 0.2f), Vector3.down),
+            new Ray(transform.position + (-transform.forward * 0.2f), Vector3.down),
+            new Ray(transform.position + (transform.right * 0.2f), Vector3.down),
+            new Ray(transform.position + (-transform.right * 0.2f), Vector3.down)
+        };
 
-        Debug.DrawRay(transform.position, Vector3.down * GroundRayRange, isGrounded ? Color.green : Color.red); // Ray를 가시적으로 확인하기 위한 테스트용 기즈모 출력
+        bool[] hitResults = new bool[groundRays.Length];
 
-        return isGrounded;
+        for (int i = 0; i < groundRays.Length; i++)
+        {
+            hitResults[i] = Physics.Raycast(groundRays[i], GroundRayRange, GroundLayer);
+
+            Debug.DrawRay(groundRays[i].origin, groundRays[i].direction * GroundRayRange, hitResults[i] ? Color.green : Color.red); // Ray를 가시적으로 확인하기 위한 테스트용 기즈모 출력
+        }
+
+        return hitResults.Contains(true); // 4개의 Ray 중 하나라도 닿았을 경우, true 반환
     }
 
     public bool IsBumpWall()
