@@ -71,17 +71,15 @@ public class Unit : MonoBehaviour
             Debug.LogError("Add UnitStateMachine Component to Unit");
         }
 
-        if (this.TryGetComponent<Animator>(out Animator UnitAnimatorComponent) == false)
+        if (this.GetComponentInChildren<Animator>() == null)
         {
-            this.gameObject.AddComponent<Animator>();
-         
-            Debug.LogError("Add Animator Component to Unit");
+            Debug.LogError("Unit Animator is Null");
         }
 
         UnitController = this.GetComponent<UnitController>();
         UnitCondition = this.GetComponent<UnitCondition>();
         UnitStateMachine = this.GetComponent<UnitStateMachine>();
-        UnitAnimator = GetComponentInChildren<Animator>();
+        UnitAnimator = GetComponentInChildren<Animator>();  // 유닛 하위에 있는 모델 Animator 컴포넌트 취득
 
         Init(); // 유닛 정보 초기화
     }

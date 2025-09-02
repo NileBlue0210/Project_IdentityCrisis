@@ -61,6 +61,7 @@ public class UnitGroundBackDashState : UnitState
         stateMachine.Unit.UnitController.Velocity = new Vector3(stateMachine.Unit.UnitController.BackDashDirection * dashSpeed, 0, 0); // 백대시 방향은 현재 바라보는 방향의 반대
 
         stateMachine.StartCoroutine(stateMachine.Unit.UnitController.BackDashCoroutine()); // 백대시 코루틴 실행
+        stateMachine.Unit.UnitAnimator.SetTrigger("IsGroundDash"); // 백대시 애니메이션 재생
     }
 
     public void EndBackDash()
