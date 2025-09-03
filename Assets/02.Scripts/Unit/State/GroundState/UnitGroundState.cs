@@ -25,6 +25,9 @@ public class UnitGroundState : UnitState
 
         stateMachine.Unit.UnitController.CurrentJumpCount = 0; // 착지 시 현재 점프 횟수 초기화
         stateMachine.Unit.UnitController.CurrentAerialDashCount = 0; // 착지 시 현재 공중 대시 횟수 초기화
+
+        // 지상 상태에 진입할 때 애니메이터의 IsGrounded 값을 true로 설정
+        stateMachine.Unit.UnitAnimator.SetBool("IsGrounded", true);
     }
 
     public override void Exit()

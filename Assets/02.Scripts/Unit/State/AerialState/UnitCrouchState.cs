@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitCrouchState : UnitState
+public class UnitCrouchState : UnitGroundState
 {
     public UnitCrouchState(UnitStateMachine stateMachine) : base(stateMachine)
     {

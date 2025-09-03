@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnityChanScript : MonoBehaviour
+public class LowPolyScript : MonoBehaviour
 {
     private void Awake()
     {
