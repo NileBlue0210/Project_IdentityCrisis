@@ -95,8 +95,8 @@ public class UnitStateMachine : MonoBehaviour
 
         if (inputSequenceController != null)
         {
-            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, InputActionType.Dash.ToString(), GroundDashState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 대시 입력을 감지하는 콜백 함수 등록
-            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, InputActionType.AerialDash.ToString(), AerialDashState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 공중 대시 입력을 감지하는 콜백 함수 등록
+            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, InputActionType.Dash.ToString(), GroundState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 대시 입력을 감지하는 콜백 함수 등록
+            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, InputActionType.AerialDash.ToString(), AerialState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 공중 대시 입력을 감지하는 콜백 함수 등록
         }
 
         SetIgnoreStates();

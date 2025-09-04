@@ -35,4 +35,38 @@ public class UnitAerialState : UnitState
             stateMachine.ChangeUnitState(stateMachine.GroundState);
         }
     }
+
+    public void OnDashInputDetected(string id, int tapCount, int direction)
+    {
+        if (!stateMachine.CheckChangeStateAvailable(stateMachine.AerialDashState))
+            return;
+
+        if (!stateMachine.Unit.UnitController.CheckAerialDashAvailable())
+            return;
+
+        int dir = direction;
+
+        if (dir == 0)
+        {
+            var InputDirectionX = GameManager.Instance.GetManager<InputManager>(typeof(InputManager)).PlayerInputActions.Unit.Move.ReadValue<Vector2>().x;
+
+            dir = InputDirectionX > 0 ? 1 : (InputDirectionX < 0 ? -1 : (int)stateMachine.transform.localScale.x);  // 입력값을 1, -1로 보정
+        }
+
+        int facing = (int)Mathf.Sign(stateMachine.transform.localScale.x);  // 캐릭터가 바라보는 방향
+        bool isForward = Mathf.Sign(dir) == Mathf.Sign(facing); // 입력한 방향이 캐릭터가 바라보는 방향과 일치하는가를 판단하는 플래그
+
+        if (isForward)
+        {
+            // 공중 대시 시행
+            stateMachine.Unit.UnitController.DashDirection = dir;
+            stateMachine.ChangeUnitState(stateMachine.AerialDashState);
+        }
+        else
+        {
+            // 공중 백대시 시행
+            stateMachine.Unit.UnitController.BackDashDirection = dir;
+            stateMachine.ChangeUnitState(stateMachine.AerialBackDashState);
+        }
+    }
 }
