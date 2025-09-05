@@ -17,8 +17,12 @@ public class UnitData : ScriptableObject
     public UnitDashType DashType;
     public float DashSpeed;
     public float DashDuration;
+    public float AerialDashSpeed;
+    public float AerialDashDuration;
     public float BackDashSpeed;
     public float BackDashDuration;
+    public float AerialBackDashSpeed;
+    public float AerialBackDashDuration;
     public float JumpForce;
     public float HorizontalJumpSpeed;
     public int JumpCount;

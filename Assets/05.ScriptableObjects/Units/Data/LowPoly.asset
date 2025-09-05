@@ -18,10 +18,14 @@ MonoBehaviour:
   Defense: 5
   MoveSpeed: 0.01
   DashType: 0
-  DashSpeed: 10
-  DashDuration: 0.1
-  BackDashSpeed: 10
-  BackDashDuration: 0.1
+  DashSpeed: 8
+  DashDuration: 0.25
+  AerialDashSpeed: 6
+  AerialDashDuration: 0.3
+  BackDashSpeed: 8
+  BackDashDuration: 0.15
+  AerialBackDashSpeed: 6
+  AerialBackDashDuration: 0.3
   JumpForce: 5
   HorizontalJumpSpeed: 2
   JumpCount: 2

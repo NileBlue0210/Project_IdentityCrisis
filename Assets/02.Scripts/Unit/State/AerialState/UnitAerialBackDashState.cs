@@ -45,7 +45,7 @@ public class UnitAerialBackDashState : UnitAerialState
             return;
 
         // 백대시 거리만큼 이동한 후 백대시 상태 종료
-        if (Time.time - backDashStartTime >= stateMachine.Unit.DashDuration)
+        if (Time.time - backDashStartTime >= stateMachine.Unit.AerialBackDashDuration)
         {
             EndAerialBackDash();
         }
@@ -55,7 +55,7 @@ public class UnitAerialBackDashState : UnitAerialState
     {
         backDashStartTime = Time.time;
 
-        float backDashSpeed = stateMachine.Unit.BackDashSpeed;
+        float backDashSpeed = stateMachine.Unit.AerialBackDashSpeed;
 
         stateMachine.Unit.UnitController.Velocity = new Vector2(stateMachine.Unit.UnitController.BackDashDirection * backDashSpeed, 0);
 

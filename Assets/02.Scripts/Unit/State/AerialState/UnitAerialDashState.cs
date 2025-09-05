@@ -45,7 +45,7 @@ public class UnitAerialDashState : UnitAerialState
             return;
 
         // 대시 거리만큼 이동한 후 대시 상태 종료
-        if (Time.time - dashStartTime >= stateMachine.Unit.DashDuration)
+        if (Time.time - dashStartTime >= stateMachine.Unit.AerialDashDuration)
         {
             EndAerialDash();
         }
@@ -55,7 +55,7 @@ public class UnitAerialDashState : UnitAerialState
     {
         dashStartTime = Time.time;
 
-        float dashSpeed = stateMachine.Unit.DashSpeed;
+        float dashSpeed = stateMachine.Unit.AerialDashSpeed;
 
         stateMachine.Unit.UnitController.Velocity = new Vector2(stateMachine.Unit.UnitController.DashDirection * dashSpeed, 0);
 

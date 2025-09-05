@@ -172,7 +172,7 @@ public class UnitController : MonoBehaviour
         float startTime = Time.time;
 
         // 대시 지속시간이 끝날 때 까지 대기
-        while (Time.time < startTime + unit.DashDuration)
+        while (Time.time < startTime + unit.AerialDashDuration)
         {
             yield return null;
         }
@@ -185,7 +185,7 @@ public class UnitController : MonoBehaviour
         float startTime = Time.time;
 
         // 대시 지속시간이 끝날 때 까지 대기
-        while (Time.time < startTime + unit.BackDashDuration)
+        while (Time.time < startTime + unit.AerialBackDashDuration)
         {
             yield return null;
         }
