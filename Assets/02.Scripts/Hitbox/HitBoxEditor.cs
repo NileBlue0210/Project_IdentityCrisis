@@ -13,6 +13,11 @@ public class HitBoxEditor : EditorWindow
     private GameObject characterPrefab;
     private bool livePreview; // 히트, 허트박스 미리보기 토글
 
+    // 새 히트박스 추가를 위한 임시 변수
+    private string newHitboxName = "NewHitBox";
+    private Vector3 newHitboxSize = Vector3.one;
+    private Vector3 newHitboxOffset = Vector3.zero;
+
     // 윈도우를 열기 위한 메뉴 아이템 추가
     [MenuItem("Window/HitBox Editor")]
     public static void ShowWindow()
@@ -150,6 +155,8 @@ public class HitBoxEditor : EditorWindow
 
             GUILayout.Label($"Editing Frame {currentFrame.frameNumber}", EditorStyles.boldLabel);
 
+            GUILayout.Space(10);
+
             // HitBox 편집
             GUILayout.Label("HitBoxes", EditorStyles.boldLabel);
 
@@ -171,10 +178,22 @@ public class HitBoxEditor : EditorWindow
                 GUILayout.EndHorizontal();
             }
 
+            GUILayout.Label("New HitBox Settings", EditorStyles.boldLabel);
+
+            newHitboxName = EditorGUILayout.TextField("Name", newHitboxName);
+            newHitboxSize = EditorGUILayout.Vector3Field("Size", newHitboxSize);
+            newHitboxOffset = EditorGUILayout.Vector3Field("Offset", newHitboxOffset);
+
             if (GUILayout.Button("Add HitBox"))
             {
                 // currentFrame.hitboxes.Add(new HitBoxData("NewHitBox", Vector3.one, Vector3.zero, Vector3.up));
-                currentFrame.hitboxes.Add(new HitBoxData());
+                // currentFrame.hitboxes.Add(new HitBoxData());
+                currentFrame.hitboxes.Add(new HitBoxData {
+                    hitboxName = newHitboxName,
+                    size = newHitboxSize,
+                    offset = newHitboxOffset,
+                    knockback = Vector3.up
+                });
             }
 
             GUILayout.Space(10);
@@ -396,7 +415,7 @@ public class HitBoxEditor : EditorWindow
                 Handles.DrawWireCube(hb.offset, hb.size);
             }
         }
-        
+
         sceneView.Repaint();
     }
 
