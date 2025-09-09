@@ -20,6 +20,7 @@ public class HitBoxEditor : EditorWindow
     private float currentAnimationTime; // 현재 애니메이션 재생 시간
     private bool previewPlaying = false; // 프리뷰 애니메이션 재생 여부
     private bool animationModeActive = false; // 애니메이션 모드 활성화 여부
+    private Animator animator; // 프리뷰용 캐릭터 프리팹의 애니메이터 컴포넌트
 
     [Header("Default HitBox Settings")]
     // 새 히트박스 추가를 위한 임시 변수
@@ -33,66 +34,6 @@ public class HitBoxEditor : EditorWindow
     {
         GetWindow(typeof(HitBoxEditor), false, "HitBox Editor");    // 기존 열려있는 윈도우가 있다면 포커스, 없다면 윈도우를 새로 생성
     }
-
-    // private void OnGUI()
-    // {
-    //     hitBoxFrameData = (HitBoxFrameData)EditorGUILayout.ObjectField("Animation Frame Data", hitBoxFrameData, typeof(HitBoxFrameData), false);
-    //     characterPrefab = (GameObject)EditorGUILayout.ObjectField("Character Prefab", characterPrefab, typeof(GameObject), false);
-
-    //     if (hitBoxFrameData != null)
-    //     {
-    //         // 프레임 조절을 위한 슬라이더 UI
-    //         currentFrameIndex = EditorGUILayout.IntSlider("Current Frame", currentFrameIndex, 0, Mathf.Max(0, hitBoxFrameData.frames.Count - 1));
-
-    //         // 에디터를 통한 히트박스 추가 버튼 로직
-    //         if (GUILayout.Button("Add HitBox to Current Frame"))
-    //         {
-    //             // 현재 프레임 데이터에 히트박스 데이터 추가
-    //             if (currentFrameIndex < hitBoxFrameData.frames.Count)
-    //             {
-    //                 hitBoxFrameData.frames[currentFrameIndex].hitboxes.Add(new HitBoxData());
-    //             }
-                
-    //             Repaint(); // 추가 후 즉시 Scene 뷰 갱신
-    //         }
-
-    //         // 변경 내역 저장 버튼 로직
-    //         if (GUILayout.Button("Save Data"))
-    //         {
-    //             EditorUtility.SetDirty(hitBoxFrameData);
-    //             AssetDatabase.SaveAssets();
-    //         }
-    //     }
-    // }
-    
-    // private void OnSceneGUI(SceneView sceneView)
-    // {
-    //     if (hitBoxFrameData == null || characterPrefab == null || hitBoxFrameData.frames.Count <= currentFrameIndex)
-    //         return;
-
-    //     FrameData currentFrame = hitBoxFrameData.frames[currentFrameIndex];
-    //     Handles.color = Color.red;  // 히트박스, 허트박스 시각화
-
-    //     // to do : 히트박스와 허트박스의 색을 구별해볼 것
-    //     for (int i = 0; i < currentFrame.hitboxes.Count; i++)
-    //     {
-    //         var hitbox = currentFrame.hitboxes[i];
-            
-    //         // 핸들을 이용해 위치, 크기 조절
-    //         hitbox.offset = Handles.PositionHandle(hitbox.offset, Quaternion.identity);
-    //         hitbox.size = Handles.ScaleHandle(hitbox.size, hitbox.offset, Quaternion.identity, HandleUtility.GetHandleSize(hitbox.offset));
-            
-    //         // 박스 그리기
-    //         Handles.DrawWireCube(hitbox.offset, hitbox.size);
-    //     }
-
-    //     // Scene 뷰 갱신
-    //     if (GUI.changed)
-    //     {
-    //         EditorUtility.SetDirty(hitBoxFrameData);
-    //     }
-    // }
-
 
     /// <summary>
     /// 에디터 GUI 작성 메소드
@@ -110,13 +51,6 @@ public class HitBoxEditor : EditorWindow
         if (hitBoxFrameData == null)
         {
             EditorGUILayout.HelpBox("Please assign an Animation Frame Data ScriptableObject or create a new one.", MessageType.Warning);
-
-            // 히트박스 데이터가 할당되지 않은 경우, 새로 할당할 수 있는 버튼 생성
-            // if (GUILayout.Button("Create New Animation Frame Data"))
-            // {
-            //     hitBoxFrameData = new HitBoxFrameData();
-            //     currentFrameIndex = 0;
-            // }
 
             if (GUILayout.Button("Create New HitBoxFrameData Asset"))
             {
@@ -142,6 +76,17 @@ public class HitBoxEditor : EditorWindow
 
             return;
         }
+        else
+        {
+            animator = characterPrefab.GetComponentInChildren<Animator>();
+
+            if (animator == null || animator.runtimeAnimatorController == null)
+            {
+                EditorGUILayout.HelpBox("The assigned character prefab must have an Animator with a valid Controller.", MessageType.Warning);
+
+                return;
+            }
+        }
 
         if (animationClip == null)
         {
@@ -151,14 +96,6 @@ public class HitBoxEditor : EditorWindow
         }
 
         GUILayout.Space(10);    // 가독성을 위한 공백 추가
-
-        // currentAnimationTime = EditorGUILayout.Slider("Animation Time", currentAnimationTime, 0f, animationClip.length);
-
-        // if (Event.current.type == EventType.Repaint)
-        // {
-        //     AnimationMode.StartAnimationMode();
-        //     AnimationMode.SampleAnimationClip(characterPrefab, animationClip, currentAnimationTime);
-        // }
 
         if (!previewPlaying)
         {
@@ -190,7 +127,7 @@ public class HitBoxEditor : EditorWindow
         if (previewPlaying && animationModeActive && characterPrefab != null)
         {
             // 샘플링 (매 GUI 갱신 시)
-            AnimationMode.SampleAnimationClip(characterPrefab, animationClip, currentAnimationTime);
+            AnimationMode.SampleAnimationClip(animator.gameObject, animationClip, currentAnimationTime);
         }
 
         GUILayout.Space(10);
@@ -261,8 +198,6 @@ public class HitBoxEditor : EditorWindow
 
             if (GUILayout.Button("Add HitBox"))
             {
-                // currentFrame.hitboxes.Add(new HitBoxData("NewHitBox", Vector3.one, Vector3.zero, Vector3.up));
-                // currentFrame.hitboxes.Add(new HitBoxData());
                 currentFrame.hitboxes.Add(new HitBoxData {
                     hitboxName = newHitboxName,
                     size = newHitboxSize,
@@ -298,27 +233,6 @@ public class HitBoxEditor : EditorWindow
                 // currentFrame.hurtboxes.Add(new HurtBoxData("NewHurtBox", Vector3.one, Vector3.zero));
                 currentFrame.hurtboxes.Add(new HurtBoxData());
             }
-
-            // 변경 사항 저장
-            // if (GUI.changed)
-            // {
-            //     EditorUtility.SetDirty(hitBoxFrameData);
-            //     AssetDatabase.SaveAssets();
-            //     AssetDatabase.Refresh();
-            // }
-
-            // // 캐릭터 프리팹에 히트박스 및 허트박스 시각화
-            // if (GUILayout.Button("Visualize on Character"))
-            // {
-            //     VisualizeHitAndHurtBoxes(characterPrefab, currentFrame);
-            // }
-
-            // GUILayout.Space(10);
-
-            // if (GUILayout.Button("Clear Visualization"))
-            // {
-            //     ClearVisualization(characterPrefab);
-            // }
 
             GUILayout.Space(10);
 
@@ -440,31 +354,6 @@ public class HitBoxEditor : EditorWindow
     }
 
     /// <summary>
-    /// 에디터 윈도우가 포커스를 잃을 때 호출되는 메소드
-    /// </summary>
-    /// <returns></returns>
-    private void OnFocusLost()
-    {
-        if (characterPrefab != null)
-        {
-            ClearVisualization(characterPrefab);
-        }
-    }
-
-    /// <summary>
-    /// 에디터 윈도우가 포커스를 얻을 때 호출되는 메소드
-    /// </summary>
-    /// <returns></returns>
-    private void OnFocusGained()
-    {
-        if (characterPrefab != null && hitBoxFrameData != null && hitBoxFrameData.frames.Count > 0)
-        {
-            FrameData currentFrame = hitBoxFrameData.frames[currentFrameIndex];
-            VisualizeHitAndHurtBoxes(characterPrefab, currentFrame);
-        }
-    }
-
-    /// <summary>
     /// 에디터 윈도우가 활성화될 때 호출되는 메소드
     /// </summary>
     /// <returns></returns>
@@ -500,46 +389,7 @@ public class HitBoxEditor : EditorWindow
             return;
 
         FrameData frame = hitBoxFrameData.frames[currentFrameIndex];
-        // Handles.zTest = UnityEngine.Rendering.CompareFunction.Always;
 
-        // // 캐릭터 트랜스폼 기준으로 그리기
-        // using (new Handles.DrawingScope(characterPrefab.transform.localToWorldMatrix))
-        // {
-        //     // 히트박스: 빨강 외곽선
-        //     foreach (var hb in frame.hitboxes)
-        //     {
-        //         Handles.color = new Color(1f, 0f, 0f, 0.8f);
-        //         Handles.DrawWireCube(hb.offset, hb.size);
-        //         // (원하시면 Position/Scale 핸들 추가해 실시간 편집도 가능)
-        //     }
-
-        //     // 허트박스: 파랑 외곽선
-        //     foreach (var hb in frame.hurtboxes)
-        //     {
-        //         Handles.color = new Color(0f, 0.6f, 1f, 0.8f);
-        //         Handles.DrawWireCube(hb.offset, hb.size);
-        //     }
-        // }
-
-        // sceneView.Repaint();
-
-        // for (int i = 0; i < frame.hitboxes.Count; i++)
-        // {
-        //     var hitbox = frame.hitboxes[i];
-
-        //     // 핸들을 이용해 위치, 크기 조절
-        //     hitbox.offset = Handles.PositionHandle(characterPrefab.transform.TransformPoint(hitbox.offset), Quaternion.identity);
-        //     // hitbox.offset = Handles.PositionHandle(transform.position + hitbox.offset, Quaternion.identity) - transform.position;
-        //     hitbox.size = Handles.ScaleHandle(hitbox.size, characterPrefab.transform.TransformPoint(hitbox.offset), Quaternion.identity, HandleUtility.GetHandleSize(characterPrefab.transform.TransformPoint(hitbox.offset)));
-        //     // hitbox.size = Handles.ScaleHandle(hitbox.size, transform.position + hitbox.offset, Quaternion.identity, HandleUtility.GetHandleSize(hitbox.offset));
-
-        //     // 박스 그리기
-        //     // Handles.color = new Color(1f, 0f, 0f, 0.8f);
-        //     // Handles.DrawWireCube(characterPrefab.transform.TransformPoint(hitbox.offset), hitbox.size);
-        //     EditorUtility.SetDirty(hitBoxFrameData);
-        // }
-
-        // HitBoxes (red)
         Handles.color = new Color(1f, 0.2f, 0.2f, 0.9f);
         for (int i = 0; i < frame.hitboxes.Count; i++)
         {
@@ -580,7 +430,6 @@ public class HitBoxEditor : EditorWindow
             }
         }
 
-        // HurtBoxes (blue)
         Handles.color = new Color(0.2f, 0.4f, 1f, 0.9f);
         for (int i = 0; i < frame.hurtboxes.Count; i++)
         {
@@ -616,24 +465,5 @@ public class HitBoxEditor : EditorWindow
 
         // 씬 뷰 강제 갱신 (핸들 작업 중 시각성 확보)
         sceneView.Repaint();
-    }
-
-    /// <summary>
-    /// 에디터 윈도우가 리셋될 때 호출되는 메소드
-    /// </summary> <returns></returns>
-    private void OnReset()
-    {
-        if (characterPrefab != null)
-        {
-            ClearVisualization(characterPrefab);
-        }
-    }
-
-    /// <summary>
-    /// 에디터 윈도우가 업데이트될 때 호출되는 메소드
-    /// </summary> <returns></returns>
-    private void OnUpdate()
-    {
-        Repaint();
     }
 }
