@@ -18,15 +18,16 @@ public class HitBoxEditor : EditorWindow
     [Header("Animation Preview Variables")]
     private AnimationClip animationClip;    // 프리뷰용 애니메이션 클립
     private float currentAnimationTime; // 현재 애니메이션 재생 시간
-    private bool previewPlaying = false; // 프리뷰 애니메이션 재생 여부
-    private bool animationModeActive = false; // 애니메이션 모드 활성화 여부
     private Animator animator; // 프리뷰용 캐릭터 프리팹의 애니메이터 컴포넌트
 
     [Header("Default HitBox Settings")]
-    // 새 히트박스 추가를 위한 임시 변수
+    // 새 히트, 허트박스 추가를 위한 임시 변수
     private string newHitboxName = "NewHitBox";
     private Vector3 newHitboxSize = Vector3.one;
     private Vector3 newHitboxOffset = Vector3.zero;
+    private string newHurtboxName = "NewHurtBox";
+    private Vector3 newHurtboxSize = Vector3.one;
+    private Vector3 newHurtboxOffset = Vector3.zero;
 
     // 윈도우를 열기 위한 메뉴 아이템 추가
     [MenuItem("Window/HitBox Editor")]
@@ -52,21 +53,6 @@ public class HitBoxEditor : EditorWindow
         {
             EditorGUILayout.HelpBox("Please assign an Animation Frame Data ScriptableObject or create a new one.", MessageType.Warning);
 
-            if (GUILayout.Button("Create New HitBoxFrameData Asset"))
-            {
-                string path = EditorUtility.SaveFilePanelInProject("Create HitBox Frame Data", "NewHitBoxFrameData", "asset", "Save HitBoxFrameData asset");
-
-                if (!string.IsNullOrEmpty(path))
-                {
-                    var asset = ScriptableObject.CreateInstance<HitBoxFrameData>();
-
-                    AssetDatabase.CreateAsset(asset, path);
-                    AssetDatabase.SaveAssets();
-
-                    hitBoxFrameData = asset;
-                }
-            }
-
             return;
         }
 
@@ -86,6 +72,11 @@ public class HitBoxEditor : EditorWindow
 
                 return;
             }
+            else
+            {
+                // 에디터에서 애니메이션을 편집할 수 있는 모드 활성화
+                AnimationMode.StartAnimationMode();
+            }
         }
 
         if (animationClip == null)
@@ -95,49 +86,17 @@ public class HitBoxEditor : EditorWindow
             return;
         }
 
+        EditorGUI.BeginChangeCheck();   // 되돌리기 작업을 위한 에디터 내용 변경 감지
+
         GUILayout.Space(10);    // 가독성을 위한 공백 추가
 
-        if (!previewPlaying)
-        {
-            if (GUILayout.Button("Start Preview"))
-            {
-                if (characterPrefab != null)
-                {
-                    AnimationMode.StartAnimationMode();
+        // 애니메이션 프리뷰 섹션
+        GUILayout.Label("Animation Preview", EditorStyles.boldLabel);
 
-                    animationModeActive = true;
-                    previewPlaying = true;
-                }
-                else EditorUtility.DisplayDialog("No Character", "Assign scene character instance first.", "OK");
-            }
-        }
-        else
-        {
-            if (GUILayout.Button("Stop Preview"))
-            {
-                StopPreview();
-
-                previewPlaying = false;
-            }
-        }
-
-        // 시간 슬라이더
-        currentAnimationTime = EditorGUILayout.Slider(currentAnimationTime, 0f, animationClip.length);
-
-        if (previewPlaying && animationModeActive && characterPrefab != null)
-        {
-            // 샘플링 (매 GUI 갱신 시)
-            AnimationMode.SampleAnimationClip(animator.gameObject, animationClip, currentAnimationTime);
-        }
+        currentAnimationTime = EditorGUILayout.Slider(currentAnimationTime, 0f, animationClip.length);  // 애니메이션 재생 구간 슬라이더
+        AnimationMode.SampleAnimationClip(animator.gameObject, animationClip, currentAnimationTime);    // 애니메이션 프리뷰 재생 ( GUI가 갱신될 때 마다 애니메이션도 갱신 )
 
         GUILayout.Space(10);
-
-        // 프레임 추가 및 네비게이션 버튼
-        if (GUILayout.Button("Add Frame"))
-        {
-            hitBoxFrameData.frames.Add(new FrameData { frameNumber = hitBoxFrameData.frames.Count });
-            currentFrameIndex = hitBoxFrameData.frames.Count - 1;
-        }
 
         if (hitBoxFrameData.frames.Count > 0)
         {
@@ -150,38 +109,39 @@ public class HitBoxEditor : EditorWindow
                 currentFrameIndex = Mathf.Max(0, currentFrameIndex - 1);    // 음수가 되지 않도록 프레임 값 보정
             }
 
-            GUILayout.Label($"Frame {currentFrameIndex + 1} of {hitBoxFrameData.frames.Count}");
+            GUILayout.Label($"Frame {currentFrameIndex} of {hitBoxFrameData.frames.Count - 1}");
 
             if (GUILayout.Button("Next Frame"))
             {
                 currentFrameIndex = Mathf.Min(hitBoxFrameData.frames.Count - 1, currentFrameIndex + 1); // 총 프레임 수를 넘지 않도록 프레임 값 보정
             }
 
-            currentFrameIndex = (int)EditorGUILayout.Slider("Go to Frame", currentFrameIndex, 1, hitBoxFrameData.frames.Count - 1); // 슬라이더를 통한 프레임 이동
+            currentFrameIndex = (int)EditorGUILayout.Slider("Go to Frame", currentFrameIndex, 0, hitBoxFrameData.frames.Count - 1); // 슬라이더를 통한 프레임 이동
+            currentAnimationTime = (float)currentFrameIndex / hitBoxFrameData.frames.Count * animationClip.length; // 프레임에 맞춰 애니메이션 시간 보정
 
             GUILayout.EndHorizontal();
 
-            FrameData currentFrame = hitBoxFrameData.frames[currentFrameIndex];
+            FrameData currentFrame = hitBoxFrameData.frames[currentFrameIndex]; // SO 내부의 현재 프레임 정보 취득
 
             GUILayout.Space(10);
 
-            GUILayout.Label($"Editing Frame {currentFrame.frameNumber}", EditorStyles.boldLabel);
-
-            GUILayout.Space(10);
-
-            // HitBox 편집
+            // 히트박스 편집 섹션
             GUILayout.Label("HitBoxes", EditorStyles.boldLabel);
 
+            GUILayout.Space(10);
+
+            // 현재 프레임의 히트박스 데이터를 불러와 에디터에 표시
             for (int i = 0; i < currentFrame.hitboxes.Count; i++)
             {
-                HitBoxData hitbox = currentFrame.hitboxes[i];
                 GUILayout.BeginHorizontal();
+
+                HitBoxData hitbox = currentFrame.hitboxes[i];
 
                 hitbox.hitboxName = EditorGUILayout.TextField("Name", hitbox.hitboxName);
                 hitbox.size = EditorGUILayout.Vector3Field("Size", hitbox.size);
                 hitbox.offset = EditorGUILayout.Vector3Field("Offset", hitbox.offset);
-                hitbox.knockback = EditorGUILayout.Vector3Field("Knockback", hitbox.knockback);
 
+                // 히트박스 삭제 버튼
                 if (GUILayout.Button("Remove"))
                 {
                     currentFrame.hitboxes.RemoveAt(i);
@@ -190,36 +150,44 @@ public class HitBoxEditor : EditorWindow
                 GUILayout.EndHorizontal();
             }
 
+            // 새 히트박스 추가 섹션
             GUILayout.Label("New HitBox Settings", EditorStyles.boldLabel);
 
+            // 히트박스 GUI에 디폴트 값 설정
             newHitboxName = EditorGUILayout.TextField("Name", newHitboxName);
             newHitboxSize = EditorGUILayout.Vector3Field("Size", newHitboxSize);
             newHitboxOffset = EditorGUILayout.Vector3Field("Offset", newHitboxOffset);
 
+            // 새로운 히트박스 데이터 추가
             if (GUILayout.Button("Add HitBox"))
             {
-                currentFrame.hitboxes.Add(new HitBoxData {
+                currentFrame.hitboxes.Add(new HitBoxData
+                {
                     hitboxName = newHitboxName,
                     size = newHitboxSize,
-                    offset = newHitboxOffset,
-                    knockback = Vector3.up
+                    offset = newHitboxOffset
                 });
             }
 
             GUILayout.Space(10);
 
-            // HurtBox 편집
+            // 허트박스 편집 섹션
             GUILayout.Label("HurtBoxes", EditorStyles.boldLabel);
 
+            GUILayout.Space(10);
+
+            // 허트박스 데이터를 불러와 에디터에 표시
             for (int i = 0; i < currentFrame.hurtboxes.Count; i++)
             {
-                HurtBoxData hurtbox = currentFrame.hurtboxes[i];
                 GUILayout.BeginHorizontal();
+
+                HurtBoxData hurtbox = currentFrame.hurtboxes[i];
 
                 hurtbox.hurtboxName = EditorGUILayout.TextField("Name", hurtbox.hurtboxName);
                 hurtbox.size = EditorGUILayout.Vector3Field("Size", hurtbox.size);
                 hurtbox.offset = EditorGUILayout.Vector3Field("Offset", hurtbox.offset);
 
+                // 허트박스 삭제 버튼
                 if (GUILayout.Button("Remove"))
                 {
                     currentFrame.hurtboxes.RemoveAt(i);
@@ -228,26 +196,37 @@ public class HitBoxEditor : EditorWindow
                 GUILayout.EndHorizontal();
             }
 
+            // 새 허트박스 추가 섹션
+            GUILayout.Label("New HurtBox Settings", EditorStyles.boldLabel);
+
+            // 허트박스 GUI에 디폴트 값 설정
+            newHurtboxName = EditorGUILayout.TextField("Name", newHurtboxName);
+            newHurtboxSize = EditorGUILayout.Vector3Field("Size", newHurtboxSize);
+            newHurtboxOffset = EditorGUILayout.Vector3Field("Offset", newHurtboxOffset);
+
+            // 새로운 허트박스 데이터 추가
             if (GUILayout.Button("Add HurtBox"))
             {
-                // currentFrame.hurtboxes.Add(new HurtBoxData("NewHurtBox", Vector3.one, Vector3.zero));
-                currentFrame.hurtboxes.Add(new HurtBoxData());
+                currentFrame.hurtboxes.Add(new HurtBoxData
+                {
+                    hurtboxName = newHurtboxName,
+                    size = newHurtboxSize,
+                    offset = newHurtboxOffset
+                });
             }
 
             GUILayout.Space(10);
-
-            EditorGUI.BeginChangeCheck();
             
+            // BeginChangeCheck를 기준으로 변경 내역을 감지
             if (EditorGUI.EndChangeCheck())
             {
-                Undo.RecordObject(hitBoxFrameData, "Edit HitBox Frame Data");
-                EditorUtility.SetDirty(hitBoxFrameData);
+                Undo.RecordObject(hitBoxFrameData, "Edit HitBox And HurtBox Frame Data");   // 변경 내역 기록 ( Ctr + Z 커맨드를 통해 작업 내용을 되돌릴 수 있다 )
+                EditorUtility.SetDirty(hitBoxFrameData);    // Ctr + S를 눌러 저장하거나, 에디터를 닫을 때 변경 내역을 저장할 것이냐고 묻는 기능의 활성화
             }
 
             if (GUILayout.Button("Save Changes"))
             {
                 AssetDatabase.SaveAssets();
-                EditorUtility.SetDirty(hitBoxFrameData);
                 AssetDatabase.Refresh();
             }
 
@@ -260,74 +239,23 @@ public class HitBoxEditor : EditorWindow
         }
     }
 
-    /// <summary>
-    /// 캐릭터 프리팹에 히트박스 및 허트박스 시각화
-    /// </summary>
-    /// <param name="characterPrefab">캐릭터 프리팹</param>
-    /// <param name="frameData">현재 프레임 데이터</param>
-    /// <returns></returns>
-    private void VisualizeHitAndHurtBoxes(GameObject characterPrefab, FrameData frameData)
-    {
-        ClearVisualization(characterPrefab);
-
-        foreach (var hitbox in frameData.hitboxes)
-        {
-            GameObject hitboxObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            hitboxObj.name = $"HitBox_{hitbox.hitboxName}";
-            hitboxObj.transform.SetParent(characterPrefab.transform);
-            hitboxObj.transform.localPosition = hitbox.offset;
-            hitboxObj.transform.localScale = hitbox.size;
-            var renderer = hitboxObj.GetComponent<Renderer>();
-            renderer.material.color = new Color(1, 0, 0, 0.5f); // 반투명 빨간색
-            DestroyImmediate(hitboxObj.GetComponent<Collider>()); // 콜라이더 제거
-        }
-
-        foreach (var hurtbox in frameData.hurtboxes)
-        {
-            GameObject hurtboxObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            hurtboxObj.name = $"HurtBox_{hurtbox.hurtboxName}";
-            hurtboxObj.transform.SetParent(characterPrefab.transform);
-            hurtboxObj.transform.localPosition = hurtbox.offset;
-            hurtboxObj.transform.localScale = hurtbox.size;
-            var renderer = hurtboxObj.GetComponent<Renderer>();
-            renderer.material.color = new Color(0, 0, 1, 0.5f); // 반투명 파란색
-            DestroyImmediate(hurtboxObj.GetComponent<Collider>()); // 콜라이더 제거
-        }
-    }
-
-    /// <summary>
-    /// 캐릭터 프리팹에서 히트박스 및 허트박스 시각화 제거
-    /// </summary>
-    /// <param name="characterPrefab">캐릭터 프리팹</param>
-    private void ClearVisualization(GameObject characterPrefab)
-    {
-        var children = new List<GameObject>();
-        foreach (Transform child in characterPrefab.transform)
-        {
-            if (child.name.StartsWith("HitBox_") || child.name.StartsWith("HurtBox_"))
-            {
-                children.Add(child.gameObject);
-            }
-        }
-
-        foreach (var child in children)
-        {
-            DestroyImmediate(child);
-        }
-    }
-
-    void OnDrawGizmos(GameObject characterPrefab)
+    private void OnDrawGizmos(GameObject characterPrefab)
     {
         if (hitBoxFrameData == null || currentFrameIndex >= hitBoxFrameData.frames.Count) return;
 
         var frame = hitBoxFrameData.frames[currentFrameIndex];
+
+        // 히트박스를 빨간색 Gizmo로 표시
         Gizmos.color = new Color(1, 0, 0, 0.5f);
+
         foreach (var hitbox in frame.hitboxes)
         {
             Gizmos.DrawCube(characterPrefab.transform.position + hitbox.offset, hitbox.size);
         }
 
+        // 허트박스를 파란색 Gizmo로 표시
         Gizmos.color = new Color(0, 0, 1, 0.5f);
+
         foreach (var hurtbox in frame.hurtboxes)
         {
             Gizmos.DrawCube(characterPrefab.transform.position + hurtbox.offset, hurtbox.size);
@@ -340,17 +268,7 @@ public class HitBoxEditor : EditorWindow
     /// <returns></returns>
     private void OnDestroy()
     {
-        StopPreview();
-    }
-
-    private void StopPreview()
-    {
-        if (animationModeActive)
-        {
-            AnimationMode.StopAnimationMode();
-
-            animationModeActive = false;
-        }
+        AnimationMode.StopAnimationMode();
     }
 
     /// <summary>
@@ -359,12 +277,6 @@ public class HitBoxEditor : EditorWindow
     /// <returns></returns>
     private void OnEnable()
     {
-        // if (characterPrefab != null && hitBoxFrameData != null && hitBoxFrameData.frames.Count > 0)
-        // {
-        //     FrameData currentFrame = hitBoxFrameData.frames[currentFrameIndex];
-        //     VisualizeHitAndHurtBoxes(characterPrefab, currentFrame);
-        // }
-
         SceneView.duringSceneGui += OnSceneGUI;
     }
 
@@ -374,13 +286,8 @@ public class HitBoxEditor : EditorWindow
     /// <returns></returns>
     private void OnDisable()
     {
-        // if (characterPrefab != null)
-        // {
-        //     ClearVisualization(characterPrefab);
-        // }
-
+        AnimationMode.StopAnimationMode();
         SceneView.duringSceneGui -= OnSceneGUI;
-        StopPreview();
     }
 
     private void OnSceneGUI(SceneView sceneView)
