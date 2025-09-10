@@ -7,6 +7,6 @@ using UnityEngine;
 public class HitBoxData
 {
     public string hitboxName;
-    public Vector3 size;
-    public Vector3 offset;
+    public Vector2 size;
+    public Vector2 offset;
 }
