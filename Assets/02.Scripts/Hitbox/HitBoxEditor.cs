@@ -23,11 +23,11 @@ public class HitBoxEditor : EditorWindow
     [Header("Default HitBox Settings")]
     // 새 히트, 허트박스 추가를 위한 임시 변수
     private string newHitboxName = "NewHitBox";
-    private Vector2 newHitboxSize = Vector2.zero;
-    private Vector2 newHitboxOffset = Vector2.zero;
+    private Vector3 newHitboxSize = Vector3.one;
+    private Vector3 newHitboxOffset = Vector3.zero;
     private string newHurtboxName = "NewHurtBox";
-    private Vector2 newHurtboxSize = Vector2.zero;
-    private Vector2 newHurtboxOffset = Vector2.zero;
+    private Vector3 newHurtboxSize = Vector3.one;
+    private Vector3 newHurtboxOffset = Vector3.zero;
 
     // 윈도우를 열기 위한 메뉴 아이템 추가
     [MenuItem("Window/HitBox Editor")]
@@ -138,8 +138,12 @@ public class HitBoxEditor : EditorWindow
                 HitBoxData hitbox = currentFrame.hitboxes[i];
 
                 hitbox.hitboxName = EditorGUILayout.TextField("Name", hitbox.hitboxName);
-                hitbox.size = EditorGUILayout.Vector2Field("Size", hitbox.size);
-                hitbox.offset = EditorGUILayout.Vector2Field("Offset", hitbox.offset);
+                hitbox.size = EditorGUILayout.Vector3Field("Size", hitbox.size);
+                Vector3 tempOffset = EditorGUILayout.Vector3Field("Offset", hitbox.offset);
+                
+                // 2D축 구현을 위해 z축값을 x축에 복사
+                tempOffset.x = tempOffset.z;
+                hitbox.offset = tempOffset;
 
                 // 히트박스 삭제 버튼
                 if (GUILayout.Button("Remove"))
@@ -155,8 +159,8 @@ public class HitBoxEditor : EditorWindow
 
             // 히트박스 GUI에 디폴트 값 설정
             newHitboxName = EditorGUILayout.TextField("Name", newHitboxName);
-            newHitboxSize = EditorGUILayout.Vector2Field("Size", newHitboxSize);
-            newHitboxOffset = EditorGUILayout.Vector2Field("Offset", newHitboxOffset);
+            newHitboxSize = EditorGUILayout.Vector3Field("Size", newHitboxSize);
+            newHitboxOffset = EditorGUILayout.Vector3Field("Offset", newHitboxOffset);
 
             // 새로운 히트박스 데이터 추가
             if (GUILayout.Button("Add HitBox"))
@@ -184,8 +188,12 @@ public class HitBoxEditor : EditorWindow
                 HurtBoxData hurtbox = currentFrame.hurtboxes[i];
 
                 hurtbox.hurtboxName = EditorGUILayout.TextField("Name", hurtbox.hurtboxName);
-                hurtbox.size = EditorGUILayout.Vector2Field("Size", hurtbox.size);
-                hurtbox.offset = EditorGUILayout.Vector2Field("Offset", hurtbox.offset);
+                hurtbox.size = EditorGUILayout.Vector3Field("Size", hurtbox.size);
+                Vector3 tempNewHitboxOffset = EditorGUILayout.Vector3Field("Offset", newHitboxOffset);
+
+                // 2D축 구현을 위해 z축값을 x축에 복사
+                tempNewHitboxOffset.x = tempNewHitboxOffset.z;
+                newHitboxOffset = tempNewHitboxOffset;
 
                 // 허트박스 삭제 버튼
                 if (GUILayout.Button("Remove"))
@@ -201,8 +209,8 @@ public class HitBoxEditor : EditorWindow
 
             // 허트박스 GUI에 디폴트 값 설정
             newHurtboxName = EditorGUILayout.TextField("Name", newHurtboxName);
-            newHurtboxSize = EditorGUILayout.Vector2Field("Size", newHurtboxSize);
-            newHurtboxOffset = EditorGUILayout.Vector2Field("Offset", newHurtboxOffset);
+            newHurtboxSize = EditorGUILayout.Vector3Field("Size", newHurtboxSize);
+            newHurtboxOffset = EditorGUILayout.Vector3Field("Offset", newHurtboxOffset);
 
             // 새로운 허트박스 데이터 추가
             if (GUILayout.Button("Add HurtBox"))
@@ -290,6 +298,11 @@ public class HitBoxEditor : EditorWindow
         SceneView.duringSceneGui -= OnSceneGUI;
     }
 
+    /// <summary>
+    /// 에디터 갱신 시, 씬을 갱신시키는 메소드
+    /// to do : 3D축을 중심으로 히트박스와 기즈모를 생성하고 있지만, 추후 2D축을 중심으로 히트박스와 기즈모를 구현할 수 있도록 개선 예정
+    /// </summary>
+    /// <param name="sceneView"></param>
     private void OnSceneGUI(SceneView sceneView)
     {
         if (characterPrefab == null || hitBoxFrameData == null || hitBoxFrameData.frames.Count == 0)
@@ -299,51 +312,23 @@ public class HitBoxEditor : EditorWindow
         if (currentFrameIndex >= 0 && currentFrameIndex < hitBoxFrameData.frames.Count)
         {
             FrameData currentFrame = hitBoxFrameData.frames[currentFrameIndex];
-            
-            Transform characterTransform = animator.transform;
-            
+
+            Handles.matrix = characterPrefab.transform.localToWorldMatrix;
+
             // 히트박스 기즈모 그리기
             foreach (var hitbox in currentFrame.hitboxes)
             {
-                // 기즈모 색상 및 행렬 설정
-                Color originalColor = Handles.color;
-
-                // 2D 사각형의 꼭짓점 계산
-                Vector3 worldPosition = characterTransform.position + characterTransform.rotation * hitbox.offset;
-                Vector2 rectSize = new Vector2(hitbox.size.x, hitbox.size.y);
-                Rect rect = new Rect(worldPosition.x - rectSize.x / 2, worldPosition.y - rectSize.y / 2, rectSize.x, rectSize.y);
-                
-                // 2D 사각형 기즈모 그리기 (색상: 투명한 빨강)
+                // Vector3 오프셋을 사용하여 2D Rect 생성
+                Rect rect = new Rect(hitbox.offset.x - hitbox.size.x / 2, hitbox.offset.y - hitbox.size.y / 2, hitbox.size.x, hitbox.size.y);
                 Handles.DrawSolidRectangleWithOutline(rect, new Color(1, 0, 0, 0.2f), Color.red);
-
-                // 2D 사각형을 회전된 캐릭터에 맞추기
-                // Handles.matrix를 사용하여 전체 매트릭스를 설정하면 더 편리
-                Handles.matrix = characterTransform.localToWorldMatrix;
-                rect = new Rect(hitbox.offset.x - hitbox.size.x / 2, hitbox.offset.y - hitbox.size.y / 2, hitbox.size.x, hitbox.size.y);
-                Handles.DrawSolidRectangleWithOutline(rect, new Color(1, 0, 0, 0.2f), Color.red);
-                
-                Handles.color = originalColor;
             }
-            
+
             // 허트박스 기즈모 그리기
             foreach (var hurtbox in currentFrame.hurtboxes)
             {
-                Color originalColor = Handles.color;
-
-                // 2D 사각형의 꼭짓점 계산
-                Vector3 worldPosition = characterTransform.position + characterTransform.rotation * hurtbox.offset;
-                Vector2 rectSize = new Vector2(hurtbox.size.x, hurtbox.size.y);
-                Rect rect = new Rect(worldPosition.x - rectSize.x / 2, worldPosition.y - rectSize.y / 2, rectSize.x, rectSize.y);
-                
-                // 2D 사각형 기즈모 그리기 (색상: 투명한 초록)
+                // Vector3 오프셋을 사용하여 2D Rect 생성
+                Rect rect = new Rect(hurtbox.offset.x - hurtbox.size.x / 2, hurtbox.offset.y - hurtbox.size.y / 2, hurtbox.size.x, hurtbox.size.y);
                 Handles.DrawSolidRectangleWithOutline(rect, new Color(0, 1, 0, 0.2f), Color.green);
-                
-                // 2D 사각형을 회전된 캐릭터에 맞추기
-                Handles.matrix = characterTransform.localToWorldMatrix;
-                rect = new Rect(hurtbox.offset.x - hurtbox.size.x / 2, hurtbox.offset.y - hurtbox.size.y / 2, hurtbox.size.x, hurtbox.size.y);
-                Handles.DrawSolidRectangleWithOutline(rect, new Color(0, 1, 0, 0.2f), Color.green);
-
-                Handles.color = originalColor;
             }
         }
     }
