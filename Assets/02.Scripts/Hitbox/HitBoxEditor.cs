@@ -23,11 +23,11 @@ public class HitBoxEditor : EditorWindow
     [Header("Default HitBox Settings")]
     // 새 히트, 허트박스 추가를 위한 임시 변수
     private string newHitboxName = "NewHitBox";
-    private Vector3 newHitboxSize = Vector3.one;
-    private Vector3 newHitboxOffset = Vector3.zero;
+    private Vector2 newHitboxSize = Vector2.zero;
+    private Vector2 newHitboxOffset = Vector2.zero;
     private string newHurtboxName = "NewHurtBox";
-    private Vector3 newHurtboxSize = Vector3.one;
-    private Vector3 newHurtboxOffset = Vector3.zero;
+    private Vector2 newHurtboxSize = Vector2.zero;
+    private Vector2 newHurtboxOffset = Vector2.zero;
 
     // 윈도우를 열기 위한 메뉴 아이템 추가
     [MenuItem("Window/HitBox Editor")]
@@ -138,8 +138,8 @@ public class HitBoxEditor : EditorWindow
                 HitBoxData hitbox = currentFrame.hitboxes[i];
 
                 hitbox.hitboxName = EditorGUILayout.TextField("Name", hitbox.hitboxName);
-                hitbox.size = EditorGUILayout.Vector3Field("Size", hitbox.size);
-                hitbox.offset = EditorGUILayout.Vector3Field("Offset", hitbox.offset);
+                hitbox.size = EditorGUILayout.Vector2Field("Size", hitbox.size);
+                hitbox.offset = EditorGUILayout.Vector2Field("Offset", hitbox.offset);
 
                 // 히트박스 삭제 버튼
                 if (GUILayout.Button("Remove"))
@@ -155,8 +155,8 @@ public class HitBoxEditor : EditorWindow
 
             // 히트박스 GUI에 디폴트 값 설정
             newHitboxName = EditorGUILayout.TextField("Name", newHitboxName);
-            newHitboxSize = EditorGUILayout.Vector3Field("Size", newHitboxSize);
-            newHitboxOffset = EditorGUILayout.Vector3Field("Offset", newHitboxOffset);
+            newHitboxSize = EditorGUILayout.Vector2Field("Size", newHitboxSize);
+            newHitboxOffset = EditorGUILayout.Vector2Field("Offset", newHitboxOffset);
 
             // 새로운 히트박스 데이터 추가
             if (GUILayout.Button("Add HitBox"))
@@ -184,8 +184,8 @@ public class HitBoxEditor : EditorWindow
                 HurtBoxData hurtbox = currentFrame.hurtboxes[i];
 
                 hurtbox.hurtboxName = EditorGUILayout.TextField("Name", hurtbox.hurtboxName);
-                hurtbox.size = EditorGUILayout.Vector3Field("Size", hurtbox.size);
-                hurtbox.offset = EditorGUILayout.Vector3Field("Offset", hurtbox.offset);
+                hurtbox.size = EditorGUILayout.Vector2Field("Size", hurtbox.size);
+                hurtbox.offset = EditorGUILayout.Vector2Field("Offset", hurtbox.offset);
 
                 // 허트박스 삭제 버튼
                 if (GUILayout.Button("Remove"))
@@ -201,8 +201,8 @@ public class HitBoxEditor : EditorWindow
 
             // 허트박스 GUI에 디폴트 값 설정
             newHurtboxName = EditorGUILayout.TextField("Name", newHurtboxName);
-            newHurtboxSize = EditorGUILayout.Vector3Field("Size", newHurtboxSize);
-            newHurtboxOffset = EditorGUILayout.Vector3Field("Offset", newHurtboxOffset);
+            newHurtboxSize = EditorGUILayout.Vector2Field("Size", newHurtboxSize);
+            newHurtboxOffset = EditorGUILayout.Vector2Field("Offset", newHurtboxOffset);
 
             // 새로운 허트박스 데이터 추가
             if (GUILayout.Button("Add HurtBox"))
@@ -239,28 +239,28 @@ public class HitBoxEditor : EditorWindow
         }
     }
 
-    private void OnDrawGizmos(GameObject characterPrefab)
-    {
-        if (hitBoxFrameData == null || currentFrameIndex >= hitBoxFrameData.frames.Count) return;
+    // private void OnDrawGizmos(GameObject characterPrefab)
+    // {
+    //     if (hitBoxFrameData == null || currentFrameIndex >= hitBoxFrameData.frames.Count) return;
 
-        var frame = hitBoxFrameData.frames[currentFrameIndex];
+    //     var frame = hitBoxFrameData.frames[currentFrameIndex];
 
-        // 히트박스를 빨간색 Gizmo로 표시
-        Gizmos.color = new Color(1, 0, 0, 0.5f);
+    //     // 히트박스를 빨간색 Gizmo로 표시
+    //     Gizmos.color = new Color(1, 0, 0, 0.5f);
 
-        foreach (var hitbox in frame.hitboxes)
-        {
-            Gizmos.DrawCube(characterPrefab.transform.position + hitbox.offset, hitbox.size);
-        }
+    //     foreach (var hitbox in frame.hitboxes)
+    //     {
+    //         Gizmos.DrawCube(characterPrefab.transform.position + hitbox.offset, hitbox.size);
+    //     }
 
-        // 허트박스를 파란색 Gizmo로 표시
-        Gizmos.color = new Color(0, 0, 1, 0.5f);
+    //     // 허트박스를 파란색 Gizmo로 표시
+    //     Gizmos.color = new Color(0, 0, 1, 0.5f);
 
-        foreach (var hurtbox in frame.hurtboxes)
-        {
-            Gizmos.DrawCube(characterPrefab.transform.position + hurtbox.offset, hurtbox.size);
-        }
-    }
+    //     foreach (var hurtbox in frame.hurtboxes)
+    //     {
+    //         Gizmos.DrawCube(characterPrefab.transform.position + hurtbox.offset, hurtbox.size);
+    //     }
+    // }
 
     /// <summary>
     /// 에디터 윈도우가 닫힐 때 호출되는 메소드
@@ -295,82 +295,56 @@ public class HitBoxEditor : EditorWindow
         if (characterPrefab == null || hitBoxFrameData == null || hitBoxFrameData.frames.Count == 0)
             return;
 
-        FrameData frame = hitBoxFrameData.frames[currentFrameIndex];
-
-        Handles.color = new Color(1f, 0.2f, 0.2f, 0.9f);
-        for (int i = 0; i < frame.hitboxes.Count; i++)
+        // 기즈모를 그릴 때 현재 프레임 데이터가 유효한지 확인
+        if (currentFrameIndex >= 0 && currentFrameIndex < hitBoxFrameData.frames.Count)
         {
-            var hb = frame.hitboxes[i];
-
-            // world center & world size (lossy scale 적용)
-            Vector3 worldCenter = characterPrefab.transform.TransformPoint(hb.offset);
-            Vector3 lossy = characterPrefab.transform.lossyScale;
-            Vector3 worldSize = new Vector3(hb.size.x * Mathf.Abs(lossy.x),
-                                            hb.size.y * Mathf.Abs(lossy.y),
-                                            hb.size.z * Mathf.Abs(lossy.z));
-
-            EditorGUI.BeginChangeCheck();
-
-            // Position handle (world)
-            Vector3 newWorldCenter = Handles.PositionHandle(worldCenter, Quaternion.identity);
-
-            // Scale handle (we pass worldSize and map back)
-            Vector3 newWorldSize = Handles.ScaleHandle(worldSize, worldCenter, Quaternion.identity, HandleUtility.GetHandleSize(worldCenter));
-
-            // Draw wire cube for visualization
-            Handles.DrawWireCube(newWorldCenter, newWorldSize);
-
-            if (EditorGUI.EndChangeCheck())
+            FrameData currentFrame = hitBoxFrameData.frames[currentFrameIndex];
+            
+            Transform characterTransform = animator.transform;
+            
+            // 히트박스 기즈모 그리기
+            foreach (var hitbox in currentFrame.hitboxes)
             {
-                Undo.RecordObject(hitBoxFrameData, "Edit HitBox (Scene)");
-                // Convert back to local offset + local size
-                hb.offset = characterPrefab.transform.InverseTransformPoint(newWorldCenter);
+                // 기즈모 색상 및 행렬 설정
+                Color originalColor = Handles.color;
 
-                // avoid zero-scale division and preserve positive size (use absolute lossy)
-                float sx = Mathf.Approximately(lossy.x, 0f) ? 1f : Mathf.Abs(lossy.x);
-                float sy = Mathf.Approximately(lossy.y, 0f) ? 1f : Mathf.Abs(lossy.y);
-                float sz = Mathf.Approximately(lossy.z, 0f) ? 1f : Mathf.Abs(lossy.z);
+                // 2D 사각형의 꼭짓점 계산
+                Vector3 worldPosition = characterTransform.position + characterTransform.rotation * hitbox.offset;
+                Vector2 rectSize = new Vector2(hitbox.size.x, hitbox.size.y);
+                Rect rect = new Rect(worldPosition.x - rectSize.x / 2, worldPosition.y - rectSize.y / 2, rectSize.x, rectSize.y);
+                
+                // 2D 사각형 기즈모 그리기 (색상: 투명한 빨강)
+                Handles.DrawSolidRectangleWithOutline(rect, new Color(1, 0, 0, 0.2f), Color.red);
 
-                hb.size = new Vector3(newWorldSize.x / sx, newWorldSize.y / sy, newWorldSize.z / sz);
+                // 2D 사각형을 회전된 캐릭터에 맞추기
+                // Handles.matrix를 사용하여 전체 매트릭스를 설정하면 더 편리
+                Handles.matrix = characterTransform.localToWorldMatrix;
+                rect = new Rect(hitbox.offset.x - hitbox.size.x / 2, hitbox.offset.y - hitbox.size.y / 2, hitbox.size.x, hitbox.size.y);
+                Handles.DrawSolidRectangleWithOutline(rect, new Color(1, 0, 0, 0.2f), Color.red);
+                
+                Handles.color = originalColor;
+            }
+            
+            // 허트박스 기즈모 그리기
+            foreach (var hurtbox in currentFrame.hurtboxes)
+            {
+                Color originalColor = Handles.color;
 
-                EditorUtility.SetDirty(hitBoxFrameData);
+                // 2D 사각형의 꼭짓점 계산
+                Vector3 worldPosition = characterTransform.position + characterTransform.rotation * hurtbox.offset;
+                Vector2 rectSize = new Vector2(hurtbox.size.x, hurtbox.size.y);
+                Rect rect = new Rect(worldPosition.x - rectSize.x / 2, worldPosition.y - rectSize.y / 2, rectSize.x, rectSize.y);
+                
+                // 2D 사각형 기즈모 그리기 (색상: 투명한 초록)
+                Handles.DrawSolidRectangleWithOutline(rect, new Color(0, 1, 0, 0.2f), Color.green);
+                
+                // 2D 사각형을 회전된 캐릭터에 맞추기
+                Handles.matrix = characterTransform.localToWorldMatrix;
+                rect = new Rect(hurtbox.offset.x - hurtbox.size.x / 2, hurtbox.offset.y - hurtbox.size.y / 2, hurtbox.size.x, hurtbox.size.y);
+                Handles.DrawSolidRectangleWithOutline(rect, new Color(0, 1, 0, 0.2f), Color.green);
+
+                Handles.color = originalColor;
             }
         }
-
-        Handles.color = new Color(0.2f, 0.4f, 1f, 0.9f);
-        for (int i = 0; i < frame.hurtboxes.Count; i++)
-        {
-            var hb = frame.hurtboxes[i];
-
-            Vector3 worldCenter = characterPrefab.transform.TransformPoint(hb.offset);
-            Vector3 lossy = characterPrefab.transform.lossyScale;
-            Vector3 worldSize = new Vector3(hb.size.x * Mathf.Abs(lossy.x),
-                                            hb.size.y * Mathf.Abs(lossy.y),
-                                            hb.size.z * Mathf.Abs(lossy.z));
-
-            EditorGUI.BeginChangeCheck();
-
-            Vector3 newWorldCenter = Handles.PositionHandle(worldCenter, Quaternion.identity);
-            Vector3 newWorldSize = Handles.ScaleHandle(worldSize, worldCenter, Quaternion.identity, HandleUtility.GetHandleSize(worldCenter));
-
-            Handles.DrawWireCube(newWorldCenter, newWorldSize);
-
-            if (EditorGUI.EndChangeCheck())
-            {
-                Undo.RecordObject(hitBoxFrameData, "Edit HurtBox (Scene)");
-                hb.offset = characterPrefab.transform.InverseTransformPoint(newWorldCenter);
-
-                float sx = Mathf.Approximately(lossy.x, 0f) ? 1f : Mathf.Abs(lossy.x);
-                float sy = Mathf.Approximately(lossy.y, 0f) ? 1f : Mathf.Abs(lossy.y);
-                float sz = Mathf.Approximately(lossy.z, 0f) ? 1f : Mathf.Abs(lossy.z);
-
-                hb.size = new Vector3(newWorldSize.x / sx, newWorldSize.y / sy, newWorldSize.z / sz);
-
-                EditorUtility.SetDirty(hitBoxFrameData);
-            }
-        }
-
-        // 씬 뷰 강제 갱신 (핸들 작업 중 시각성 확보)
-        sceneView.Repaint();
     }
 }
