@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
@@ -338,6 +339,7 @@ public class HitBoxEditor : EditorWindow
         Undo.RecordObject(hitBoxFrameData, "Record Copy HitBox Or HurtBox Frame Data");
 
         FrameData frameData = hitBoxFrameData.frames[currentFrameIndex];
+        Match nameTagMatch;    // 복사된 히트박스 이름을 갱신하기 위한 매치 필드
 
         for (int i = startFrameIndex; i <= endFrameIndex; i++)
         {
@@ -350,12 +352,26 @@ public class HitBoxEditor : EditorWindow
 
                 foreach (HitBoxData hitbox in frameData.hitboxes)
                 {
-                    targetFrame.hitboxes.Add(new HitBoxData
+                    nameTagMatch = Regex.Match(hitbox.hitboxName, @"(\D+)(\d+)");    // 기존 이름 필드에서 문자 부분만 추출 ( 기본적으로 히트, 허트박스 이름은 HitBox_로 시작한다는 전제 )
+
+                    if (nameTagMatch.Success)
                     {
-                        hitboxName = hitbox.hitboxName,
-                        size = hitbox.size,
-                        offset = hitbox.offset
-                    });
+                        targetFrame.hitboxes.Add(new HitBoxData
+                        {
+                            hitboxName = $"{nameTagMatch.Groups[1].Value}_{i}",
+                            size = hitbox.size,
+                            offset = hitbox.offset
+                        });
+                    }
+                    else
+                    {
+                        targetFrame.hitboxes.Add(new HitBoxData
+                        {
+                            hitboxName = hitbox.hitboxName, // 양식을 따르지 않았을 경우, 히트박스 명은 그대로 복사한다
+                            size = hitbox.size,
+                            offset = hitbox.offset
+                        });
+                    }
                 }
             }
             else
@@ -364,12 +380,26 @@ public class HitBoxEditor : EditorWindow
 
                 foreach (HurtBoxData hurtbox in frameData.hurtboxes)
                 {
-                    targetFrame.hurtboxes.Add(new HurtBoxData
+                    nameTagMatch = Regex.Match(hurtbox.hurtboxName, @"(\D+)(\d+)");    // 기존 이름 필드에서 문자 부분만 추출 ( 기본적으로 히트, 허트박스 이름은 HitBox_로 시작한다는 전제 )
+
+                    if (nameTagMatch.Success)
                     {
-                        hurtboxName = hurtbox.hurtboxName,
-                        size = hurtbox.size,
-                        offset = hurtbox.offset
-                    });
+                        targetFrame.hurtboxes.Add(new HurtBoxData
+                        {
+                            hurtboxName = $"{nameTagMatch.Groups[1].Value}_{i}",
+                            size = hurtbox.size,
+                            offset = hurtbox.offset
+                        });
+                    }
+                    else
+                    {
+                        targetFrame.hurtboxes.Add(new HurtBoxData
+                        {
+                            hurtboxName = hurtbox.hurtboxName, // 양식을 따르지 않았을 경우, 허트박스 명은 그대로 복사한다
+                            size = hurtbox.size,
+                            offset = hurtbox.offset
+                        });
+                    }
                 }
             }
         }

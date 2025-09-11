@@ -16,7 +16,7 @@ public class FrameData
 /// <summary>
 /// 한 모션에 대한 프레임 데이터를 저장하는 스크립터블 오브젝트
 /// </summary>
-[CreateAssetMenu(fileName = "HitBox Frame Data", menuName = "ScriptableObjects/HitBoxFrameData", order = 1)]
+[CreateAssetMenu(fileName = "HitBox Frame Data", menuName = "Scriptable Objects/HitBoxFrameData", order = 1)]
 public class HitBoxFrameData : ScriptableObject
 {
     public List<FrameData> frames;
