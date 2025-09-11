@@ -21,13 +21,18 @@ public class HitBoxEditor : EditorWindow
     private Animator animator; // 프리뷰용 캐릭터 프리팹의 애니메이터 컴포넌트
 
     [Header("Default HitBox Settings")]
-    // 새 히트, 허트박스 추가를 위한 임시 변수
+    // 새 히트, 허트박스 추가를 위한 디폴트 값 설정 변수
     private string newHitboxName = "HitBox_";
     private Vector3 newHitboxSize = Vector3.zero;
     private Vector3 newHitboxOffset = Vector3.zero;
     private string newHurtboxName = "HurtBox_";
     private Vector3 newHurtboxSize = Vector3.zero;
     private Vector3 newHurtboxOffset = Vector3.zero;
+
+    [Header("Copy HitBox Data Properties")]
+    // 히트, 허트박스 데이터 복사를 위한 변수
+    private int startFrameIndex;
+    private int endFrameIndex;
 
     // 윈도우를 열기 위한 메뉴 아이템 추가
     [MenuItem("Window/HitBox Editor")]
@@ -216,11 +221,43 @@ public class HitBoxEditor : EditorWindow
             }
 
             GUILayout.Space(10);
-            
+            // 히트박스 데이터 복제 섹션
+            GUILayout.Label("Copy HitBox Data", EditorStyles.boldLabel);
+
+            GUILayout.BeginHorizontal();
+
+            // 사용자에게 히트박스 복제 범위를 입력받음
+            startFrameIndex = EditorGUILayout.IntField("Copy Start Frame", startFrameIndex);
+            endFrameIndex = EditorGUILayout.IntField("Copy End Frame", endFrameIndex);
+
+            GUILayout.EndHorizontal();
+
+            // 입력 값 보정
+            if (hitBoxFrameData.frames.Count > 0)
+            {
+                startFrameIndex = Mathf.Clamp(startFrameIndex, 0, hitBoxFrameData.frames.Count - 1);
+                endFrameIndex = Mathf.Clamp(endFrameIndex, 0, hitBoxFrameData.frames.Count - 1);
+            }
+
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Copy HitBox Datas"))
+            {
+                CopyFrameData(startFrameIndex, endFrameIndex, true);
+            }
+            if (GUILayout.Button("Copy HurtBox Datas"))
+            {
+                CopyFrameData(startFrameIndex, endFrameIndex, false);
+            }
+
+            GUILayout.EndHorizontal();
+
+            GUILayout.Space(10);
+
             // BeginChangeCheck를 기준으로 변경 내역을 감지
             if (EditorGUI.EndChangeCheck())
             {
-                Undo.RecordObject(hitBoxFrameData, "Edit HitBox And HurtBox Frame Data");   // 변경 내역 기록 ( Ctr + Z 커맨드를 통해 작업 내용을 되돌릴 수 있다 )
+                Undo.RecordObject(hitBoxFrameData, "Record Edit HitBox And HurtBox Frame Data");   // 변경 내역 기록 ( Ctr + Z 커맨드를 통해 작업 내용을 되돌릴 수 있다 )
                 EditorUtility.SetDirty(hitBoxFrameData);    // Ctr + S를 눌러 저장하거나, 에디터를 닫을 때 변경 내역을 저장할 것이냐고 묻는 기능의 활성화
             }
 
@@ -231,7 +268,7 @@ public class HitBoxEditor : EditorWindow
             }
 
             GUILayout.Space(10);
-            
+
             if (GUILayout.Button("Cancel"))
             {
                 Close();
@@ -239,60 +276,8 @@ public class HitBoxEditor : EditorWindow
         }
     }
 
-    // private void OnDrawGizmos(GameObject characterPrefab)
-    // {
-    //     if (hitBoxFrameData == null || currentFrameIndex >= hitBoxFrameData.frames.Count) return;
-
-    //     var frame = hitBoxFrameData.frames[currentFrameIndex];
-
-    //     // 히트박스를 빨간색 Gizmo로 표시
-    //     Gizmos.color = new Color(1, 0, 0, 0.5f);
-
-    //     foreach (var hitbox in frame.hitboxes)
-    //     {
-    //         Gizmos.DrawCube(characterPrefab.transform.position + hitbox.offset, hitbox.size);
-    //     }
-
-    //     // 허트박스를 파란색 Gizmo로 표시
-    //     Gizmos.color = new Color(0, 0, 1, 0.5f);
-
-    //     foreach (var hurtbox in frame.hurtboxes)
-    //     {
-    //         Gizmos.DrawCube(characterPrefab.transform.position + hurtbox.offset, hurtbox.size);
-    //     }
-    // }
-
-    /// <summary>
-    /// 에디터 윈도우가 닫힐 때 호출되는 메소드
-    /// </summary>
-    /// <returns></returns>
-    private void OnDestroy()
-    {
-        AnimationMode.StopAnimationMode();
-    }
-
-    /// <summary>
-    /// 에디터 윈도우가 활성화될 때 호출되는 메소드
-    /// </summary>
-    /// <returns></returns>
-    private void OnEnable()
-    {
-        SceneView.duringSceneGui += OnSceneGUI;
-    }
-
-    /// <summary>
-    /// 에디터 윈도우가 비활성화될 때 호출되는 메소드
-    /// </summary>
-    /// <returns></returns>
-    private void OnDisable()
-    {
-        AnimationMode.StopAnimationMode();
-        SceneView.duringSceneGui -= OnSceneGUI;
-    }
-
     /// <summary>
     /// 에디터 갱신 시, 씬을 갱신시키는 메소드
-    /// to do : 3D축을 중심으로 히트박스와 기즈모를 생성하고 있지만, 추후 2D축을 중심으로 히트박스와 기즈모를 구현할 수 있도록 개선 예정
     /// </summary>
     /// <param name="sceneView"></param>
     private void OnSceneGUI(SceneView sceneView)
@@ -331,5 +316,94 @@ public class HitBoxEditor : EditorWindow
                 Handles.DrawSolidRectangleWithOutline(rect, new Color(0, 1, 0, 0.2f), Color.green);
             }
         }
+    }
+
+    /// <summary>
+    /// 히트, 허트박스 데이터를 복사하는 메소드
+    /// </summary>
+    /// <param name="startFrameIndex"></param>
+    /// <param name="endFrameIndex"></param>
+    /// <param name="isHitbox"></param>
+    private void CopyFrameData(int startFrameIndex, int endFrameIndex, bool isHitBox)
+    {
+        // 매개변수 유효성 검사
+        if (hitBoxFrameData == null || startFrameIndex < 0 || endFrameIndex < 0 || startFrameIndex >= hitBoxFrameData.frames.Count || endFrameIndex >= hitBoxFrameData.frames.Count || startFrameIndex > endFrameIndex)
+        {
+            Debug.LogError("Invalid Properties");
+
+            return;
+        }
+
+        // 되돌리기 수행을 위한 편집 내역 기록
+        Undo.RecordObject(hitBoxFrameData, "Record Copy HitBox Or HurtBox Frame Data");
+
+        FrameData frameData = hitBoxFrameData.frames[currentFrameIndex];
+
+        for (int i = startFrameIndex; i <= endFrameIndex; i++)
+        {
+            FrameData targetFrame = hitBoxFrameData.frames[i];
+
+            // 히트박스 복제 시
+            if (isHitBox)
+            {
+                targetFrame.hitboxes.Clear();   // 기존 히트박스 데이터 삭제
+
+                foreach (HitBoxData hitbox in frameData.hitboxes)
+                {
+                    targetFrame.hitboxes.Add(new HitBoxData
+                    {
+                        hitboxName = hitbox.hitboxName,
+                        size = hitbox.size,
+                        offset = hitbox.offset
+                    });
+                }
+            }
+            else
+            {
+                targetFrame.hurtboxes.Clear();  // 기존 허트박스 데이터 삭제
+
+                foreach (HurtBoxData hurtbox in frameData.hurtboxes)
+                {
+                    targetFrame.hurtboxes.Add(new HurtBoxData
+                    {
+                        hurtboxName = hurtbox.hurtboxName,
+                        size = hurtbox.size,
+                        offset = hurtbox.offset
+                    });
+                }
+            }
+        }
+
+        Debug.Log($"Copy {(isHitBox ? "HitBox" : "HurtBox")} {startFrameIndex} to {endFrameIndex} successful ( from {currentFrameIndex})");
+
+        EditorUtility.SetDirty(hitBoxFrameData);    // 이력 변경 표시 활성화
+    }
+
+    /// <summary>
+    /// 에디터 윈도우가 활성화될 때 호출되는 메소드
+    /// </summary>
+    /// <returns></returns>
+    private void OnEnable()
+    {
+        SceneView.duringSceneGui += OnSceneGUI;
+    }
+
+    /// <summary>
+    /// 에디터 윈도우가 비활성화될 때 호출되는 메소드
+    /// </summary>
+    /// <returns></returns>
+    private void OnDisable()
+    {
+        AnimationMode.StopAnimationMode();
+        SceneView.duringSceneGui -= OnSceneGUI;
+    }
+    
+    /// <summary>
+    /// 에디터 윈도우가 닫힐 때 호출되는 메소드
+    /// </summary>
+    /// <returns></returns>
+    private void OnDestroy()
+    {
+        AnimationMode.StopAnimationMode();
     }
 }
