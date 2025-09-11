@@ -1,0 +1,1779 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f663312d86cc4414e99606e8ee37a609, type: 3}
+  m_Name: HitBoxData_Idle
+  m_EditorClassIdentifier: 
+  frames:
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox_0
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__1
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__2
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__3
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__4
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__5
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__6
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__7
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__8
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__9
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__10
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__11
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__12
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__13
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__14
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__15
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__16
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__17
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__18
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__19
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__20
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__21
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__22
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__23
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__24
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__25
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__26
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__27
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__28
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__29
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__30
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__31
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__32
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__33
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__34
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__35
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__36
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__37
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__38
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__39
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__40
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__41
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__42
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__43
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__44
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__45
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__46
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__47
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__48
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__49
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__50
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__51
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__52
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__53
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__54
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__55
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__56
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__57
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__58
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__59
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__60
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__61
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__62
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__63
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__64
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__65
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__66
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__67
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__68
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__69
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__70
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__71
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__72
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__73
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__74
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__75
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__76
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__77
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__78
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__79
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__80
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__81
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__82
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__83
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__84
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__85
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__86
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__87
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__88
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__89
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__90
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__91
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__92
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__93
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__94
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__95
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__96
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__97
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__98
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__99
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__100
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__101
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__102
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__103
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__104
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__105
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__106
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__107
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__108
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__109
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__110
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__111
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__112
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__113
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__114
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__115
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__116
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__117
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__118
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__119
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__120
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__121
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__122
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__123
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__124
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__125
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__126
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__127
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__128
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__129
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__130
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__131
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__132
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__133
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__134
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__135
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__136
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__137
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__138
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__139
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__140
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__141
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__142
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__143
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__144
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__145
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__146
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__147
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__148
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__149
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__150
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__151
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__152
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__153
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__154
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__155
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__156
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__157
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__158
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__159
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__160
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__161
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__162
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__163
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__164
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__165
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__166
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__167
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__168
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__169
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__170
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__171
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__172
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__173
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__174
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__175
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__176
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__177
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__178
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__179
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__180
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__181
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__182
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__183
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__184
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__185
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__186
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__187
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__188
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__189
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__190
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__191
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__192
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__193
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__194
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__195
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__196
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__197
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__198
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__199
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__200
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__201
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__202
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__203
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__204
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__205
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__206
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__207
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__208
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__209
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__210
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__211
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__212
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__213
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__214
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__215
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__216
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__217
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__218
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__219
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__220
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__221
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__222
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__223
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__224
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__225
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__226
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__227
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__228
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__229
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__230
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__231
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__232
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__233
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__234
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__235
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__236
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__237
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__238
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__239
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__240
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__241
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__242
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__243
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__244
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__245
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__246
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__247
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__248
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__249
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__250
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__251
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__252
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__253
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__254
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__255
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__256
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__257
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__258
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__259
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__260
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__261
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__262
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__263
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__264
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__265
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__266
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__267
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__268
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__269
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__270
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__271
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__272
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__273
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__274
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__275
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__276
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__277
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__278
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__279
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__280
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__281
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__282
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__283
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__284
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__285
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__286
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__287
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__288
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__289
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__290
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__291
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__292
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
+  - frameNumber: 0
+    hitboxes: []
+    hurtboxes:
+    - hurtboxName: HurtBox__293
+      size: {x: 1.3, y: 2}
+      offset: {x: 0.1, y: 0.8}
