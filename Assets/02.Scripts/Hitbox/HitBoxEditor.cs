@@ -43,7 +43,7 @@ public class HitBoxEditor : EditorWindow
     }
 
     /// <summary>
-    /// 에디터 GUI 작성 메소드
+    /// 히트박스 에디터를 구현하는 메소드
     /// </summary>
     private void OnGUI()
     {
@@ -278,7 +278,7 @@ public class HitBoxEditor : EditorWindow
     }
 
     /// <summary>
-    /// 에디터 갱신 시, 씬을 갱신시키는 메소드
+    /// 에디터 편집 내용을 씬에 적용시키는 메소드
     /// </summary>
     /// <param name="sceneView"></param>
     private void OnSceneGUI(SceneView sceneView)
@@ -354,8 +354,10 @@ public class HitBoxEditor : EditorWindow
                 {
                     nameTagMatch = Regex.Match(hitbox.hitboxName, @"(\D+)(\d+)");    // 기존 이름 필드에서 문자 부분만 추출 ( 기본적으로 히트, 허트박스 이름은 HitBox_로 시작한다는 전제 )
 
+                    // 히트박스 이름이 양식을 따르는 경우
                     if (nameTagMatch.Success)
                     {
+                        // 히트박스 복제
                         targetFrame.hitboxes.Add(new HitBoxData
                         {
                             hitboxName = $"{nameTagMatch.Groups[1].Value}_{i}",
@@ -374,7 +376,7 @@ public class HitBoxEditor : EditorWindow
                     }
                 }
             }
-            else
+            else    // 허트박스 복제 시
             {
                 targetFrame.hurtboxes.Clear();  // 기존 허트박스 데이터 삭제
 
@@ -382,8 +384,10 @@ public class HitBoxEditor : EditorWindow
                 {
                     nameTagMatch = Regex.Match(hurtbox.hurtboxName, @"(\D+)(\d+)");    // 기존 이름 필드에서 문자 부분만 추출 ( 기본적으로 히트, 허트박스 이름은 HitBox_로 시작한다는 전제 )
 
+                    // 허트박스 이름이 양식을 따르는 경우
                     if (nameTagMatch.Success)
                     {
+                        // 허트박스 복제
                         targetFrame.hurtboxes.Add(new HurtBoxData
                         {
                             hurtboxName = $"{nameTagMatch.Groups[1].Value}_{i}",

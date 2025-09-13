@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f663312d86cc4414e99606e8ee37a609, type: 3}
   m_Name: HitBoxData_Punch
   m_EditorClassIdentifier: 
+  targetAnimationClip: {fileID: 7400000, guid: 16be97e4d09c55843a39a15b737750bd, type: 2}
   frames:
   - frameNumber: 0
     hitboxes: []

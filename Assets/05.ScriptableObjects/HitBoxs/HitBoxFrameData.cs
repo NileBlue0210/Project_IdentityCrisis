@@ -19,5 +19,6 @@ public class FrameData
 [CreateAssetMenu(fileName = "HitBox Frame Data", menuName = "Scriptable Objects/HitBoxFrameData", order = 1)]
 public class HitBoxFrameData : ScriptableObject
 {
+    public AnimationClip targetAnimationClip;   // 실제로 적용할 애니메이션 클립
     public List<FrameData> frames;
 }

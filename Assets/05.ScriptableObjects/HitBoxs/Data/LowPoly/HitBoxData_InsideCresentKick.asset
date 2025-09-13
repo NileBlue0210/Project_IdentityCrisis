@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f663312d86cc4414e99606e8ee37a609, type: 3}
   m_Name: HitBoxData_InsideCresentKick
   m_EditorClassIdentifier: 
+  targetAnimationClip: {fileID: 7400000, guid: 8ed81920c8eb17f45ae1ddd7606f0200, type: 2}
   frames:
   - frameNumber: 0
     hitboxes: []

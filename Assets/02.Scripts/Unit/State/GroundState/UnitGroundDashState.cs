@@ -12,7 +12,7 @@ using DG.Tweening;
 public class UnitGroundDashState : UnitState
 {
     private float dashStartTime;    // 대시 시작 시간
-    private UnitDashType dashType;  // 대시 타입
+    private EUnitDashType dashType;  // 대시 타입
 
     public UnitGroundDashState(UnitStateMachine stateMachine) : base(stateMachine)
     {
@@ -28,11 +28,11 @@ public class UnitGroundDashState : UnitState
         dashType = stateMachine.Unit.DashType;
         stateMachine.Unit.UnitController.IsDash = true; // 대시 중 플래그 활성화
 
-        if (dashType == UnitDashType.Dash)
+        if (dashType == EUnitDashType.Dash)
         {
             Dash();
         }
-        else if (dashType == UnitDashType.Run)
+        else if (dashType == EUnitDashType.Run)
         {
             Run();
         }
@@ -52,7 +52,7 @@ public class UnitGroundDashState : UnitState
         if (!stateMachine.Unit.UnitController.IsDash)
             return;
 
-        if (dashType == UnitDashType.Dash)
+        if (dashType == EUnitDashType.Dash)
         {
             // 대시 거리만큼 이동한 후 대시 상태 종료
             if (Time.time - dashStartTime >= stateMachine.Unit.DashDuration)
@@ -60,7 +60,7 @@ public class UnitGroundDashState : UnitState
                 EndDash();
             }
         }
-        else if (dashType == UnitDashType.Run)
+        else if (dashType == EUnitDashType.Run)
         {
             float runInput = stateMachine.PlayerInputActions.Unit.Move.ReadValue<Vector2>().x;
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum InputActionType
+public enum EInputActionType
 {
     Dash,
     AerialDash

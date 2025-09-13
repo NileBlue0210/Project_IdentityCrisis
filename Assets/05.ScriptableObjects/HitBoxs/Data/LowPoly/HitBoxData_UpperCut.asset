@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f663312d86cc4414e99606e8ee37a609, type: 3}
   m_Name: HitBoxData_UpperCut
   m_EditorClassIdentifier: 
+  targetAnimationClip: {fileID: 7400000, guid: 5804188fa88691241a44042a74e7be99, type: 2}
   frames:
   - frameNumber: 0
     hitboxes: []

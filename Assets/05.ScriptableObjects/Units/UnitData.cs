@@ -14,7 +14,7 @@ public class UnitData : ScriptableObject
     public float Health;
     public float Defense;
     public float MoveSpeed;
-    public UnitDashType DashType;
+    public EUnitDashType DashType;
     public float DashSpeed;
     public float DashDuration;
     public float AerialDashSpeed;
@@ -28,4 +28,5 @@ public class UnitData : ScriptableObject
     public int JumpCount;
     public int AerialDashCount;
     public float Gravity;
+    public List<UnitSkill> SkillLists;
 }

@@ -12,6 +12,7 @@ public class UnitStateMachine : MonoBehaviour
 {
     [Header("Properties")]
     public Unit Unit;   // 각 상태에서 캐릭터를 제어하기 위한 변수
+    public HitBoxController HitBoxController;   // 각 상태별 애니메이션 재생 시 히트, 허트박스를 제어하기 위한 변수
     private InputSequenceManager inputSequenceController;    // 연속 입력을 처리하기 위한 변수
     private List<IUnitState> ableJumpStates; // 점프 가능한 상태 컬렉션
     private List<IUnitState> ableCrouchStates; // 앉기 가능한 상태 컬렉션
@@ -97,8 +98,8 @@ public class UnitStateMachine : MonoBehaviour
 
         if (inputSequenceController != null)
         {
-            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, InputActionType.Dash.ToString(), GroundState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 대시 입력을 감지하는 콜백 함수 등록
-            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, InputActionType.AerialDash.ToString(), AerialState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 공중 대시 입력을 감지하는 콜백 함수 등록
+            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, EInputActionType.Dash.ToString(), GroundState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 대시 입력을 감지하는 콜백 함수 등록
+            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, EInputActionType.AerialDash.ToString(), AerialState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 공중 대시 입력을 감지하는 콜백 함수 등록
         }
 
         SetIgnoreStates();
@@ -142,7 +143,7 @@ public class UnitStateMachine : MonoBehaviour
         {
             if (Unit.UnitController.IsGrounded())
             {
-                if (Unit.UnitController.IsDash && Unit.DashType == UnitDashType.Dash)   // 대시 타입이 Dash일 경우, 대시 중 점프 불가
+                if (Unit.UnitController.IsDash && Unit.DashType == EUnitDashType.Dash)   // 대시 타입이 Dash일 경우, 대시 중 점프 불가
                     return;
 
                 ChangeUnitState(JumpState);

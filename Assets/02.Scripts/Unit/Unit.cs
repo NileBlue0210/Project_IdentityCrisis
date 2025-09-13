@@ -7,7 +7,7 @@ using UnityEngine;
 /// Dash : 짧은 거리를 순간적으로 이동
 /// Run : 키를 유지하는 동안 증가된 이동속도로 이동
 /// </summary>
-public enum UnitDashType
+public enum EUnitDashType
 {
     Dash,
     Run
@@ -32,7 +32,7 @@ public class Unit : MonoBehaviour
     [field: SerializeField] public float Health { get; set; } // 유닛 체력
     [field: SerializeField] public float Defense { get; set; } // 유닛 방어력
     [field: SerializeField] public float MoveSpeed { get; set; } // 유닛 속도
-    [field: SerializeField] public UnitDashType DashType { get; set; } // 유닛의 대시 타입
+    [field: SerializeField] public EUnitDashType DashType { get; set; } // 유닛의 대시 타입
     [field: SerializeField] public float DashSpeed { get; set; } // 달리기 시 가속도, 또는 대시 속도
     [field: SerializeField] public float DashDuration { get; set; } // 대시 시 이동 거리
     [field: SerializeField] public float AerialDashSpeed { get; set; } // 공중 대시 시 이동 거리
