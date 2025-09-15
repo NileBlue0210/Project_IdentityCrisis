@@ -9,4 +9,6 @@ public class HitBoxData
     public string hitboxName;
     public Vector2 size;
     public Vector2 offset;
+    public float damage;
+    public Vector2 knockback;
 }

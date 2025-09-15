@@ -9,6 +9,15 @@ public enum EUnits
     LowPoly = 1 << 0,
 }
 
+/// <summary>
+/// addressable group에 등록된 에셋 주소 ( 사용 시, addressable group내의 이름을 복사, 붙여넣기 하여 사용 )
+/// </summary>
+public enum EAddressableKeys
+{
+    None,
+    LowPolyHitBoxs
+}
+
 public class Util
 {
     [Header("HitBox Properties")]

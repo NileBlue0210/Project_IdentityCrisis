@@ -426,10 +426,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LowPoly
       objectReference: {fileID: 0}
-    - target: {fileID: 1252697029868253456, guid: 04030dd10c4a8884a9d8a704e9fd47bb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9111715169098340363, guid: 04030dd10c4a8884a9d8a704e9fd47bb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

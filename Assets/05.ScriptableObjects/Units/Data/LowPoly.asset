@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79118bc69b8e1584abf605b85564508d, type: 3}
   m_Name: LowPoly
   m_EditorClassIdentifier: 
+  UnitGuid: 12c3b9a7a0493174b9269f0da851fd37
   UnitName: LowPoly
   Attack: 1
   Health: 100

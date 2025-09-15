@@ -22,6 +22,7 @@ public class Unit : MonoBehaviour
     public UnitCondition UnitCondition { get; set; }
     public UnitStateMachine UnitStateMachine { get; set; }
     public Animator UnitAnimator { get; set; }
+    public HitBoxController UnitHitBoxController { get; set; }
 
     #region Unit Information
 
@@ -80,10 +81,18 @@ public class Unit : MonoBehaviour
             Debug.LogError("Unit Animator is Null");
         }
 
+        if (this.TryGetComponent<HitBoxController>(out HitBoxController UnitHitBoxControllerComponent) == false)
+        {
+            this.gameObject.AddComponent<HitBoxController>();
+
+            Debug.LogError("Add HitBoxController Component to Unit");
+        }
+
         UnitController = this.GetComponent<UnitController>();
         UnitCondition = this.GetComponent<UnitCondition>();
         UnitStateMachine = this.GetComponent<UnitStateMachine>();
-        UnitAnimator = GetComponentInChildren<Animator>();  // 유닛 하위에 있는 모델 Animator 컴포넌트 취득
+        UnitAnimator = this.GetComponentInChildren<Animator>();  // 유닛 하위에 있는 모델 Animator 컴포넌트 취득
+        UnitHitBoxController = this.GetComponentInChildren<HitBoxController>();
 
         Init(); // 유닛 정보 초기화
     }
@@ -123,6 +132,9 @@ public class Unit : MonoBehaviour
         JumpCount = UnitData.JumpCount;
         AerialDashCount = UnitData.AerialDashCount;
         Gravity = UnitData.Gravity;
+
+        // 히트박스 데이터 로딩
+        UnitHitBoxController.LoadAllHitBoxData(EAddressableKeys.LowPolyHitBoxs.ToString());
     }
 
     #endregion Methods

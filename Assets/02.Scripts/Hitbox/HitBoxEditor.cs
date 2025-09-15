@@ -26,6 +26,8 @@ public class HitBoxEditor : EditorWindow
     private string newHitboxName = "HitBox_";
     private Vector3 newHitboxSize = Vector3.zero;
     private Vector3 newHitboxOffset = Vector3.zero;
+    private float newHitboxDamage = 0f;
+    private Vector3 newHitboxKnockback = Vector3.zero;
     private string newHurtboxName = "HurtBox_";
     private Vector3 newHurtboxSize = Vector3.zero;
     private Vector3 newHurtboxOffset = Vector3.zero;
@@ -146,6 +148,8 @@ public class HitBoxEditor : EditorWindow
                 hitbox.hitboxName = EditorGUILayout.TextField("Name", hitbox.hitboxName);
                 hitbox.size = EditorGUILayout.Vector2Field("Size", hitbox.size);
                 hitbox.offset = EditorGUILayout.Vector2Field("Offset", hitbox.offset);
+                hitbox.damage = EditorGUILayout.FloatField("Damage", hitbox.damage);
+                hitbox.knockback = EditorGUILayout.Vector2Field("Knockback", hitbox.knockback);
 
                 // 히트박스 삭제 버튼
                 if (GUILayout.Button("Remove"))
@@ -163,6 +167,8 @@ public class HitBoxEditor : EditorWindow
             newHitboxName = EditorGUILayout.TextField("Name", newHitboxName);
             newHitboxSize = EditorGUILayout.Vector2Field("Size", newHitboxSize);
             newHitboxOffset = EditorGUILayout.Vector2Field("Offset", newHitboxOffset);
+            newHitboxDamage = EditorGUILayout.FloatField("Damage", newHitboxDamage);
+            newHitboxKnockback = EditorGUILayout.Vector2Field("Knockback", newHitboxKnockback);
 
             // 새로운 히트박스 데이터 추가
             if (GUILayout.Button("Add HitBox"))
@@ -171,7 +177,9 @@ public class HitBoxEditor : EditorWindow
                 {
                     hitboxName = newHitboxName,
                     size = newHitboxSize,
-                    offset = newHitboxOffset
+                    offset = newHitboxOffset,
+                    damage = newHitboxDamage,
+                    knockback = newHitboxKnockback
                 });
             }
 

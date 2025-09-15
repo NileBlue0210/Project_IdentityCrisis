@@ -46,6 +46,7 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: 55d02a64ef9695441ae4fc3f9ba1c02c, type: 2}
   - {fileID: 11400000, guid: e719cd35c5a739f42b44c2724de1bc9e, type: 2}
+  - {fileID: 11400000, guid: 1028d2e366007fa46b0e5971e6eb3dbb, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -87,6 +88,7 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
+    - HitBox
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 7c4785125c8ce2949ac68d9b90266057, type: 2}
