@@ -1,2 +1,2 @@
 # Project_IdentityCrisis
-영역전개를 통한 너도 한방 나도 한방의 격투게임
+Notion : https://www.notion.so/Project-Identity-Crisis-250826c6730b80268518d3642d0d283b?source=copy_link
