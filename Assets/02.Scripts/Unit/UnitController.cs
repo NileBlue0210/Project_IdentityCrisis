@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // to do : Start시에 플레이어의 컨트롤ID ( 1P인지 2P인지 ) 와 Unit의 컨트롤ID가 같을 경우, 조작 가능 플래그를 활성화
@@ -74,7 +75,7 @@ public class UnitController : MonoBehaviour
     /// </summary>
     private void Init()
     {
-        GroundRayRange = 0.5f;    // 테스트용 코드 ( 상정 상황은 각 유닛별로 Ray를 다르게 주는 것이 전제 )
+        GroundRayRange = 0.1f;    // 테스트용 코드 ( 상정 상황은 각 유닛별로 Ray를 다르게 주는 것이 전제 )
         WallRayRange = 0.5f;  // 테스트용 코드 ( 상정 상황은 각 유닛별로 Ray를 다르게 주는 것이 전제 )
 
         if (GroundLayer == 0)   // GroundLayer 값을 설정하지 않아 기본값으로 설정되어 있을 경우, GroundLayer값을 수동으로 설정한다
@@ -96,11 +97,27 @@ public class UnitController : MonoBehaviour
 
     public bool IsGrounded()
     {
-        bool isGrounded = Physics.Raycast(transform.position, Vector3.down, GroundRayRange, GroundLayer);
+        if (velocity.y > 0f)    // 점프 상승 중에는 지면에 닿았는지 체크하지 않음
+            return false;
 
-        Debug.DrawRay(transform.position, Vector3.down * GroundRayRange, isGrounded ? Color.green : Color.red); // Ray를 가시적으로 확인하기 위한 테스트용 기즈모 출력
+        Ray[] groundRays = new Ray[4]
+        {
+            new Ray(transform.position + (transform.forward * 0.2f), Vector3.down),
+            new Ray(transform.position + (-transform.forward * 0.2f), Vector3.down),
+            new Ray(transform.position + (transform.right * 0.2f), Vector3.down),
+            new Ray(transform.position + (-transform.right * 0.2f), Vector3.down)
+        };
 
-        return isGrounded;
+        bool[] hitResults = new bool[groundRays.Length];
+
+        for (int i = 0; i < groundRays.Length; i++)
+        {
+            hitResults[i] = Physics.Raycast(groundRays[i], GroundRayRange, GroundLayer);
+
+            Debug.DrawRay(groundRays[i].origin, groundRays[i].direction * GroundRayRange, hitResults[i] ? Color.green : Color.red); // Ray를 가시적으로 확인하기 위한 테스트용 기즈모 출력
+        }
+
+        return hitResults.Contains(true); // 4개의 Ray 중 하나라도 닿았을 경우, true 반환
     }
 
     public bool IsBumpWall()
@@ -155,7 +172,7 @@ public class UnitController : MonoBehaviour
         float startTime = Time.time;
 
         // 대시 지속시간이 끝날 때 까지 대기
-        while (Time.time < startTime + unit.DashDuration)
+        while (Time.time < startTime + unit.AerialDashDuration)
         {
             yield return null;
         }
@@ -168,7 +185,7 @@ public class UnitController : MonoBehaviour
         float startTime = Time.time;
 
         // 대시 지속시간이 끝날 때 까지 대기
-        while (Time.time < startTime + unit.BackDashDuration)
+        while (Time.time < startTime + unit.AerialBackDashDuration)
         {
             yield return null;
         }

@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     }
 
     public Player Player { get; set; }
+    public Util Util;
 
     private Dictionary<Type, MonoBehaviour> managers = new Dictionary<Type, MonoBehaviour>();
 

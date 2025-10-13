@@ -19,6 +19,9 @@ public class UnitAerialBackDashState : UnitAerialState
 
         stateMachine.Unit.UnitController.IsAerialBackDash = true; // 백대시 중 플래그 활성화
 
+        // 애니메이션 재생 및 애니메이션 파라미터 세팅
+        stateMachine.Unit.UnitAnimator.SetBool("AerialBackDash", stateMachine.Unit.UnitController.IsAerialBackDash);
+
         AerialBackDash();
     }
 
@@ -29,6 +32,9 @@ public class UnitAerialBackDashState : UnitAerialState
         Debug.Log("UnitAerialBackDashState Exit");
 
         stateMachine.Unit.UnitController.IsAerialBackDash = false;    // 백대시 중 플래그 비활성화
+
+        // 애니메이션 파라미터 리셋
+        stateMachine.Unit.UnitAnimator.SetBool("AerialBackDash", stateMachine.Unit.UnitController.IsAerialBackDash);
     }
 
     public override void Update()
@@ -39,7 +45,7 @@ public class UnitAerialBackDashState : UnitAerialState
             return;
 
         // 백대시 거리만큼 이동한 후 백대시 상태 종료
-        if (Time.time - backDashStartTime >= stateMachine.Unit.DashDuration)
+        if (Time.time - backDashStartTime >= stateMachine.Unit.AerialBackDashDuration)
         {
             EndAerialBackDash();
         }
@@ -49,7 +55,7 @@ public class UnitAerialBackDashState : UnitAerialState
     {
         backDashStartTime = Time.time;
 
-        float backDashSpeed = stateMachine.Unit.BackDashSpeed;
+        float backDashSpeed = stateMachine.Unit.AerialBackDashSpeed;
 
         stateMachine.Unit.UnitController.Velocity = new Vector2(stateMachine.Unit.UnitController.BackDashDirection * backDashSpeed, 0);
 

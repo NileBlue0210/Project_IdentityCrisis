@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// 유닛의 상태를 관리하는 상태 머신 클래스
@@ -11,11 +13,13 @@ public class UnitStateMachine : MonoBehaviour
 {
     [Header("Properties")]
     public Unit Unit;   // 각 상태에서 캐릭터를 제어하기 위한 변수
+    public HitBoxController HitBoxController;   // 각 상태별 애니메이션 재생 시 히트, 허트박스를 제어하기 위한 변수
     private InputSequenceManager inputSequenceController;    // 연속 입력을 처리하기 위한 변수
-    private List<IUnitState> ignoreJumpStates; // 점프 불가능한 상태 컬렉션
-    private List<IUnitState> ignoreCrouchStates; // 앉기 불가능한 상태 컬렉션
-    private List<IUnitState> ignoreDashStates; // 대시, 백대시 불가능한 상태 컬렉션
-    private List<IUnitState> ignoreAerialDashStates; // 대시, 백대시 불가능한 상태 컬렉션
+    private List<IUnitState> ableJumpStates; // 점프 가능한 상태 컬렉션
+    private List<IUnitState> ableCrouchStates; // 앉기 가능한 상태 컬렉션
+    private List<IUnitState> disableDashStates; // 대시, 백대시 불가능한 상태 컬렉션
+    private List<IUnitState> ableAerialDashStates; // 공중 대시, 백대시 가능한 상태 컬렉션
+    private List<IUnitState> disableAerialDashStates; // 공중 대시, 백대시 불가능한 상태 컬렉션
 
     [Header("State Informations")]
     private IUnitState currentState;    // 현재 상태를 나타내는 변수
@@ -41,6 +45,7 @@ public class UnitStateMachine : MonoBehaviour
     public UnitAerialBackDashState AerialBackDashState;
 
     public PlayerInput PlayerInputActions { get; set; } // Input System 기반의 플레이어 입력 처리용 클래스
+    public Action OnStateChanged; // 상태 변경 시 호출되는 이벤트 ( 애니메이션, 히트 & 허트박스, 이펙트, 사운드 등 )
 
     private void Awake()
     {
@@ -95,8 +100,8 @@ public class UnitStateMachine : MonoBehaviour
 
         if (inputSequenceController != null)
         {
-            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, InputActionType.Dash.ToString(), GroundDashState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 대시 입력을 감지하는 콜백 함수 등록
-            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, InputActionType.AerialDash.ToString(), AerialDashState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 공중 대시 입력을 감지하는 콜백 함수 등록
+            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, EInputActionType.Dash.ToString(), GroundState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 대시 입력을 감지하는 콜백 함수 등록
+            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, EInputActionType.AerialDash.ToString(), AerialState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 공중 대시 입력을 감지하는 콜백 함수 등록
         }
 
         SetIgnoreStates();
@@ -140,6 +145,9 @@ public class UnitStateMachine : MonoBehaviour
         {
             if (Unit.UnitController.IsGrounded())
             {
+                if (Unit.UnitController.IsDash && Unit.DashType == EUnitDashType.Dash)   // 대시 타입이 Dash일 경우, 대시 중 점프 불가
+                    return;
+
                 ChangeUnitState(JumpState);
 
                 JumpState.Jump();   // memo : 점프 로직을 따로 호출하는 이유는, 공중 대시 혹은 백대시 종료 이후 점프 상태로 복귀했을 때 점프가 잘못 시행되는 문제를 방지하기 위함
@@ -150,7 +158,7 @@ public class UnitStateMachine : MonoBehaviour
     private void SetIgnoreStates()
     {
         // 점프 가능한 상태 컬렉션 초기화
-        ignoreJumpStates = new List<IUnitState>
+        ableJumpStates = new List<IUnitState>
         {
             GroundState,
             GroundIdleState,
@@ -160,7 +168,7 @@ public class UnitStateMachine : MonoBehaviour
         };
 
         // 앉기 가능한 상태 컬렉션 초기화
-        ignoreCrouchStates = new List<IUnitState>
+        ableCrouchStates = new List<IUnitState>
         {
             GroundState,
             GroundIdleState,
@@ -169,7 +177,7 @@ public class UnitStateMachine : MonoBehaviour
         };
 
         // 대시, 백대시 불가능한 상태 컬렉션 초기화
-        ignoreDashStates = new List<IUnitState>
+        disableDashStates = new List<IUnitState>
         {
             AerialState,
             JumpState,
@@ -181,9 +189,15 @@ public class UnitStateMachine : MonoBehaviour
         };
 
         // 공중 대시, 백대시 가능한 상태 컬렉션 초기화
-        ignoreAerialDashStates = new List<IUnitState>
+        ableAerialDashStates = new List<IUnitState>
         {
             JumpState
+        };
+
+        disableAerialDashStates = new List<IUnitState>
+        {
+            AerialDashState,    // 중복 대시 방지
+            AerialBackDashState // 중복 백대시 방지
         };
     }
 
@@ -199,16 +213,16 @@ public class UnitStateMachine : MonoBehaviour
         switch (targetState)
         {
             case IUnitState state when state == JumpState:
-                result = ignoreJumpStates.Contains(currentState);
+                result = ableJumpStates.Contains(currentState);
                 break;
             case IUnitState state when state == CrouchState:
-                result = ignoreCrouchStates.Contains(currentState);
+                result = ableCrouchStates.Contains(currentState);
                 break;
             case IUnitState state when state == GroundDashState || state == GroundBackDashState:
-                result = !ignoreDashStates.Contains(currentState);
+                result = !disableDashStates.Contains(currentState);
                 break;
             case IUnitState state when state == AerialDashState || state == AerialBackDashState:
-                result = ignoreAerialDashStates.Contains(currentState);
+                result = ableAerialDashStates.Contains(currentState) && !disableAerialDashStates.Contains(currentState);
                 break;
             default:
                 result = false;

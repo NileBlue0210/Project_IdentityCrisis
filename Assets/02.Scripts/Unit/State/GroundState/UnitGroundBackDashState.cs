@@ -22,9 +22,12 @@ public class UnitGroundBackDashState : UnitState
         Debug.Log("UnitGroundBackDashState Enter");
 
         if (stateMachine.CurrentState == stateMachine.AerialState)
-            return; // 공중 상태에서 대시 상태로 진입하는 경우 무시
+            return; // 공중 상태에서 대시 상태로 진입하는 경우 무시 to do : stateMachine에서 이미 처리하고 있으니 지워도 될지도?
 
         stateMachine.Unit.UnitController.IsBackDash = true; // 백대시 중 플래그 활성화
+
+        // 애니메이션 재생 및 애니메이션 파라미터 세팅
+        stateMachine.Unit.UnitAnimator.SetBool("BackDash", stateMachine.Unit.UnitController.IsBackDash);
 
         BackDash();
     }
@@ -36,6 +39,9 @@ public class UnitGroundBackDashState : UnitState
         Debug.Log("UnitGroundBackDashState Exit");
 
         stateMachine.Unit.UnitController.IsBackDash = false;    // 백대시 중 플래그 비활성화
+
+        // 애니메이션 파라미터 리셋
+        stateMachine.Unit.UnitAnimator.SetBool("BackDash", stateMachine.Unit.UnitController.IsBackDash);
     }
 
     public override void Update()
@@ -65,8 +71,6 @@ public class UnitGroundBackDashState : UnitState
 
     public void EndBackDash()
     {
-        stateMachine.Unit.UnitController.IsBackDash = false;    // 백대시 중 플래그 비활성화
-
         stateMachine.ChangeUnitState(stateMachine.GroundState); // 대시 이후 대시 종료 후 지상 상태로 전환
     }
 }

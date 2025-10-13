@@ -7,7 +7,7 @@ using UnityEngine;
 /// Dash : 짧은 거리를 순간적으로 이동
 /// Run : 키를 유지하는 동안 증가된 이동속도로 이동
 /// </summary>
-public enum UnitDashType
+public enum EUnitDashType
 {
     Dash,
     Run
@@ -21,6 +21,8 @@ public class Unit : MonoBehaviour
     public UnitController UnitController { get; set; }
     public UnitCondition UnitCondition { get; set; }
     public UnitStateMachine UnitStateMachine { get; set; }
+    public Animator UnitAnimator { get; set; }
+    public HitBoxController UnitHitBoxController { get; set; }
 
     #region Unit Information
 
@@ -31,11 +33,15 @@ public class Unit : MonoBehaviour
     [field: SerializeField] public float Health { get; set; } // 유닛 체력
     [field: SerializeField] public float Defense { get; set; } // 유닛 방어력
     [field: SerializeField] public float MoveSpeed { get; set; } // 유닛 속도
-    [field: SerializeField] public UnitDashType DashType { get; set; } // 유닛의 대시 타입
+    [field: SerializeField] public EUnitDashType DashType { get; set; } // 유닛의 대시 타입
     [field: SerializeField] public float DashSpeed { get; set; } // 달리기 시 가속도, 또는 대시 속도
     [field: SerializeField] public float DashDuration { get; set; } // 대시 시 이동 거리
+    [field: SerializeField] public float AerialDashSpeed { get; set; } // 공중 대시 시 이동 거리
+    [field: SerializeField] public float AerialDashDuration { get; set; } // 공중 대시 시 이동 거리
     [field: SerializeField] public float BackDashSpeed { get; set; } // 백대시 속도
     [field: SerializeField] public float BackDashDuration { get; set; } // 백대시 시 이동 거리
+    [field: SerializeField] public float AerialBackDashSpeed { get; set; } // 공중 백대시 속도
+    [field: SerializeField] public float AerialBackDashDuration { get; set; } // 공중 백대시 시 이동 거리
     [field: SerializeField] public float JumpForce { get; set; } // 유닛 점프력
     [field: SerializeField] public float HorizontalJumpSpeed { get; set; }  // 유닛 대각선 점프 속도 ( 점프 각도 )
     [field: SerializeField] public int JumpCount { get; set; } // 유닛 최대 점프 횟수
@@ -70,9 +76,23 @@ public class Unit : MonoBehaviour
             Debug.LogError("Add UnitStateMachine Component to Unit");
         }
 
+        if (this.GetComponentInChildren<Animator>() == null)
+        {
+            Debug.LogError("Unit Animator is Null");
+        }
+
+        if (this.TryGetComponent<HitBoxController>(out HitBoxController UnitHitBoxControllerComponent) == false)
+        {
+            this.gameObject.AddComponent<HitBoxController>();
+
+            Debug.LogError("Add HitBoxController Component to Unit");
+        }
+
         UnitController = this.GetComponent<UnitController>();
         UnitCondition = this.GetComponent<UnitCondition>();
         UnitStateMachine = this.GetComponent<UnitStateMachine>();
+        UnitAnimator = this.GetComponentInChildren<Animator>();  // 유닛 하위에 있는 모델 Animator 컴포넌트 취득
+        UnitHitBoxController = this.GetComponentInChildren<HitBoxController>();
 
         Init(); // 유닛 정보 초기화
     }
@@ -101,13 +121,20 @@ public class Unit : MonoBehaviour
         DashType = UnitData.DashType;
         DashSpeed = UnitData.DashSpeed;
         DashDuration = UnitData.DashDuration;
+        AerialDashSpeed = UnitData.AerialDashSpeed;
+        AerialDashDuration = UnitData.AerialDashDuration;
         BackDashSpeed = UnitData.BackDashSpeed;
         BackDashDuration = UnitData.BackDashDuration;
+        AerialBackDashSpeed = UnitData.AerialBackDashSpeed;
+        AerialBackDashDuration = UnitData.AerialBackDashDuration;
         JumpForce = UnitData.JumpForce;
         HorizontalJumpSpeed = UnitData.HorizontalJumpSpeed;
         JumpCount = UnitData.JumpCount;
         AerialDashCount = UnitData.AerialDashCount;
         Gravity = UnitData.Gravity;
+
+        // 히트박스 데이터 로딩
+        UnitHitBoxController.LoadAllHitBoxData(EUnits.LowPoly);
     }
 
     #endregion Methods
