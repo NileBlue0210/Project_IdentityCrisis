@@ -16,7 +16,7 @@ public class UnitJumpState : UnitAerialState
         Debug.Log("UnitJumpState Enter");
 
         // 점프 애니메이면 재생
-        stateMachine.Unit.UnitAnimator.SetTrigger("Jump");
+        stateMachine.UnitAnimationController.Animator.SetTrigger("Jump");
     }
 
     public override void Exit()
@@ -26,7 +26,7 @@ public class UnitJumpState : UnitAerialState
         Debug.Log("UnitJumpState Exit");
 
         // 점프 상태를 벗어날 때 애니메이터의 Y축 파라미터를 0으로 초기화
-        stateMachine.Unit.UnitAnimator.SetFloat("VelocityY", 0f);
+        stateMachine.UnitAnimationController.Animator.SetFloat("VelocityY", 0f);
     }
 
     public override void Update()
@@ -34,7 +34,7 @@ public class UnitJumpState : UnitAerialState
         base.Update();
 
         // 점프 애니메이션 블렌딩을 위해 Y축 파라미터 값을 업데이트
-        stateMachine.Unit.UnitAnimator.SetFloat("VelocityY", stateMachine.Unit.UnitController.Velocity.y);
+        stateMachine.UnitAnimationController.Animator.SetFloat("VelocityY", stateMachine.Unit.UnitController.Velocity.y);
     }
 
     /// <summary>

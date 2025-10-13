@@ -27,7 +27,7 @@ public class UnitGroundBackDashState : UnitState
         stateMachine.Unit.UnitController.IsBackDash = true; // 백대시 중 플래그 활성화
 
         // 애니메이션 재생 및 애니메이션 파라미터 세팅
-        stateMachine.Unit.UnitAnimator.SetBool("BackDash", stateMachine.Unit.UnitController.IsBackDash);
+        stateMachine.UnitAnimationController.Animator.SetBool("BackDash", stateMachine.Unit.UnitController.IsBackDash);
 
         BackDash();
     }
@@ -41,7 +41,7 @@ public class UnitGroundBackDashState : UnitState
         stateMachine.Unit.UnitController.IsBackDash = false;    // 백대시 중 플래그 비활성화
 
         // 애니메이션 파라미터 리셋
-        stateMachine.Unit.UnitAnimator.SetBool("BackDash", stateMachine.Unit.UnitController.IsBackDash);
+        stateMachine.UnitAnimationController.Animator.SetBool("BackDash", stateMachine.Unit.UnitController.IsBackDash);
     }
 
     public override void Update()

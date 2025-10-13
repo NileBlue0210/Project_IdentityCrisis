@@ -16,7 +16,7 @@ public class UnitGroundWalkState : UnitGroundState
         Debug.Log("UnitGroundWalkState Enter");
 
         // 애니메이션 파라미터 설정
-        stateMachine.Unit.UnitAnimator.SetBool("IsWalk", true);
+        stateMachine.UnitAnimationController.Animator.SetBool("IsWalk", true);
     }
 
     public override void Exit()
@@ -26,8 +26,8 @@ public class UnitGroundWalkState : UnitGroundState
         Debug.Log("UnitGroundWalkState Exit");
 
         // 애니메이션 파라미터 설정
-        stateMachine.Unit.UnitAnimator.SetBool("IsWalk", false);
-        stateMachine.Unit.UnitAnimator.SetFloat("VelocityX", 0f);
+        stateMachine.UnitAnimationController.Animator.SetBool("IsWalk", false);
+        stateMachine.UnitAnimationController.Animator.SetFloat("VelocityX", 0f);
     }
 
     public override void Update()
@@ -48,6 +48,6 @@ public class UnitGroundWalkState : UnitGroundState
         stateMachine.transform.Translate(moveDirection);
 
         // 애니메이션 파라미터 설정
-        stateMachine.Unit.UnitAnimator.SetFloat("VelocityX", moveInput.x);
+        stateMachine.UnitAnimationController.Animator.SetFloat("VelocityX", moveInput.x);
     }
 }

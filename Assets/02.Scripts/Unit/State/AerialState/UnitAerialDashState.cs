@@ -20,7 +20,7 @@ public class UnitAerialDashState : UnitAerialState
         stateMachine.Unit.UnitController.IsAerialDash = true; // 공중 대시 혹은 백대시 중 플래그 활성화
 
         // 애니메이션 재생 및 애니메이션 파라미터 세팅
-        stateMachine.Unit.UnitAnimator.SetBool("AerialDash", stateMachine.Unit.UnitController.IsAerialDash);
+        stateMachine.UnitAnimationController.Animator.SetBool("AerialDash", stateMachine.Unit.UnitController.IsAerialDash);
 
         AerialDash();
     }
@@ -34,7 +34,7 @@ public class UnitAerialDashState : UnitAerialState
         stateMachine.Unit.UnitController.IsAerialDash = false;    // 대시 중 플래그 비활성화
 
         // 애니메이션 파라미터 리셋
-        stateMachine.Unit.UnitAnimator.SetBool("AerialDash", stateMachine.Unit.UnitController.IsAerialDash);
+        stateMachine.UnitAnimationController.Animator.SetBool("AerialDash", stateMachine.Unit.UnitController.IsAerialDash);
     }
 
     public override void Update()

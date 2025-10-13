@@ -17,7 +17,7 @@ public class UnitAerialState : UnitState
         base.Enter();
 
         // 체공 상태에 진입할 때 애니메이터의 IsGrounded 값을 false로 설정
-        stateMachine.Unit.UnitAnimator.SetBool("IsGrounded", false);
+        stateMachine.UnitAnimationController.Animator.SetBool("IsGrounded", false);
     }
 
     public override void Exit()

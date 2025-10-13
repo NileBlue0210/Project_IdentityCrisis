@@ -20,8 +20,8 @@ public class Unit : MonoBehaviour
 {
     public UnitController UnitController { get; set; }
     public UnitCondition UnitCondition { get; set; }
+    public UnitAnimationController UnitAnimationController { get; set; }
     public UnitStateMachine UnitStateMachine { get; set; }
-    public Animator UnitAnimator { get; set; }
     public HitBoxController UnitHitBoxController { get; set; }
 
     #region Unit Information
@@ -69,16 +69,18 @@ public class Unit : MonoBehaviour
             Debug.LogError("Add UnitCondition Component to Unit");
         }
 
+        if (this.TryGetComponent<UnitAnimationController>(out UnitAnimationController UnitAnimationControllerComponent) == false)
+        {
+            this.gameObject.AddComponent<UnitAnimationController>();
+
+            Debug.LogError("Add UnitAnimationController Component to Unit");
+        }
+
         if (this.TryGetComponent<UnitStateMachine>(out UnitStateMachine UnitStateMachineComponent) == false)
         {
             this.gameObject.AddComponent<UnitStateMachine>();
 
             Debug.LogError("Add UnitStateMachine Component to Unit");
-        }
-
-        if (this.GetComponentInChildren<Animator>() == null)
-        {
-            Debug.LogError("Unit Animator is Null");
         }
 
         if (this.TryGetComponent<HitBoxController>(out HitBoxController UnitHitBoxControllerComponent) == false)
@@ -90,8 +92,8 @@ public class Unit : MonoBehaviour
 
         UnitController = this.GetComponent<UnitController>();
         UnitCondition = this.GetComponent<UnitCondition>();
+        UnitAnimationController = this.GetComponent<UnitAnimationController>();
         UnitStateMachine = this.GetComponent<UnitStateMachine>();
-        UnitAnimator = this.GetComponentInChildren<Animator>();  // 유닛 하위에 있는 모델 Animator 컴포넌트 취득
         UnitHitBoxController = this.GetComponentInChildren<HitBoxController>();
 
         Init(); // 유닛 정보 초기화

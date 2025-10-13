@@ -81,7 +81,7 @@ public class UnitGroundDashState : UnitState
         stateMachine.Unit.UnitController.Velocity = new Vector3(stateMachine.Unit.UnitController.DashDirection * dashSpeed, 0, 0);
 
         // 대시 애니메이션 재생
-        stateMachine.Unit.UnitAnimator.SetBool("Dash", stateMachine.Unit.UnitController.IsDash);
+        stateMachine.UnitAnimationController.Animator.SetBool("Dash", stateMachine.Unit.UnitController.IsDash);
 
         stateMachine.StartCoroutine(stateMachine.Unit.UnitController.DashCoroutine());
     }
@@ -92,7 +92,7 @@ public class UnitGroundDashState : UnitState
 
         stateMachine.Unit.UnitController.IsDash = false;    // 대시 중 플래그 비활성화
 
-        stateMachine.Unit.UnitAnimator.SetBool("Dash", stateMachine.Unit.UnitController.IsDash);
+        stateMachine.UnitAnimationController.Animator.SetBool("Dash", stateMachine.Unit.UnitController.IsDash);
 
         stateMachine.ChangeUnitState(stateMachine.GroundState); // 대시 이후 대시 상태 자동 종료
     }

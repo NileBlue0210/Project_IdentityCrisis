@@ -13,6 +13,7 @@ public class UnitStateMachine : MonoBehaviour
 {
     [Header("Properties")]
     public Unit Unit;   // 각 상태에서 캐릭터를 제어하기 위한 변수
+    public UnitAnimationController UnitAnimationController; // 각 상태별 애니메이션 재생을 위한 변수
     public HitBoxController HitBoxController;   // 각 상태별 애니메이션 재생 시 히트, 허트박스를 제어하기 위한 변수
     private InputSequenceManager inputSequenceController;    // 연속 입력을 처리하기 위한 변수
     private List<IUnitState> ableJumpStates; // 점프 가능한 상태 컬렉션
@@ -50,6 +51,7 @@ public class UnitStateMachine : MonoBehaviour
     private void Awake()
     {
         Unit = GetComponent<Unit>();
+        UnitAnimationController = GetComponent<UnitAnimationController>();
         inputSequenceController = GameManager.Instance.GetManager<InputSequenceManager>(typeof(InputSequenceManager));
 
         // 기타 상태 클래스 생성
