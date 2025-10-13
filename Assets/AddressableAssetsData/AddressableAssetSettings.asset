@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 4c0951115e139af479205bce7fd1fe07
   m_currentHash:
     serializedVersion: 2
-    Hash: 5536b9d17b2587dd802e0451f6e43006
+    Hash: 2dd103bea9a9b9458e42ec0fdf2a38c6
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -89,6 +89,7 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - HitBox
+    - LowPoly
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 7c4785125c8ce2949ac68d9b90266057, type: 2}
