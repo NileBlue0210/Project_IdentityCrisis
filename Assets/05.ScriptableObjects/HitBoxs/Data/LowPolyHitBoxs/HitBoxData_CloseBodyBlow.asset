@@ -127,6 +127,8 @@ MonoBehaviour:
     - hitboxName: HitBox_18
       size: {x: 0.7, y: 0.7}
       offset: {x: 1.5, y: 1}
+      damage: 0
+      knockback: {x: 0, y: 0}
     hurtboxes:
     - hurtboxName: HurtBox_14
       size: {x: 1, y: 2}
@@ -136,6 +138,8 @@ MonoBehaviour:
     - hitboxName: HitBox_19
       size: {x: 0.7, y: 0.7}
       offset: {x: 1.5, y: 1}
+      damage: 0
+      knockback: {x: 0, y: 0}
     hurtboxes:
     - hurtboxName: HurtBox_14
       size: {x: 1, y: 2}
@@ -145,6 +149,8 @@ MonoBehaviour:
     - hitboxName: HitBox__20
       size: {x: 0.7, y: 0.7}
       offset: {x: 1.5, y: 1}
+      damage: 0
+      knockback: {x: 0, y: 0}
     hurtboxes:
     - hurtboxName: HurtBox_14
       size: {x: 1, y: 2}
@@ -154,6 +160,8 @@ MonoBehaviour:
     - hitboxName: HitBox__21
       size: {x: 0.7, y: 0.7}
       offset: {x: 1.5, y: 1}
+      damage: 0
+      knockback: {x: 0, y: 0}
     hurtboxes:
     - hurtboxName: HurtBox_14
       size: {x: 1, y: 2}
@@ -163,6 +171,8 @@ MonoBehaviour:
     - hitboxName: HitBox__22
       size: {x: 0.7, y: 0.7}
       offset: {x: 1.5, y: 1}
+      damage: 0
+      knockback: {x: 0, y: 0}
     hurtboxes:
     - hurtboxName: HurtBox_14
       size: {x: 1, y: 2}
@@ -172,6 +182,8 @@ MonoBehaviour:
     - hitboxName: HitBox__23
       size: {x: 0.7, y: 0.7}
       offset: {x: 1.5, y: 1}
+      damage: 0
+      knockback: {x: 0, y: 0}
     hurtboxes:
     - hurtboxName: HurtBox_14
       size: {x: 1, y: 2}
@@ -181,6 +193,8 @@ MonoBehaviour:
     - hitboxName: HitBox__24
       size: {x: 0.7, y: 0.7}
       offset: {x: 1.5, y: 1}
+      damage: 0
+      knockback: {x: 0, y: 0}
     hurtboxes:
     - hurtboxName: HurtBox_14
       size: {x: 1, y: 2}
@@ -190,6 +204,8 @@ MonoBehaviour:
     - hitboxName: HitBox__25
       size: {x: 0.7, y: 0.7}
       offset: {x: 1.5, y: 1}
+      damage: 0
+      knockback: {x: 0, y: 0}
     hurtboxes:
     - hurtboxName: HurtBox_14
       size: {x: 1, y: 2}
@@ -199,6 +215,8 @@ MonoBehaviour:
     - hitboxName: HitBox__26
       size: {x: 0.7, y: 0.7}
       offset: {x: 1.5, y: 1}
+      damage: 0
+      knockback: {x: 0, y: 0}
     hurtboxes:
     - hurtboxName: HurtBox_14
       size: {x: 1, y: 2}
@@ -208,6 +226,8 @@ MonoBehaviour:
     - hitboxName: HitBox__27
       size: {x: 0.7, y: 0.7}
       offset: {x: 1.5, y: 1}
+      damage: 0
+      knockback: {x: 0, y: 0}
     hurtboxes:
     - hurtboxName: HurtBox_14
       size: {x: 1, y: 2}

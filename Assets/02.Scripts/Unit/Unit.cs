@@ -134,7 +134,7 @@ public class Unit : MonoBehaviour
         Gravity = UnitData.Gravity;
 
         // 히트박스 데이터 로딩
-        UnitHitBoxController.LoadAllHitBoxData(EAddressableKeys.LowPolyHitBoxs.ToString());
+        UnitHitBoxController.LoadAllHitBoxData(EUnits.LowPoly);
     }
 
     #endregion Methods

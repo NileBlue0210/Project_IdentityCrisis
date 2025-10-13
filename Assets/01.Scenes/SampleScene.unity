@@ -426,6 +426,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LowPoly
       objectReference: {fileID: 0}
+    - target: {fileID: 2202157761429971809, guid: 04030dd10c4a8884a9d8a704e9fd47bb, type: 3}
+      propertyPath: test.m_AssetGUID
+      value: dbf051dfe9956bc4f8effe09ffea92d0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202157761429971809, guid: 04030dd10c4a8884a9d8a704e9fd47bb, type: 3}
+      propertyPath: test.m_EditorAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9111715169098340363, guid: 04030dd10c4a8884a9d8a704e9fd47bb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

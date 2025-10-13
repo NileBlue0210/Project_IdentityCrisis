@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d17a21594effb4e9591490b009e7aa, type: 3}
   m_Name: HitBox Scriptable Objects_BundledAssetGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: 1028d2e366007fa46b0e5971e6eb3dbb, type: 2}
+  m_Group: {fileID: 11400000, guid: 5b3a00d1a6a8a6949becd480f1e2806e, type: 2}
   m_InternalBundleIdMode: 1
   m_Compression: 1
   m_IncludeAddressInCatalog: 1

@@ -32,3 +32,8 @@ MonoBehaviour:
   JumpCount: 2
   AerialDashCount: 2
   Gravity: -9.81
+  HitBoxDatas:
+    m_AssetGUID: 076c6e76828c05a4390ace4f9d8545af
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

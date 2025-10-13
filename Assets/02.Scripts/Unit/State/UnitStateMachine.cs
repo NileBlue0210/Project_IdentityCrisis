@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,6 +45,7 @@ public class UnitStateMachine : MonoBehaviour
     public UnitAerialBackDashState AerialBackDashState;
 
     public PlayerInput PlayerInputActions { get; set; } // Input System 기반의 플레이어 입력 처리용 클래스
+    public Action OnStateChanged; // 상태 변경 시 호출되는 이벤트 ( 애니메이션, 히트 & 허트박스, 이펙트, 사운드 등 )
 
     private void Awake()
     {

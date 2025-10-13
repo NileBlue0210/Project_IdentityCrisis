@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: HitBox Scriptable Objects
   m_Data:
     m_SerializedData: []
-  m_GUID: a43b35d8c9f21e2438b6e54f6763003b
+  m_GUID: 9055c6de3532d544a9e2dbe2e2a9f164
   m_SerializeEntries:
   - m_GUID: 076c6e76828c05a4390ace4f9d8545af
     m_Address: LowPolyHitBoxs
@@ -26,5 +26,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: acd490aa159faf74685b97931b035460, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 7fc8e88f8dd43134399171a97431ba9a, type: 2}
-    - {fileID: 11400000, guid: 39f3589479feee444a61bcb3a414ca7e, type: 2}
+    - {fileID: 11400000, guid: 5bfc380d9e5f92940b2ef2fa0595e728, type: 2}
+    - {fileID: 11400000, guid: 8babc81667625e34db4eac21831adeca, type: 2}

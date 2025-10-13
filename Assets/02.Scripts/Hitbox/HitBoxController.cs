@@ -41,23 +41,60 @@ public class HitBoxController : MonoBehaviour
     /// 유닛의 히트박스 SO 폴더 주소를 기준으로 모든 히트박스 SO 데이터를 로드하는 메소드
     /// </summary>
     /// <param name="dataPath"></param>
-    public async void LoadAllHitBoxData(string dataPath)
+    public async void LoadAllHitBoxData(EUnits unitType)
     {
-        // 폴더 주소를 사용하여 해당 폴더 내의 모든 HitBoxFrameData SO를 로드
-        AsyncOperationHandle<IList<HitBoxFrameData>> loadHandle =
-            Addressables.LoadAssetsAsync<HitBoxFrameData>(dataPath, null);
+        string characterLabel = string.Empty;
+        string assetTypeLabel = string.Empty;
+
+        switch (unitType)
+        {
+            case EUnits.LowPoly:
+                characterLabel = AddressableLabels.CHARACTER_LOWPOLY;
+                assetTypeLabel = AddressableLabels.ASSET_HITBOX;
+
+                break;
+            default:
+                Debug.LogError($"There is no hitbox data path for unit type '{unitType}'");
+
+                return;
+        }
+
+        if (string.IsNullOrEmpty(characterLabel) || string.IsNullOrEmpty(assetTypeLabel))
+        {
+            Debug.LogError($"Invalid character label or asset type label for unit type '{unitType}'");
+
+            return;
+        }
+
+        // 라벨을 통해 모든 HitBoxFrameData SO를 로드
+        List<string> labelsToLoad = new List<string>
+        {
+            characterLabel,
+            assetTypeLabel
+        };
+        
+        // 해당되는 라벨을 모두 가진 에셋만 로드
+        AsyncOperationHandle<IList<HitBoxFrameData>> loadHandle = 
+            Addressables.LoadAssetsAsync<HitBoxFrameData>(
+                labelsToLoad,
+                null,
+                Addressables.MergeMode.Intersection // 라벨 교집합 로드 옵션
+            );
 
         await loadHandle.Task;
 
         if (loadHandle.Status == AsyncOperationStatus.Succeeded)
         {
+            string keyLog = string.Join(" & ", labelsToLoad);   // 로드한 라벨 정보 로그용 변수
             hitBoxDatas = new List<HitBoxFrameData>(loadHandle.Result);
 
-            Debug.Log($"successfully loaded hitbox data from '{dataPath}'");
+            Debug.Log($"successfully loaded {hitBoxDatas.Count} hitbox data with labels: '{keyLog}'");
         }
         else
         {
-            Debug.LogError($"faild to load hitbox data from '{dataPath}'");
+            string keyLog = string.Join(" & ", labelsToLoad);   // 로드한 라벨 정보 로그용 변수
+
+            Debug.LogError($"faild to load hitbox data with labels: '{keyLog}'. Status: {loadHandle.Status}");
         }
     }
 
