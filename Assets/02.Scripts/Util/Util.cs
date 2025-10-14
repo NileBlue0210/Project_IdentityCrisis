@@ -11,9 +11,7 @@ public enum EUnits
 
 public class Util
 {
-    [Header("HitBox Properties")]
-    public Color HitBoxColor = new Color(1, 0, 0, 0.5f);
-    public Color HurtBoxColor = new Color(0, 1, 0, 0.5f);
+
 }
 
 /// <summary>

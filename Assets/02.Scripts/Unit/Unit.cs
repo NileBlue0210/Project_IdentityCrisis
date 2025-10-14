@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -110,7 +111,7 @@ public class Unit : MonoBehaviour
     }
 
     // 유닛 정보 초기화
-    public void Init()
+    public async Task Init()
     {
         // 유닛 정보 지정
         UnitName = UnitData.UnitName;
@@ -136,7 +137,7 @@ public class Unit : MonoBehaviour
         Gravity = UnitData.Gravity;
 
         // 히트박스 데이터 로딩
-        UnitHitBoxController.LoadAllHitBoxData(EUnits.LowPoly);
+        await UnitHitBoxController.LoadAllHitBoxData(EUnits.LowPoly);
     }
 
     #endregion Methods

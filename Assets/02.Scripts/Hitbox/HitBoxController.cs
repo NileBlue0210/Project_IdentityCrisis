@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Threading.Tasks;
 
 /// <summary>
 /// 유닛의 히트박스를 관리하는 컨트롤러 클래스
@@ -17,31 +18,71 @@ public class HitBoxController : MonoBehaviour
     [Header("HitBox Components")]
     private HitBoxFrameData frameData;  // 히트박스 데이터
     private FrameData currentFrame;  // 현재 프레임 데이터
-    private List<HitBoxFrameData> hitBoxDatas;  // 모든 히트박스 데이터
+    public List<HitBoxFrameData> hitBoxDatas;  // 모든 히트박스 데이터
+
+    [Header("HitBox Settings")]
+    private Color hitBoxColor = new Color(1, 0, 0, 0.5f);
+    private Color hurtBoxColor = new Color(0, 1, 0, 0.5f);
 
     /// <summary>
-    /// 
+    /// 현재 재생중인 애니메이션 클립을 기반으로 히트박스 데이터를 설정하는 메소드
     /// </summary>
-    /// <param name="data"></param>
-    public void SetCurrentHitBoxData(HitBoxFrameData data)
+    /// <param name="clip"></param>
+    public void SetCurrentHitBoxData(AnimationClip clip)
     {
-        frameData = data;
+        foreach (HitBoxFrameData hitBoxData in hitBoxDatas)
+        {
+            if (hitBoxData.targetAnimationClip == clip)
+            {
+                frameData = hitBoxData;
+
+                break;
+            }
+        }
+
+        if (frameData == null)
+        {
+            Debug.LogError("Invalid animation clip for hitbox data");
+
+            return;
+        }
     }
 
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="frame"></param>
-    public void SetCurrentFrame(FrameData frame)
+    /// <param name="currentFrame"></param>
+    public void SetCurrentFrameData(int index)
     {
-        currentFrame = frame;
+        if (frameData == null)
+        {
+            Debug.LogError("HitBoxFrameData is null");
+
+            return;
+        }
+
+        if (index < 0 || index >= frameData.frames.Count)
+        {
+            Debug.LogError($"Invalid frame number: {currentFrame}");
+
+            return;
+        }
+
+        currentFrame = frameData.frames[index];
+
+        if (currentFrame == null)
+        {
+            Debug.LogError("Invalid frame data");
+
+            return;
+        }
     }
 
     /// <summary>
     /// 유닛의 히트박스 SO 폴더 주소를 기준으로 모든 히트박스 SO 데이터를 로드하는 메소드
     /// </summary>
     /// <param name="dataPath"></param>
-    public async void LoadAllHitBoxData(EUnits unitType)
+    public async Task LoadAllHitBoxData(EUnits unitType)
     {
         string characterLabel = string.Empty;
         string assetTypeLabel = string.Empty;
@@ -104,11 +145,20 @@ public class HitBoxController : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (frameData == null || currentFrame == null)
+        {
+            Debug.Log("frameData or currentFrame is null");
             return;
+        }
+
+        if (GameManager.Instance == null)
+        {
+            Debug.Log("GameManager is null");
+            return;
+        }
 
         Gizmos.matrix = transform.localToWorldMatrix;   // 월드 좌표 기준으로 Gizmo를 표시
 
-        Gizmos.color = GameManager.Instance.Util.HitBoxColor;
+        Gizmos.color = hitBoxColor;
 
         // 히트박스 Gizmo 생성
         foreach (HitBoxData hitBoxData in currentFrame.hitboxes)
@@ -116,12 +166,14 @@ public class HitBoxController : MonoBehaviour
             Gizmos.DrawWireCube(hitBoxData.offset, hitBoxData.size);
         }
 
-        Gizmos.color = GameManager.Instance.Util.HurtBoxColor;
+        Gizmos.color = hurtBoxColor;
 
         // 허트박스 Gizmo 생성
         foreach (HurtBoxData hurtBoxData in currentFrame.hurtboxes)
         {
             Gizmos.DrawWireCube(hurtBoxData.offset, hurtBoxData.size);
         }
+
+        Debug.Log("DrawGizmos");
     }
 }
