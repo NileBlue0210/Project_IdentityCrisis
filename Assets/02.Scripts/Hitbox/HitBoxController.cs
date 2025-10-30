@@ -51,7 +51,7 @@ public class HitBoxController : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="currentFrame"></param>
+    /// <param name="index"></param>
     public void SetCurrentFrameData(int index)
     {
         if (frameData == null)
@@ -63,7 +63,8 @@ public class HitBoxController : MonoBehaviour
 
         if (index < 0 || index >= frameData.frames.Count)
         {
-            Debug.LogError($"Invalid frame number: {currentFrame}");
+            // 프레임 번호가 유효하지 않을 경우, 경고를 출력하고 마지막 프레임 데이터로 설정하거나, 처리를 중단할 수 있습니다.
+            Debug.LogWarning($"Invalid frame number: {index}. It must be between 0 and {frameData.frames.Count - 1}.");
 
             return;
         }

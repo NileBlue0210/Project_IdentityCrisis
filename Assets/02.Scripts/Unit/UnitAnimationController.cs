@@ -68,6 +68,12 @@ public class UnitAnimationController : MonoBehaviour
         currentAnimatorState = Animator.GetCurrentAnimatorStateInfo(0);
         currentAnimatorInfos = Animator.GetCurrentAnimatorClipInfo(0);
 
+        // 애니메이터가 상태 전환 중일 때 GetCurrentAnimatorClipInfo는 빈 배열을 반환할 수 있습니다.
+        if (currentAnimatorInfos.Length == 0)
+        {
+            return; // 클립 정보가 없으면 처리를 중단합니다.
+        }
+
         // 현재 재생중인 애니메이션 클립 정보
         AnimationClip clip = currentAnimatorInfos[0].clip;
 
