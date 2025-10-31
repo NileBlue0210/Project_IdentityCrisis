@@ -434,6 +434,10 @@ PrefabInstance:
       propertyPath: test.m_EditorAssetChanged
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7405366670408470501, guid: 04030dd10c4a8884a9d8a704e9fd47bb, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9111715169098340363, guid: 04030dd10c4a8884a9d8a704e9fd47bb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
