@@ -37,6 +37,9 @@ public class HitBoxEditor : EditorWindow
     private int startFrameIndex;
     private int endFrameIndex;
 
+    [Header("Editor Properties")]
+    private Vector2 scrollPosition; // 스크롤 바 위치
+
     // 윈도우를 열기 위한 메뉴 아이템 추가
     [MenuItem("Window/HitBox Editor")]
     public static void ShowWindow()
@@ -93,6 +96,8 @@ public class HitBoxEditor : EditorWindow
 
             return;
         }
+
+        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition); // 스크롤 바 설정
 
         EditorGUI.BeginChangeCheck();   // 되돌리기 작업을 위한 에디터 내용 변경 감지
 
@@ -282,6 +287,8 @@ public class HitBoxEditor : EditorWindow
             {
                 Close();
             }
+
+            EditorGUILayout.EndScrollView(); // 스크롤 바 설정 종료
         }
     }
 
