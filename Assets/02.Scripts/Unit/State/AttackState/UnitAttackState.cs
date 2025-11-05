@@ -20,6 +20,7 @@ public class UnitAttackState : UnitState
     private IUnitState currentBaseState; // 중첩할 현재 상태
     private UnitAttackSubState currentAttackSubState; // 현재 하위 공격 상태
     public bool IsAttacking { get; set; } // 공격 상태 플래그
+    public UnitStateMachine StateMachine { get { return stateMachine; } }   // 하위 상태가 접근할 StateMachine 프로퍼티
 
     public UnitAttackState(UnitStateMachine stateMachine) : base(stateMachine)
     {
@@ -56,13 +57,26 @@ public class UnitAttackState : UnitState
 
     public void OnAttackInputDetected(UnitAttackSubState attackSubState)
     {
-        IsAttacking = true;
-
         ChangeBaseState();  // 현재 상태 갱신
+
+        if (!CheckChangeStateAvailable(attackSubState))
+            return;
+
+        IsAttacking = true;
 
         // 하위 공격 상태 전환
         currentAttackSubState?.Exit();
         currentAttackSubState = attackSubState;
         currentAttackSubState.Enter();
+    }
+
+    /// <summary>
+    /// 특정 하위 공격 상태로의 전환이 가능한지 여부를 판단하는 메소드
+    /// </summary>
+    /// <param name="targetState"></param>
+    /// <returns></returns>
+    public bool CheckChangeStateAvailable(UnitAttackSubState targetState)
+    {
+        return targetState.ShiftableFromStates(currentBaseState);
     }
 }

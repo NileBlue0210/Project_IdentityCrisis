@@ -20,6 +20,7 @@ public class UnitStateMachine : MonoBehaviour
     private List<IUnitState> disableDashStates; // 대시, 백대시 불가능한 상태 컬렉션
     private List<IUnitState> ableAerialDashStates; // 공중 대시, 백대시 가능한 상태 컬렉션
     private List<IUnitState> disableAerialDashStates; // 공중 대시, 백대시 불가능한 상태 컬렉션
+    private List<IUnitState> ableNormalAttackStates; // 평타 공격으로 전환 가능한 상태 컬렉션
 
     [Header("State Informations")]
     private IUnitState currentState;    // 현재 상태를 나타내는 변수
@@ -46,6 +47,7 @@ public class UnitStateMachine : MonoBehaviour
 
     [Header("Unit Attack States")]
     public UnitAttackState AttackState;
+    public UnitGroundNormalAttackState GroundNormalAttackState;
 
     public PlayerInput PlayerInputActions { get; set; } // Input System 기반의 플레이어 입력 처리용 클래스
 
@@ -76,6 +78,7 @@ public class UnitStateMachine : MonoBehaviour
 
         // 공격 상태 클래스 생성
         AttackState = new UnitAttackState(this);
+        GroundNormalAttackState = new UnitGroundNormalAttackState(AttackState);
 
         PlayerInputActions = GameManager.Instance.GetManager<InputManager>(typeof(InputManager)).PlayerInputActions;    // 매니저 클래스를 통해 Input System 인스턴스 정보 취득
     }
@@ -103,6 +106,10 @@ public class UnitStateMachine : MonoBehaviour
 
         // '점프' 동작의 입력 처리 등록
         PlayerInputActions.Unit.Jump.performed += OnJumpPerformed;  // 점프 키를 떼었을 때 점프 상태를 해제시킬 필요는 없으므로 Cancled 로직은 구현하지 않는다
+
+        // 공격 구현을 위한 '평타' 구현 테스트 코드 >> to do : 추후 inputSequenceController를 통해 연속 입력 시 연속기가 나가도록 구현한 후 삭제 예정
+        PlayerInputActions.Unit.NormalAttack.performed += OnNormalAttackformed;
+
 
         // 연속 입력 클래스를 통한 '대시', '평타' 등의 입력 처리 등록
         if (inputSequenceController != null)
@@ -163,6 +170,11 @@ public class UnitStateMachine : MonoBehaviour
         {
             ChangeUnitState(GroundState);
         }
+    }
+
+    private void OnNormalAttackformed(InputAction.CallbackContext context)
+    {
+        AttackState.OnAttackInputDetected(GroundNormalAttackState);
     }
 
     /*
@@ -229,6 +241,14 @@ public class UnitStateMachine : MonoBehaviour
         {
             AerialDashState,    // 중복 대시 방지
             AerialBackDashState // 중복 백대시 방지
+        };
+
+        // 평타 공격으로 전환 가능한 상태 컬렉션 초기화
+        ableNormalAttackStates = new List<IUnitState>
+        {
+            GroundIdleState,
+            GroundWalkState,
+            GroundDashState,
         };
     }
 
