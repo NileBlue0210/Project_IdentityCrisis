@@ -39,6 +39,10 @@ public class UnitGroundState : UnitState
     {
         base.Update();
 
+        // 공격 상태 중첩 업데이트
+        if (stateMachine.AttackState.IsAttacking)
+            stateMachine.AttackState.Update();
+
         Vector2 moveInput = stateMachine.PlayerInputActions.Unit.Move.ReadValue<Vector2>(); // Move Action에 매핑된 키가 감지되었을 때 입력값을 Vector2 형태로 읽어온다
 
         if (moveInput.magnitude > 0.1f)

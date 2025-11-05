@@ -111,6 +111,7 @@ public class Unit : MonoBehaviour
     }
 
     // 유닛 정보 초기화
+    // to do : Task 비동기 방식은 추후 페이즈 개념 도입 후 배틀 페이즈 이전에 로딩하는 동기 방식으로 변경할 것
     public async Task Init()
     {
         // 유닛 정보 지정
@@ -137,6 +138,7 @@ public class Unit : MonoBehaviour
         Gravity = UnitData.Gravity;
 
         // 히트박스 데이터 로딩
+        // to do : 페이즈 개념이 도입된 후, 페이즈 별로 히트박스 데이터를 로딩하는 방식으로 변경할 것
         await UnitHitBoxController.LoadAllHitBoxData(EUnits.LowPoly);
     }
 

@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// InputAction에 등록된 입력 타입
+/// </summary>
 public enum EInputActionType
 {
     Dash,
-    AerialDash
+    AerialDash,
+    NormalAttack
 }
 
 /// <summary>

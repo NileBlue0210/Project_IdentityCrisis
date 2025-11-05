@@ -44,6 +44,9 @@ public class UnitStateMachine : MonoBehaviour
     public UnitAerialDashState AerialDashState;
     public UnitAerialBackDashState AerialBackDashState;
 
+    [Header("Unit Attack States")]
+    public UnitAttackState AttackState;
+
     public PlayerInput PlayerInputActions { get; set; } // Input System 기반의 플레이어 입력 처리용 클래스
 
     private void Awake()
@@ -70,6 +73,9 @@ public class UnitStateMachine : MonoBehaviour
         JumpState = new UnitJumpState(this);
         AerialDashState = new UnitAerialDashState(this);
         AerialBackDashState = new UnitAerialBackDashState(this);
+
+        // 공격 상태 클래스 생성
+        AttackState = new UnitAttackState(this);
 
         PlayerInputActions = GameManager.Instance.GetManager<InputManager>(typeof(InputManager)).PlayerInputActions;    // 매니저 클래스를 통해 Input System 인스턴스 정보 취득
     }
@@ -98,10 +104,35 @@ public class UnitStateMachine : MonoBehaviour
         // '점프' 동작의 입력 처리 등록
         PlayerInputActions.Unit.Jump.performed += OnJumpPerformed;  // 점프 키를 떼었을 때 점프 상태를 해제시킬 필요는 없으므로 Cancled 로직은 구현하지 않는다
 
+        // 연속 입력 클래스를 통한 '대시', '평타' 등의 입력 처리 등록
         if (inputSequenceController != null)
         {
-            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, EInputActionType.Dash.ToString(), GroundState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 대시 입력을 감지하는 콜백 함수 등록
-            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move, EInputActionType.AerialDash.ToString(), AerialState.OnDashInputDetected, requiredTapCount: 2, inputTerm: 0.25f, threshold: 0.5f);  // 공중 대시 입력을 감지하는 콜백 함수 등록
+            // 대시 입력 처리 등록
+            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move,
+                EInputActionType.Dash.ToString(),
+                GroundState.OnDashInputDetected,
+                requiredTapCount: 2,
+                inputTerm: 0.25f,
+                threshold: 0.5f
+                );  // 대시 입력을 감지하는 콜백 함수 등록
+
+            // 공중 대시 입력 처리 등록
+            inputSequenceController.RegisterAxisAction(PlayerInputActions.Unit.Move,
+                EInputActionType.AerialDash.ToString(),
+                AerialState.OnDashInputDetected,
+                requiredTapCount: 2,
+                inputTerm: 0.25f,
+                threshold: 0.5f
+                );  // 공중 대시 입력을 감지하는 콜백 함수 등록
+
+            // // 평타 입력 처리 등록
+            // inputSequenceController.RegisterButtonAction(
+            //     PlayerInputActions.Unit.NormalAttack,
+            //     EInputActionType.NormalAttack.ToString(),
+            //     Unit.UnitAttackController.OnNormalAttackInputDetected,
+            //     requiredTapCount: 1,
+            //     inputTerm: 0.2f
+            //     ); // 평타 입력을 감지하는 콜백 함수 등록
         }
 
         SetIgnoreStates();
@@ -203,6 +234,7 @@ public class UnitStateMachine : MonoBehaviour
 
     /// <summary>
     /// 특정 상태로의 전환이 가능한지 여부를 판단하는 메소드
+    /// to do : 각 상태 클래스 내에서 전환 가능/불가능한 상태를 설정하여, 부적절한 상태 전환을 방지하도록 리팩토링 필요
     /// </summary>
     /// <param name="targetState"></param>
     /// <returns></returns>
