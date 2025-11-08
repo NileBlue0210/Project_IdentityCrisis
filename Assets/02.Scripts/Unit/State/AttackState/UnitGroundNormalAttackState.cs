@@ -31,8 +31,6 @@ public class UnitGroundNormalAttackState : UnitAttackSubState
     {
         base.Enter();
 
-        Debug.Log("check animator : " + attackState.StateMachine.UnitAnimationController.Animator);
-
         // 지상 평타 공격 애니메이션 재생
         attackState.StateMachine.UnitAnimationController.Animator.SetTrigger("Punch");
     }
