@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 /// <summary>
 /// 유닛의 히트박스를 관리하는 컨트롤러 클래스
-/// to do : 유닛의 히트박스 정보를 애니메이션에 맞게 가져오려면 어떻게 하는게 좋을까?
-/// 1. HitBoxFrameData SO에 애니메이션 클립을 할당하는 필드를 만들고, 유닛이 현재 재생시키고 있는 애니메이션과 동일한 클립의 히트박스 정보를 취득
-/// 2. 애니메이션 재생 비율이나, 프레임 정보를 받아와 해당하는 히트, 허트박스를 유닛에 적용
-/// 3. 히트, 허트박스를 표시할 때 Gizmo를 통해 씬에서 판정을 확인할 수 있도록 구현
-/// 4. 히트박스와 허트박스끼리 부딪혔을 때의 충돌 처리 구현
+/// to do : 
+/// 히트박스와 허트박스끼리 부딪혔을 때의 충돌 처리 구현
 /// </summary>
 public class HitBoxController : MonoBehaviour
 {
@@ -19,6 +16,9 @@ public class HitBoxController : MonoBehaviour
     private HitBoxFrameData frameData;  // 히트박스 데이터
     private FrameData currentFrame;  // 현재 프레임 데이터
     public List<HitBoxFrameData> hitBoxDatas;  // 모든 히트박스 데이터
+    private static List<HitBoxController> allHitBoxControllers = new List<HitBoxController>();   // 씬 내 모든 히트박스 컨트롤러 리스트
+    private void OnEnable() => allHitBoxControllers.Add(this);
+    private void OnDisable() => allHitBoxControllers.Remove(this);
 
     [Header("HitBox Settings")]
     private Color hitBoxColor = new Color(1, 0, 0, 0.5f);
@@ -114,9 +114,9 @@ public class HitBoxController : MonoBehaviour
             characterLabel,
             assetTypeLabel
         };
-        
+
         // 해당되는 라벨을 모두 가진 에셋만 로드
-        AsyncOperationHandle<IList<HitBoxFrameData>> loadHandle = 
+        AsyncOperationHandle<IList<HitBoxFrameData>> loadHandle =
             Addressables.LoadAssetsAsync<HitBoxFrameData>(
                 labelsToLoad,
                 null,
@@ -138,6 +138,89 @@ public class HitBoxController : MonoBehaviour
 
             Debug.LogError($"faild to load hitbox data with labels: '{keyLog}'. Status: {loadHandle.Status}");
         }
+    }
+
+    /// <summary>
+    /// 히트박스와 허트박스의 충돌 여부를 판정하는 메소드
+    /// </summary>
+    /// <param name="hitBoxPos"></param>
+    /// <param name="hitBoxSize"></param>
+    /// <param name="hurtBoxPos"></param>
+    /// <param name="hurtBoxSize"></param>
+    /// <returns></returns>
+    private bool HitBoxOverlap(Vector2 hitBoxPos, Vector2 hitBoxSize, Vector2 hurtBoxPos, Vector2 hurtBoxSize)
+    {
+        bool overlapX = Mathf.Abs(hitBoxPos.x - hurtBoxPos.x) < (hitBoxSize.x + hurtBoxSize.x) / 2;
+        bool overlapY = Mathf.Abs(hitBoxPos.y - hurtBoxPos.y) < (hitBoxSize.y + hurtBoxSize.y) / 2;
+        bool result = false;
+
+        if (overlapX && overlapY)
+            result = true;
+
+        return result;
+    }
+
+    public void DetectAndProcessCollision()
+    {
+        if (currentFrame == null || currentFrame.hitboxes.Count == 0)
+            return;
+
+        foreach (HitBoxController target in allHitBoxControllers)
+        {
+            if (target == this)
+                continue;
+
+            if (Vector2.Distance(transform.position, target.transform.position) > 5f)
+                continue;   // 일정 거리 이상 떨어진 대상은 충돌 체크에서 제외 (성능 최적화)
+
+            CheckBoxCollision(target);
+        }
+    }
+
+    /// <summary>
+    /// 다른 유닛의 히트박스 컨트롤러와 충돌을 교차 체크하는 메소드
+    /// </summary>
+    /// <param name="target"></param>
+    public void CheckBoxCollision(HitBoxController target)
+    {
+        if (currentFrame == null || target.currentFrame == null)
+            return;
+
+        foreach (HitBoxData hitBox in currentFrame.hitboxes)
+        {
+            Vector2 hitBoxCenter = (Vector2)transform.position + hitBox.offset;
+
+            foreach (HurtBoxData hurtBox in target.currentFrame.hurtboxes)
+            {
+                Vector2 hurtBoxCenter = (Vector2)target.transform.position + hurtBox.offset;
+
+                if (HitBoxOverlap(hitBoxCenter, hitBox.size, hurtBoxCenter, hurtBox.size))
+                {
+                    OnHitDetected(target, hitBox);
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// 타격 판정이 발생했을 때 호출되는 메서드
+    /// </summary>
+    private void OnHitDetected(HitBoxController target, HitBoxData hitBox)
+    {
+        Debug.Log($"{name} hit {target.name}! Damage: {hitBox.damage}");
+        target.OnHurtReceived(hitBox);
+
+        // 여기서 대상 유닛의 피격 처리 호출 가능
+        // target.OnHurtReceived(hitBox);
+    }
+
+    /// <summary>
+    /// 피격 처리 (히트박스에 맞았을 때)
+    /// </summary>
+    public void OnHurtReceived(HitBoxData hitBox)
+    {
+        Debug.Log($"{name} took {hitBox.damage} damage!");
+        // ex) HP 감소, 넉백 처리 등 추가 예정
     }
 
     /// <summary>
@@ -175,6 +258,6 @@ public class HitBoxController : MonoBehaviour
             Gizmos.DrawWireCube(hurtBoxData.offset, hurtBoxData.size);
         }
 
-        Debug.Log("DrawGizmos");
+        // Debug.Log("DrawGizmos");
     }
 }

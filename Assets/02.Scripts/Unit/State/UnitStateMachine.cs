@@ -55,6 +55,7 @@ public class UnitStateMachine : MonoBehaviour
     {
         Unit = GetComponent<Unit>();
         UnitAnimationController = GetComponent<UnitAnimationController>();
+        HitBoxController = GetComponent<HitBoxController>();
         inputSequenceController = GameManager.Instance.GetManager<InputSequenceManager>(typeof(InputSequenceManager));
 
         // 기타 상태 클래스 생성
@@ -92,6 +93,8 @@ public class UnitStateMachine : MonoBehaviour
     {
         if (currentState != null)
         {
+            HitBoxController.DetectAndProcessCollision();   // 매 프레임마다 충돌 감지 및 처리
+
             currentState.Update();
         }
     }

@@ -28,6 +28,10 @@ public class UnitAnimationController : MonoBehaviour
     private int currentClipFrame;   // 현재 프레임 번호
     private int currentClipTotalFrame;  // 애니메이션 전체 프레임 수
 
+    [Header("Animation Events")]
+    public Action OnAnimationStarted;   // 애니메이션 시작 이벤트
+    public Action OnAnimationFinished;  // 애니메이션 종료 이벤트
+
     private void Awake()
     {
         // 컴포넌트 취득
@@ -47,7 +51,7 @@ public class UnitAnimationController : MonoBehaviour
 
     void Update()
     {
-        // 테스트용 임시 코드
+        // 테스트용 임시 코드. 페이즈 기능 도입 후 삭제 필요
         if (unit.UnitHitBoxController.hitBoxDatas.Count == 0 || unit.UnitHitBoxController.hitBoxDatas == null)
             return;
 
@@ -59,7 +63,7 @@ public class UnitAnimationController : MonoBehaviour
 
         unit.UnitHitBoxController.SetCurrentFrameData(currentClipFrame);
     }
-    
+
     /// <summary>
     /// 애니메이션 재생 시 필요한 프레임 정보를 업데이트하는 메소드
     /// </summary>
@@ -68,10 +72,15 @@ public class UnitAnimationController : MonoBehaviour
         currentAnimatorState = Animator.GetCurrentAnimatorStateInfo(0);
         currentAnimatorInfos = Animator.GetCurrentAnimatorClipInfo(0);
 
-        // 애니메이터가 상태 전환 중일 때 GetCurrentAnimatorClipInfo는 빈 배열을 반환할 수 있습니다.
+        // 애니메이션 전환 중 Null이 반환될 때의 예외처리
         if (currentAnimatorInfos.Length == 0)
         {
-            return; // 클립 정보가 없으면 처리를 중단합니다.
+            return;
+        }
+
+        if (currentAnimatorState.normalizedTime >= 1.0f)
+        {
+            OnAnimationFinished?.Invoke();
         }
 
         // 현재 재생중인 애니메이션 클립 정보
@@ -84,5 +93,13 @@ public class UnitAnimationController : MonoBehaviour
 
         // 히트박스 데이터 설정
         unit.UnitHitBoxController.SetCurrentHitBoxData(clip);
+    }
+    
+    /// <summary>
+    /// 모션 종료 후 대기 애니메이션으로 자동 전환하는 메소드
+    /// </summary>
+    public void ShiftToIdleAnimation()
+    {
+        Animator.Play("Idle");
     }
 }
